@@ -47,7 +47,7 @@ jobs:
             // https://github.com/actions/github-script#download-data-from-a-url
             //const diff_url = context.payload.pull_request.diff_url
             //const result = await github.request(diff_url)
-            console.log(result)
+            console.log(result.data.jobs[0])
 
   validate-logs:
     name: ⚠ Validate logs
@@ -96,7 +96,7 @@ jobs:
             })*/
             //const diff_url = context.payload.pull_request.diff_url
             //const result = await github.request(diff_url)
-            console.log(result.data.jobs[0])
+            console.log(result)
 
       - name: "ll"
         run: ls -la
