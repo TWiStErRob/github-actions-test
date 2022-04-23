@@ -31,6 +31,23 @@ jobs:
         run: echo '${{ toJSON(strategy) }}'
       - name: Dump matrix context
         run: echo '${{ toJSON(matrix) }}'
+        
+      - name: "Get 'me'"
+        uses: actions/github-script@v6
+        with:
+          script: |
+            // Available variables: https://github.com/actions/github-script#actionsgithub-script
+            // Rest API Docs: https://docs.github.com/en/rest/actions/workflow-runs#get-a-workflow-run
+            // Rest JS API: https://octokit.github.io/rest.js/v18#actions-get-workflow-run
+            const result = await github.rest.actions.getWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: ${{ github.run_id }},
+            });
+            // https://github.com/actions/github-script#download-data-from-a-url
+            //const diff_url = context.payload.pull_request.diff_url
+            //const result = await github.request(diff_url)
+            console.log(result)
 
   validate-logs:
     name: ⚠ Validate logs
