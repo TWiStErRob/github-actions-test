@@ -1,3 +1,6 @@
+# https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts fails to deliver
+# TODO Report success: https://github.community/t/how-to-access-github-actions-log-of-current-run-from-a-later-step-job/183846/5
+
 name: Logs
 on:
   push:
