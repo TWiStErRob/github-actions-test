@@ -18,6 +18,20 @@ jobs:
         run: >
           echo "dummy test output"
 
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump job context
+        run: echo '${{ toJSON(job) }}'
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+      - name: Dump runner context
+        run: echo '${{ toJSON(runner) }}'
+      - name: Dump strategy context
+        run: echo '${{ toJSON(strategy) }}'
+      - name: Dump matrix context
+        run: echo '${{ toJSON(matrix) }}'
+
   validate-logs:
     name: ⚠ Validate logs
     runs-on: ubuntu-latest
@@ -27,6 +41,21 @@ jobs:
     # https://docs.github.com/en/actions/learn-github-actions/expressions#status-check-functions
     if: success() || failure()
     steps:
+    
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump job context
+        run: echo '${{ toJSON(job) }}'
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+      - name: Dump runner context
+        run: echo '${{ toJSON(runner) }}'
+      - name: Dump strategy context
+        run: echo '${{ toJSON(strategy) }}'
+      - name: Dump matrix context
+        run: echo '${{ toJSON(matrix) }}'
+
       - name: "Download logs for build#${{ needs.build.outputs.run_id }}"
         uses: actions/github-script@v6
         with:
