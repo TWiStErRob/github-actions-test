@@ -37,9 +37,9 @@ jobs:
         with:
           script: |
             // Available variables: https://github.com/actions/github-script#actionsgithub-script
-            // Rest API Docs: https://docs.github.com/en/rest/actions/workflow-runs#get-a-workflow-run
-            // Rest JS API: https://octokit.github.io/rest.js/v18#actions-get-workflow-run
-            const result = await github.rest.actions.getWorkflowRun({
+            // Rest API Docs: https://docs.github.com/en/rest/actions/workflow-jobs#list-jobs-for-a-workflow-run
+            // Rest JS API: https://octokit.github.io/rest.js/v18#actions-list-jobs-for-workflow-run
+            const result = await github.rest.actions.listJobsForWorkflowRun({
               owner: context.repo.owner,
               repo: context.repo.repo,
               run_id: ${{ github.run_id }},
