@@ -80,6 +80,7 @@ jobs:
       - name: "Download logs for build#${{ needs.build.outputs.run_id }}"
         uses: actions/github-script@v6
         with:
+          debug: true
           script: |
             // Note: "Download workflow run logs (/actions/runs/{run_id}/logs) is not working, because the workflow run didn't complete yet.
             // Have to use job run instead.
