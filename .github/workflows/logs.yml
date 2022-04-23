@@ -32,6 +32,7 @@ jobs:
       - name: Dump matrix context
         run: echo '${{ toJSON(matrix) }}'
         
+      # Workaround from https://github.community/t/get-action-job-id/17365/10?u=twisterrob
       - name: "Get 'me'"
         id: get-job-id
         uses: actions/github-script@v6
