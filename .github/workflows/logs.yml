@@ -8,8 +8,8 @@ jobs:
     timeout-minutes: 2
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs
     outputs:
-      # https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
-      run_id: ${{ github.job }}
+      # https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context
+      run_id: ${{ steps.get-job-id.outputs.result }}
     steps:
       - name: Checkout ${{ github.ref }} branch in ${{ github.repository }} repository.
         uses: actions/checkout@v3
@@ -33,21 +33,24 @@ jobs:
         run: echo '${{ toJSON(matrix) }}'
         
       - name: "Get 'me'"
+        id: get-job-id
         uses: actions/github-script@v6
         with:
           script: |
             // Available variables: https://github.com/actions/github-script#actionsgithub-script
             // Rest API Docs: https://docs.github.com/en/rest/actions/workflow-jobs#list-jobs-for-a-workflow-run
             // Rest JS API: https://octokit.github.io/rest.js/v18#actions-list-jobs-for-workflow-run
+            console.log(context)
             const result = await github.rest.actions.listJobsForWorkflowRun({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              run_id: ${{ github.run_id }},
+              run_id: context.runId,
             });
-            // https://github.com/actions/github-script#download-data-from-a-url
-            //const diff_url = context.payload.pull_request.diff_url
-            //const result = await github.request(diff_url)
-            console.log(result.data.jobs.filter(it => it.status === 'in_progress' && it.name === '🔨 Build')[0].id)
+            // Filter for "self".
+            // Note: have to use hardcoded value for name, because:
+            //  * the key in yaml ('build:') is not available in this data
+            //  * the name of current job is not available in github/jobs context            
+            return result.data.jobs.filter(it => it.status === 'in_progress' && it.name === '🔨 Build')[0].id
 
   validate-logs:
     name: ⚠ Validate logs
