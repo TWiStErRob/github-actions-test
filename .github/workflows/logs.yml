@@ -9,7 +9,7 @@ jobs:
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs
     outputs:
       # https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
-      run_id: ${{ github.run_id }}
+      run_id: ${{ github.job_id }}
     steps:
       - name: Checkout ${{ github.ref }} branch in ${{ github.repository }} repository.
         uses: actions/checkout@v3
@@ -31,6 +31,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            // Note: "Download workflow run logs (/actions/runs/{run_id}/logs) is not working, because the workflow run didn't complete yet.
+            // Have to use job run instead.
             // Available variables: https://github.com/actions/github-script#actionsgithub-script
             // Rest API Docs: https://docs.github.com/en/rest/actions/workflow-runs#download-workflow-run-logs
             // Rest JS API: https://octokit.github.io/rest.js/v18#actions-download-workflow-run-logs
