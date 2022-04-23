@@ -1,6 +1,6 @@
 name: Logs
 on:
-  workflow_dispatch:
+  push:
 jobs:
   build:
     name: 🔨 Build
