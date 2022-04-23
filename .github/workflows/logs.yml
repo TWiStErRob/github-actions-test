@@ -9,7 +9,7 @@ jobs:
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs
     outputs:
       # https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
-      run_id: ${{ github.job_id }}
+      run_id: ${{ github.job }}
     steps:
       - name: Checkout ${{ github.ref }} branch in ${{ github.repository }} repository.
         uses: actions/checkout@v3
