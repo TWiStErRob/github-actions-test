@@ -78,6 +78,7 @@ jobs:
         run: echo '${{ toJSON(matrix) }}'
 
       - name: "Download logs for build#${{ needs.build.outputs.run_id }}"
+        id: download-log
         uses: actions/github-script@v6
         with:
           debug: true
@@ -93,6 +94,8 @@ jobs:
               repo: context.repo.repo,
               job_id: ${{ needs.build.outputs.run_id }},
             });
+            //console.log(result)
+            return result.data;
             // https://github.com/actions/github-script#download-data-from-a-url
             /*await octokit.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/logs', {
               owner: 'OWNER',
@@ -101,7 +104,9 @@ jobs:
             })*/
             //const diff_url = context.payload.pull_request.diff_url
             //const result = await github.request(diff_url)
-            console.log(result)
+
+      - name: "dump log"
+        run: echo "${{ steps.get-job-id.outputs.result }}" > dump.log
 
       - name: "ll"
         run: ls -la
