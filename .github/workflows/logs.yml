@@ -47,7 +47,7 @@ jobs:
             // https://github.com/actions/github-script#download-data-from-a-url
             //const diff_url = context.payload.pull_request.diff_url
             //const result = await github.request(diff_url)
-            console.log(result.data.jobs[0])
+            console.log(result.data.jobs.filter(it => it.status === 'in_progress' && it.name === '🔨 Build')[0].id)
 
   validate-logs:
     name: ⚠ Validate logs
