@@ -44,17 +44,19 @@ jobs:
             // Available variables: https://github.com/actions/github-script#actionsgithub-script
             // Rest API Docs: https://docs.github.com/en/rest/actions/workflow-jobs#list-jobs-for-a-workflow-run
             // Rest JS API: https://octokit.github.io/rest.js/v18#actions-list-jobs-for-workflow-run
-            console.log(context)
+            //console.log(context);
             const result = await github.rest.actions.listJobsForWorkflowRun({
               owner: context.repo.owner,
               repo: context.repo.repo,
               run_id: context.runId,
             });
+            //console.log(result);
+            //console.log(result.jobs);
             // Filter for "self".
             // Note: have to use hardcoded value for name, because:
             //  * the key in yaml ('build:') is not available in this data
             //  * the name of current job is not available in github/jobs context            
-            return result.data.jobs.filter(it => it.status === 'in_progress' && it.name === '🔨 Build')[0].id
+            return result.data.jobs.filter(it => it.status === 'in_progress' && it.name === '🔨 Build')[0].id;
 
   validate-logs:
     name: ⚠ Validate logs
@@ -99,17 +101,12 @@ jobs:
             });
             //console.log(result)
             return result.data;
-            // https://github.com/actions/github-script#download-data-from-a-url
-            /*await octokit.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/logs', {
-              owner: 'OWNER',
-              repo: 'REPO',
-              run_id: 'RUN_ID'
-            })*/
-            //const diff_url = context.payload.pull_request.diff_url
-            //const result = await github.request(diff_url)
 
       - name: "dump log"
-        run: echo "${{ steps.get-job-id.outputs.result }}" > dump.log
+        run: >
+          cat << 'EOF-FOR-GET-JOB-ID' > dump.log
+          ${{ steps.get-job-id.outputs.result }}
+          EOF-FOR-GET-JOB-ID
 
       - name: "ll"
         run: ls -la
