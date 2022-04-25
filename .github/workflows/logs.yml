@@ -41,7 +41,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const script = require('./get-job-id.js');
+            const script = require('./.github/workflows/logs/get-job-id.js');
             return script({context});
 
   validate-logs:
@@ -75,7 +75,7 @@ jobs:
           debug: true
           script: |
             const run_id = ${{needs.build.outputs.run_id}};
-            const script = require('./download-log.js');
+            const script = require('.github/workflows/logs/download-log.js');
             return script({github, context}, run_id);
 
       - name: "dump log"
@@ -89,4 +89,4 @@ jobs:
 
       - name: "Verify logs"
         run: |
-          ./validate-logs.sh
+          ./.github/workflows/logs/validate-logs.sh
