@@ -42,7 +42,7 @@ jobs:
         with:
           script: |
             const script = require('./.github/workflows/logs/get-job-id.js');
-            return script({context});
+            return script({github, context});
 
   validate-logs:
     name: ⚠ Validate logs

@@ -4,9 +4,9 @@ module.exports = async ({github, context, core, glob, io, exec, require}) => {
   // Rest JS API: https://octokit.github.io/rest.js/v18#actions-list-jobs-for-workflow-run
   //console.log(context);
   const result = await github.rest.actions.listJobsForWorkflowRun({
-  owner: context.repo.owner,
-  repo: context.repo.repo,
-  run_id: context.runId,
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    run_id: context.runId,
   });
   //console.log(result);
   //console.log(result.jobs);
