@@ -107,7 +107,7 @@ jobs:
           cat << 'EOF-FOR-GET-JOB-ID' > dump.log
           ${{ steps.get-job-id.outputs.result }}
           EOF-FOR-GET-JOB-ID
-          
+          echo "This is just to have a new line after."
 
       - name: "ll"
         run: ls -la
