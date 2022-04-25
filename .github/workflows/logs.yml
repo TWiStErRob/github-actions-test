@@ -42,7 +42,7 @@ jobs:
         with:
           script: |
             const script = require('./.github/workflows/logs/get-job-id.js');
-            return script({github, context});
+            return await script({github, context});
 
   validate-logs:
     name: ⚠ Validate logs
@@ -76,7 +76,7 @@ jobs:
           script: |
             const run_id = ${{needs.build.outputs.run_id}};
             const script = require('.github/workflows/logs/download-log.js');
-            return script({github, context}, run_id);
+            return await script({github, context}, run_id);
 
       - name: "dump log"
         run: |
