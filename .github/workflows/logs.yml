@@ -75,7 +75,7 @@ jobs:
           debug: true
           script: |
             const run_id = ${{needs.build.outputs.run_id}};
-            const script = require('.github/workflows/logs/download-log.js');
+            const script = require('./.github/workflows/logs/download-log.js');
             return await script({github, context}, run_id);
 
       - name: "dump log"
