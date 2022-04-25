@@ -84,7 +84,7 @@ jobs:
       - name: "dump log"
         run: |
           cat << 'EOF-FOR-GET-JOB-ID' > dump.log
-          ${{ steps.get-job-id.outputs.result }}
+          ${{ steps.download-log.outputs.result }}
           EOF-FOR-GET-JOB-ID
 
       - name: "ll"
