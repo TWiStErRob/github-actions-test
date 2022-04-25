@@ -41,22 +41,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            // Available variables: https://github.com/actions/github-script#actionsgithub-script
-            // Rest API Docs: https://docs.github.com/en/rest/actions/workflow-jobs#list-jobs-for-a-workflow-run
-            // Rest JS API: https://octokit.github.io/rest.js/v18#actions-list-jobs-for-workflow-run
-            //console.log(context);
-            const result = await github.rest.actions.listJobsForWorkflowRun({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: context.runId,
-            });
-            //console.log(result);
-            //console.log(result.jobs);
-            // Filter for "self".
-            // Note: have to use hardcoded value for name, because:
-            //  * the key in yaml ('build:') is not available in this data
-            //  * the name of current job is not available in github/jobs context            
-            return result.data.jobs.filter(it => it.status === 'in_progress' && it.name === '🔨 Build')[0].id;
+            const script = require('./get-job-id.js');
+            return script({context});
 
   validate-logs:
     name: ⚠ Validate logs
@@ -88,19 +74,9 @@ jobs:
         with:
           debug: true
           script: |
-            // Note: "Download workflow run logs (/actions/runs/{run_id}/logs) is not working, because the workflow run didn't complete yet.
-            // Have to use job run instead.
-            // Available variables: https://github.com/actions/github-script#actionsgithub-script
-            // Rest API Docs: https://docs.github.com/en/rest/actions/workflow-jobs#download-job-logs-for-a-workflow-run
-            // Rest JS API: https://octokit.github.io/rest.js/v18#actions-download-job-logs-for-workflow-run
-            // Using Rest API example: https://github.com/actions/github-script#using-a-separate-github-token
-            const result = await github.rest.actions.downloadJobLogsForWorkflowRun({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              job_id: ${{ needs.build.outputs.run_id }},
-            });
-            //console.log(result)
-            return result.data;
+            const run_id = ${{needs.build.outputs.run_id}};
+            const script = require('./download-log.js');
+            return script({github, context}, run_id);
 
       - name: "dump log"
         run: |
@@ -113,32 +89,4 @@ jobs:
 
       - name: "Verify logs"
         run: |
-          LOG_FILES="*.log"
-          ls -la $LOG_FILES
-          VALIDATION_FILE=failures.txt
-          echo -n > "$VALIDATION_FILE" # Empty the file.
-          validate() {
-            count=$(grep --perl-regexp --count -z $1 $LOG_FILES || true);
-            if [ $count -gt 0 ]; then
-              echo "Validation for '$2' failed: found /$1/ $count times." >> "$VALIDATION_FILE";
-              grep --perl-regexp --only-matching -z $1 $LOG_FILES >> "$VALIDATION_FILE";
-              echo "" >> "$VALIDATION_FILE";
-            else
-              echo "Validation for '$2' passed: couldn't find /$1/.";
-            fi
-          }
-
-          validate '(?m)^d[u]m+.*$' "This will be found"
-          validate dummy "This will be found"
-          validate dummy1 "This will not be found"
-          validate 'dummy' "This will be found again"
-          validate 'dummy1' "This will not be found"
-
-          if [ -s "$VALIDATION_FILE" ]; then
-            echo "Some validations failed.";
-            cat "$VALIDATION_FILE";
-            exit 1;
-          else
-            echo "All validations passed.";
-            exit 0;
-          fi
+          ./validate-logs.sh
