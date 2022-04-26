@@ -6,6 +6,7 @@ ls -la $LOG_FILES
 VALIDATION_FILE=failures.txt
 echo -n > "$VALIDATION_FILE" # Empty the file.
 validate() {
+	set -e
 	count=$(grep --perl-regexp --count --null "$1" $LOG_FILES || true);
 	if [ $count -gt 0 ]; then
 		echo "Validation for '$2' failed: found /$1/ $count times." >> "$VALIDATION_FILE";
