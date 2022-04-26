@@ -10,6 +10,6 @@ module.exports = async ({github, context, core, glob, io, exec, require}, run_id
     repo: context.repo.repo,
     job_id: run_id,
   });
-  console.log(result);
+  //console.log(result);
   return result.data;
 };

@@ -28,7 +28,7 @@ jobs:
         with:
           script: |
             const script = require('./.github/workflows/logs/get-job-run-id.js');
-            return await script({github, context});
+            return await script({github, context}, '🔨 Build');
 
   validate-logs:
     name: ⚠ Validate logs
