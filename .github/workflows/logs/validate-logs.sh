@@ -18,11 +18,12 @@ validate() {
 	fi
 }
 
-validate '(?m)^d[u]m+.*$' "This will not be found"
-validate dummy "This will be found"
-validate dummy1 "This will not be found"
-validate dummy "This will be found again"
-validate dummy1 "This will not be found"
+# > > Configure project :plugins
+# > This version of Gradle expects version '2.1.7' of the `kotlin-dsl` plugin but version '2.3.3' has been applied to project ':plugins'. Let Gradle control the version of `kotlin-dsl` by removing any explicit `kotlin-dsl` version constraints from your build logic.
+validate 'Let Gradle control the version of `kotlin-dsl`' "Gradle 7.x Kotlin DSL Plugin self-validation."
+# > WARNING: Unsupported Kotlin plugin version.
+# > The `embedded-kotlin` and `kotlin-dsl` plugins rely on features of Kotlin `1.5.31` that might work differently than in the requested version `1.6.21`.
+validate 'Unsupported Kotlin plugin version' "Gradle 7.x Kotlin Embedded Plugin self-validation."
 
 if [ -s "$VALIDATION_FILE" ]; then
 	echo "Some validations failed.";
