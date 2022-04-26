@@ -12,7 +12,7 @@ jobs:
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs
     outputs:
       # https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context
-      run_id: ${{ steps.get-job-id.outputs.result }}
+      job_run_id: ${{ steps.get-job-run-id.outputs.result }}
     steps:
       - name: Checkout ${{ github.ref }} branch in ${{ github.repository }} repository.
         uses: actions/checkout@v3
@@ -20,28 +20,14 @@ jobs:
       - name: Build & Verify project.
         run: |
           echo "dummy test output"
-
-      - name: Dump GitHub context
-        id: github_context_step
-        run: echo '${{ toJSON(github) }}'
-      - name: Dump job context
-        run: echo '${{ toJSON(job) }}'
-      - name: Dump steps context
-        run: echo '${{ toJSON(steps) }}'
-      - name: Dump runner context
-        run: echo '${{ toJSON(runner) }}'
-      - name: Dump strategy context
-        run: echo '${{ toJSON(strategy) }}'
-      - name: Dump matrix context
-        run: echo '${{ toJSON(matrix) }}'
         
       # Workaround from https://github.community/t/get-action-job-id/17365/10?u=twisterrob
-      - name: "Get 'me'"
-        id: get-job-id
+      - name: "Get job's run id."
+        id: get-job-run-id
         uses: actions/github-script@v6
         with:
           script: |
-            const script = require('./.github/workflows/logs/get-job-id.js');
+            const script = require('./.github/workflows/logs/get-job-run-id.js');
             return await script({github, context});
 
   validate-logs:
@@ -57,31 +43,16 @@ jobs:
       - name: Checkout ${{ github.ref }} branch in ${{ github.repository }} repository.
         uses: actions/checkout@v3
 
-      - name: Dump GitHub context
-        id: github_context_step
-        run: echo '${{ toJSON(github) }}'
-      - name: Dump job context
-        run: echo '${{ toJSON(job) }}'
-      - name: Dump steps context
-        run: echo '${{ toJSON(steps) }}'
-      - name: Dump runner context
-        run: echo '${{ toJSON(runner) }}'
-      - name: Dump strategy context
-        run: echo '${{ toJSON(strategy) }}'
-      - name: Dump matrix context
-        run: echo '${{ toJSON(matrix) }}'
-
-      - name: "Download logs for build#${{ needs.build.outputs.run_id }}"
+      - name: "Download logs for job#build run#${{ needs.build.outputs.job_run_id }}"
         id: download-log
         uses: actions/github-script@v6
         with:
-          debug: true
           script: |
-            const run_id = ${{needs.build.outputs.run_id}};
-            const script = require('./.github/workflows/logs/download-log.js');
-            return await script({github, context}, run_id);
+            const job_run_id = ${{needs.build.outputs.job_run_id}};
+            const script = require('./.github/workflows/logs/download-job-log.js');
+            return await script({github, context}, job_run_id);
 
-      - name: "dump log"
+      - name: "Dump log to a file."
         run: |
           cat << 'EOF-FOR-GET-JOB-ID' > dump.log
           ${{ steps.download-log.outputs.result }}
