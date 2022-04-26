@@ -1,4 +1,5 @@
 set -e
+#set -x
 
 LOG_FILES="*.log"
 ls -la $LOG_FILES
@@ -8,7 +9,9 @@ validate() {
 	count=$(grep --perl-regexp --count --null $1 $LOG_FILES || true);
 	if [ $count -gt 0 ]; then
 		echo "Validation for '$2' failed: found /$1/ $count times." >> "$VALIDATION_FILE";
-		grep --perl-regexp --only-matching --with-filename --line-number -z $1 $LOG_FILES >> "$VALIDATION_FILE";
+		# Note: not using --null here, because it garbles the output.
+		# The count above is valid, the indication of failures might be not.
+		grep --perl-regexp --only-matching --with-filename --line-number $1 $LOG_FILES >> "$VALIDATION_FILE";
 		echo "" >> "$VALIDATION_FILE";
 	else
 		echo "Validation for '$2' passed: couldn't find /$1/.";
