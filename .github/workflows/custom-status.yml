@@ -50,7 +50,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: context.sha,
-              state: "completed",
+              state: "success",
               description: "Custom status completed in path ${{ github.workspace }}!",
               context: 'custom-status2'
             });
@@ -67,6 +67,6 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: context.sha,
-              state: "completed",
+              state: "success",
               context: 'custom-status1'
             });
