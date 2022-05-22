@@ -40,7 +40,7 @@ jobs:
             });
 
       - name: "Wait a bit"
-        run: sleep 15
+        run: sleep 5
 
       - name: "Complete a status 2 - override description"
         uses: actions/github-script@v6
@@ -50,14 +50,14 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: context.sha,
-              state: "success",
+              state: "failure",
               description: "Custom status completed in path ${{ github.workspace }}!",
               context: 'Custom Status2'
             });
 
 
       - name: "Wait a bit"
-        run: sleep 15
+        run: sleep 5
 
       - name: "Complete a status 1 - just finish"
         uses: actions/github-script@v6
@@ -68,6 +68,6 @@ jobs:
               repo: context.repo.repo,
               sha: context.sha,
               // Note: not providing a description will clear it.
-              state: "success",
+              state: "error",
               context: 'custom-status1'
             });
