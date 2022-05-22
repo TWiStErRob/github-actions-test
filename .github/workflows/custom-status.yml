@@ -36,7 +36,7 @@ jobs:
               sha: context.sha,
               state: "pending",
               description: "Custom status running in path ${{ github.workspace }}!",
-              context: 'custom-status2'
+              context: 'Custom Status2'
             });
 
       - name: "Wait a bit"
@@ -52,7 +52,7 @@ jobs:
               sha: context.sha,
               state: "success",
               description: "Custom status completed in path ${{ github.workspace }}!",
-              context: 'custom-status2'
+              context: 'Custom Status2'
             });
 
 
