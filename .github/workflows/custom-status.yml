@@ -10,12 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
+      - run: env
+    
       - name: Checkout ${{ github.ref }} branch in ${{ github.repository }} repository.
         uses: actions/checkout@v3
 
       - name: "Start a status 1"
         uses: actions/github-script@v6
         with:
+          debug: false
           script: |
             github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
@@ -29,6 +32,7 @@ jobs:
       - name: "Start a status 2"
         uses: actions/github-script@v6
         with:
+          debug: true
           script: |
             github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
@@ -45,6 +49,7 @@ jobs:
       - name: "Complete a status 2 - override description"
         uses: actions/github-script@v6
         with:
+          debug: ${{ env.ACTIONS_STEP_DEBUG }}
           script: |
             github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
