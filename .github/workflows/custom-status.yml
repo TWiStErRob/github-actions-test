@@ -16,7 +16,7 @@ jobs:
       - name: "Start a status 1"
         uses: actions/github-script@v6
         with:
-          debug: false
+          debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           script: |
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
@@ -30,7 +30,7 @@ jobs:
       - name: "Start a status 2"
         uses: actions/github-script@v6
         with:
-          debug: true
+          debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           script: |
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
@@ -47,7 +47,7 @@ jobs:
       - name: "Complete a status 2 - override description"
         uses: actions/github-script@v6
         with:
-          debug: ${{ secrets.ACTIONS_STEP_DEBUG }}
+          debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           script: |
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
