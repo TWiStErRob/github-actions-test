@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - run: env
-      - run: echo ${{ toJson(secrets) }}
-    
       - name: Checkout ${{ github.ref }} branch in ${{ github.repository }} repository.
         uses: actions/checkout@v3
 
@@ -50,7 +47,7 @@ jobs:
       - name: "Complete a status 2 - override description"
         uses: actions/github-script@v6
         with:
-          debug: ${{ env.ACTIONS_STEP_DEBUG }}
+          debug: ${{ secrets.ACTIONS_STEP_DEBUG }}
           script: |
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
@@ -68,6 +65,7 @@ jobs:
       - name: "Complete a status 1 - just finish"
         uses: actions/github-script@v6
         with:
+          debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           script: |
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
