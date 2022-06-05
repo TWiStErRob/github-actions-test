@@ -3,7 +3,8 @@
 
 name: Custom Commit Status
 on:
-  push:
+  workflow_dispatch:
+  #push:
 jobs:
   build:
     name: 🔨 Build
