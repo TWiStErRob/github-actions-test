@@ -24,17 +24,17 @@ jobs:
         run: >
           echo Result: ${{ steps.my-passed-step.outputs.result-text }}.
 
-      - name: "Print failed output [if: ${{ steps.my-failed-step.outputs.result-success }} -> ${{ fromJSON(steps.my-failed-step.outputs.result-success) }}] (negated to make it execute)"
+      - name: "Print failed output [if: ${{ toJSON(steps.my-failed-step.outputs.result-success) }} -> ${{ toJSON(fromJSON(steps.my-failed-step.outputs.result-success)) }}] (negated to make it execute)"
         if: always() && !fromJSON(steps.my-failed-step.outputs.result-success)
         run: >
           echo Result: ${{ steps.my-failed-step.outputs.result-text }}.
 
-      - name: "Print missing output [if: ${{ steps.my-missing-step.outputs.result-success }} -> ${{ fromJSON(steps.my-missing-step.outputs.result-success) }}]"
+      - name: "Print missing output [if: ${{ toJSON(steps.my-missing-step.outputs.result-success) }} -> ${{ toJSON(fromJSON(steps.my-missing-step.outputs.result-success)) }}]"
         if: always() && fromJSON(steps.my-missing-step.outputs.result-success)
         run: >
           echo Result: ${{ steps.my-missing-step.outputs.result-text }}.
 
-      - name: "Print missing output [if: ${{ steps.my-missing-step.outputs.result-success }} -> ${{ fromJSON(steps.my-missing-step.outputs.result-success) }}] (negated to see how 'nothing translates to boolean')"
+      - name: "Print missing output [if: ${{ toJSON(steps.my-missing-step.outputs.result-success) }} -> ${{ toJSON(fromJSON(steps.my-missing-step.outputs.result-success)) }}] (negated to see how 'nothing translates to boolean')"
         if: always() && !fromJSON(steps.my-missing-step.outputs.result-success)
         run: >
           echo Result: ${{ steps.my-missing-step.outputs.result-text }}.
