@@ -1,6 +1,8 @@
 # Dependencies and set-output is awesome, but it's easy to make a mistake when substituting text into text and then executing it as code.
 # To get structure and somewhat typed, it's better to use fromJSON to gain strictness.
 
+# Note: always() is not relevant here, just there to continue even when erroring.
+
 name: Step Dependencies
 on:
   workflow_dispatch:
