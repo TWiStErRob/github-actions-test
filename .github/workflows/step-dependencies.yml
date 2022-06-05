@@ -30,11 +30,11 @@ jobs:
           echo Result: ${{ steps.my-failed-step.outputs.result-text }}.
 
       - name: "Print missing output [if: ${{ toJSON(steps.my-missing-step.outputs.result-success) }} -> fromJSON(...) fails]"
-        #if: always() && fromJSON(steps.my-missing-step.outputs.result-success)
+        if: always() && fromJSON(steps.my-missing-step.outputs.result-success)
         run: >
           echo Result: ${{ steps.my-missing-step.outputs.result-text }}.
 
       - name: "Print missing output [if: ${{ toJSON(steps.my-missing-step.outputs.result-success) }} -> fromJSON(...) fails] (negated to see how 'nothing translates to boolean')"
-        #if: always() && !fromJSON(steps.my-missing-step.outputs.result-success)
+        if: always() && !fromJSON(steps.my-missing-step.outputs.result-success)
         run: >
           echo Result: ${{ steps.my-missing-step.outputs.result-text }}.
