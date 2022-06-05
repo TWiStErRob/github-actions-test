@@ -21,16 +21,16 @@ jobs:
 
       - name: "Print success output"
         if: ${{ steps.my-passed-step.outputs.result-success }}
-        run: echo Success:  with ${{ steps.my-passed-step.outputs.result-text }}
+        run: echo "Success: ${{ steps.my-passed-step.outputs.result-success }} with ${{ steps.my-passed-step.outputs.result-text }}."
 
       - name: "Print failed output (negated to make it execute)"
         if: ${{ !steps.my-failed-step.outputs.result-success }}
-        run: echo Success: ${{ steps.my-failed-step.outputs.result-success }} with ${{ steps.my-failed-step.outputs.result-text }}
+        run: echo "Success: ${{ steps.my-failed-step.outputs.result-success }} with ${{ steps.my-failed-step.outputs.result-text }}."
 
       - name: "Print missing output"
         if: ${{ steps.my-missing-step.outputs.result-success }}
-        run: echo Success: ${{ steps.my-missing-step.outputs.result-success }} with ${{ steps.my-missing-step.outputs.result-text }}
+        run: echo "Success: ${{ steps.my-missing-step.outputs.result-success }} with ${{ steps.my-missing-step.outputs.result-text }}."
 
       - name: "Print missing output (negated to see how 'nothing translates to boolean')"
         if: ${{ !steps.my-missing-step.outputs.result-success }}
-        run: echo Success: ${{ !steps.my-missing-step.outputs.result-success }} with ${{ steps.my-missing-step.outputs.result-text }}
+        run: echo "Success: ${{ !steps.my-missing-step.outputs.result-success }} with ${{ steps.my-missing-step.outputs.result-text }}."
