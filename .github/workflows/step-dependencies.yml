@@ -19,22 +19,22 @@ jobs:
           echo ::set-output name=result-success::false
           echo ::set-output name=result-text::Some message
 
-      - name: "Print success output"
-        if: ${{ steps.my-passed-step.outputs.result-success }}
+      - name: "Print success output [if: ${{ steps.my-passed-step.outputs.result-success }} -> ${{ fromJSON(steps.my-passed-step.outputs.result-success) }}]"
+        if: ${{ fromJSON(steps.my-passed-step.outputs.result-success) }}
         run: >
-          echo Success: ${{ steps.my-passed-step.outputs.result-success }} with ${{ steps.my-passed-step.outputs.result-text }}.
+          echo Result: ${{ steps.my-passed-step.outputs.result-text }}.
 
-      - name: "Print failed output (negated to make it execute)"
-        if: ${{ !steps.my-failed-step.outputs.result-success }}
+      - name: "Print failed output [if: ${{ steps.my-failed-step.outputs.result-success }} -> ${{ fromJSON(steps.my-failed-step.outputs.result-success) }}] (negated to make it execute)"
+        if: ${{ !fromJSON(steps.my-failed-step.outputs.result-success) }}
         run: >
-          echo Success: ${{ steps.my-failed-step.outputs.result-success }} with ${{ steps.my-failed-step.outputs.result-text }}.
+          echo Result: ${{ steps.my-failed-step.outputs.result-text }}.
 
-      - name: "Print missing output"
-        if: ${{ steps.my-missing-step.outputs.result-success }}
+      - name: "Print missing output [if: ${{ steps.my-missing-step.outputs.result-success }} -> ${{ fromJSON(steps.my-missing-step.outputs.result-success) }}]"
+        if: ${{ fromJSON(steps.my-missing-step.outputs.result-success) }}
         run: >
-          echo Success: ${{ steps.my-missing-step.outputs.result-success }} with ${{ steps.my-missing-step.outputs.result-text }}.
+          echo Result: ${{ steps.my-missing-step.outputs.result-text }}.
 
-      - name: "Print missing output (negated to see how 'nothing translates to boolean')"
-        if: ${{ !steps.my-missing-step.outputs.result-success }}
+      - name: "Print missing output [if: ${{ steps.my-missing-step.outputs.result-success }} -> ${{ fromJSON(steps.my-missing-step.outputs.result-success) }}] (negated to see how 'nothing translates to boolean')"
+        if: ${{ !fromJSON(steps.my-missing-step.outputs.result-success) }}
         run: >
-          echo Success: ${{ !steps.my-missing-step.outputs.result-success }} with ${{ steps.my-missing-step.outputs.result-text }}.
+          echo Result: ${{ steps.my-missing-step.outputs.result-text }}.
