@@ -1,6 +1,10 @@
+# Dependencies and set-output is awesome, but it's easy to make a mistake when substituting text into text and then executing it as code.
+# To get structure and somewhat typed, it's better to use fromJSON to gain strictness.
+
 name: Step Dependencies
 on:
-  push:
+  workflow_dispatch:
+  #push:
 jobs:
   build:
     name: 🔨 Build
@@ -35,11 +39,13 @@ jobs:
           echo Result: ${{ steps.my-failed-step.outputs.result-text }}.
 
       - name: "Print missing output"
+        # This will fail because fromJSON(null) is an error.
         if: always() && fromJSON(steps.my-missing-step.outputs.result-success)
         run: >
           echo Result: ${{ steps.my-missing-step.outputs.result-text }}.
 
       - name: "Print missing output (negated to see how 'nothing translates to boolean')"
+        # This will fail because fromJSON(null) is an error.
         if: always() && !fromJSON(steps.my-missing-step.outputs.result-success)
         run: >
           echo Result: ${{ steps.my-missing-step.outputs.result-text }}.
