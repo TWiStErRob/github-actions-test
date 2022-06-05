@@ -3,7 +3,8 @@
 
 name: Logs
 on:
-  push:
+  workflow_dispatch:
+  #push:
 jobs:
   build:
     name: 🔨 Build
