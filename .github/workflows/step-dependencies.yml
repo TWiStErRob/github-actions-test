@@ -22,7 +22,7 @@ jobs:
         run: |
           echo steps.my-passed-step: raw=${{ steps.my-passed-step.outputs.result-success }}, toJSON=${{ toJSON(steps.my-passed-step.outputs.result-success) }} -> toJSON(fromJSON)=${{ toJSON(fromJSON(steps.my-passed-step.outputs.result-success)) }}
           echo steps.my-failed-step: raw=${{ steps.my-failed-step.outputs.result-success }}, toJSON=${{ toJSON(steps.my-failed-step.outputs.result-success) }} -> toJSON(fromJSON)=${{ toJSON(fromJSON(steps.my-failed-step.outputs.result-success)) }}
-          echo steps.my-missing-step: raw=${{ steps.my-missing-step.outputs.result-success }}, toJSON=${{ toJSON(steps.my-missing-step.outputs.result-success) }} -> toJSON(fromJSON)=${{ toJSON(fromJSON(steps.my-missing-step.outputs.result-success)) }}
+          echo steps.my-missing-step: raw=${{ steps.my-missing-step.outputs.result-success }}, toJSON=${{ toJSON(steps.my-missing-step.outputs.result-success) }} -> toJSON(fromJSON)=Error reading JToken from JsonReader.
 
       - name: "Print success output"
         if: always() && fromJSON(steps.my-passed-step.outputs.result-success)
