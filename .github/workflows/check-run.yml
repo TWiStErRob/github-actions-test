@@ -19,9 +19,8 @@ jobs:
         with:
           debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           script: |
-            var fs = require('fs');
-            var path = require('path');
-            var contents = fs.readFileSync("output.txt", { encoding: "utf8" });
+            const fs = require("fs");
+            const contents = fs.readFileSync("output.txt", { encoding: "utf8" });
             await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
