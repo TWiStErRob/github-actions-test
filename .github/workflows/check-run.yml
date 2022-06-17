@@ -11,11 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
+      - name: "Generate content"
+        run: echo "my\nstuff\nwith some `code`" > output.txt
+
       - name: "Create a check run"
         uses: actions/github-script@v6
         with:
           debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           script: |
+            var fs = require('fs');
+            var path = require('path');
+            var contents = fs.readFileSync("output.txt", { encoding: "utf8" });
             await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -26,6 +32,6 @@ jobs:
               output: {
                 title: "my *check* title",
                 summary: "my *check* summary",
-                text: "my *check* text",
+                text: contents,
               }
             });
