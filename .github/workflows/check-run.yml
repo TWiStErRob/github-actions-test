@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: "Generate content"
-        run: echo "my\nstuff\nwith some `code`" > output.txt
+        run: echo -e 'my\nstuff\nwith some `code`' > output.txt
 
       - name: "Create a check run"
         uses: actions/github-script@v6
