@@ -23,19 +23,21 @@ jobs:
           ref: ${{github.ref}}
         with:
           debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
+          # https://github.com/actions/starter-workflows/issues/292
           script: |
+            // https://docs.github.com/en/rest/checks/runs#list-check-runs-for-a-git-reference
             const checks = await github.rest.checks.listForRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: process.env.ref,
               check_name: "my-check-name",
-            }).data;
-            if (checks.total_count !== 1) {
+            });
+            if (checks.data.total_count !== 1) {
               console.log(checks);
               core.setFailed(`There were ${checks.total_count} checks found, see logs.`);
               return;
             }
-            const check = checks[0];
+            const check = checks.data.check_runs[0];
             if (check.conclusion !== "action_required") {
               console.log(checks);
               core.setFailed(`Status was already resolved as ${check.conclusion}, can't proceed.`);
