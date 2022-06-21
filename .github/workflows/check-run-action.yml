@@ -30,10 +30,20 @@ jobs:
               ref: process.env.ref,
               check_name: "my-check-name",
             });
-            console.log(checks);
+            if (checks.total_count !== 1) {
+              console.log(checks);
+              core.setFailed(`There were ${checks.total_count} checks found, see logs.`);
+              return;
+            }
+            const check = checks[0];
+            if (check.conclusion !== "action_required") {
+              console.log(checks);
+              core.setFailed(`Status was already resolved as ${check.conclusion}, can't proceed.`);
+              return;
+            }
             await github.rest.checks.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              check_run_id: checks[0].id,
+              check_run_id: check.id,
               conclusion: "success",
             });
