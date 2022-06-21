@@ -22,7 +22,7 @@ jobs:
         uses: actions/github-script@v6
         env:
           # Workaround for https://github:com/github-community/community/discussions/19069.
-          action_workflow_url: 'https://github.com/${{github.repository}}/actions/workflows/check-run.yml?query=branch%3A${{github.ref}}'
+          action_workflow_url: 'https://github.com/${{github.repository}}/actions/workflows/check-run-action.yml?query=branch%3A${{github.ref}}'
         with:
           debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           script: |
