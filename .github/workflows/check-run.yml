@@ -35,7 +35,7 @@ jobs:
               head_sha: context.sha,
               name: "my-check-name",
               status: "completed",
-              conclusion: "failure",
+              conclusion: "action_required",
               output: {
                 title: "my *check* title",
                 summary: `my *check* summary, [My Fake Action](${process.env.action_workflow_url})`,
