@@ -1,6 +1,10 @@
 # Docs: https://docs.github.com/en/rest/checks/runs#create-a-check-run
 # Rest: https://octokit.github.io/rest.js/v18#checks-create
 
+# Note: this type of usage for creating check runs has a better way:
+# https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-job-summary
+# The example is still valid if you need to customize things or run arbitrary javascript.
+
 name: Custom Check Run
 on:
   workflow_dispatch:
@@ -32,5 +36,12 @@ jobs:
                 title: "my *check* title",
                 summary: "my *check* summary",
                 text: contents,
-              }
+              },
+              actions: [
+                {
+                  label: "My Check Action",
+                  description: "My check action description.",
+                  identifier: "my-check-action",
+                },
+              ],
             });

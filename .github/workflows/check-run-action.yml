@@ -1,0 +1,15 @@
+# https://github.com/lannonbr/linting-checks-workflow/blob/master/.github/workflows/lint.yml
+
+name: Custom Check Run Action
+on:
+  check_run:
+    types:
+      - requested_action
+jobs:
+  custom-check-run-action:
+    name: Reaction to Check Run Action click
+    if: github.event.requested_action.identifier == 'my-check-action'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do the thing
+        run: echo "all good"
