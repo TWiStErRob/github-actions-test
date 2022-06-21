@@ -2,9 +2,14 @@
 
 name: Custom Check Run Action
 on:
+  # This should trigger when tapping the Action in check-run.yml, search for "my-check-action".
+  # But it doesn't, see https://github:com/github-community/community/discussions/19069
   check_run:
-    types:
-      - requested_action
+#    types:
+#      - requested_action
+
+  # To work around not getting the event, allow manual click.
+  workflow_dispatch:
 jobs:
   custom-check-run-action:
     name: Reaction to Check Run Action click
