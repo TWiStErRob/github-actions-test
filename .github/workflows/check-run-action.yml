@@ -38,11 +38,11 @@ jobs:
               return;
             }
             const check = checks.data.check_runs[0];
-            if (check.conclusion !== "action_required") {
-              console.log(checks);
-              core.setFailed(`Status was already resolved as ${check.conclusion}, can't proceed.`);
-              return;
-            }
+            //if (check.conclusion !== "action_required") {
+            //  console.log(checks);
+            //  core.setFailed(`Status was already resolved as ${check.conclusion}, can't proceed.`);
+            //  return;
+            //}
             await github.rest.checks.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
