@@ -34,7 +34,7 @@ jobs:
             });
             if (checks.data.total_count !== 1) {
               console.log(checks);
-              core.setFailed(`There were ${checks.total_count} checks found, see logs.`);
+              core.setFailed(`There were ${checks.data.total_count} checks found, see logs.`);
               return;
             }
             const check = checks.data.check_runs[0];
