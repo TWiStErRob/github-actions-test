@@ -13,8 +13,27 @@ on:
 jobs:
   custom-check-run-action:
     name: Reaction to Check Run Action click
-    if: github.event.requested_action.identifier == 'my-check-action'
+#    if: github.event.requested_action.identifier == 'my-check-action'
     runs-on: ubuntu-latest
     steps:
-      - name: Do the thing
-        run: echo "all good"
+      - name: "Update a check run"
+        uses: actions/github-script@v6
+        env:
+          # Workaround for https://github:com/github-community/community/discussions/19069.
+          ref: github.ref
+        with:
+          debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
+          script: |
+            const checks = await github.rest.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: process.env.ref,
+              check_name: "my-check-name",
+            });
+            console.log(checks);
+            await github.rest.checks.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              check_run_id: checks[0].id,
+              conclusion: "success",
+            });
