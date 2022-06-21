@@ -29,7 +29,7 @@ jobs:
               repo: context.repo.repo,
               ref: process.env.ref,
               check_name: "my-check-name",
-            });
+            }).data;
             if (checks.total_count !== 1) {
               console.log(checks);
               core.setFailed(`There were ${checks.total_count} checks found, see logs.`);
