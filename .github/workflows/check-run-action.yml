@@ -5,8 +5,8 @@ on:
   # This should trigger when tapping the Action in check-run.yml, search for "my-check-action".
   # But it doesn't, see https://github:com/github-community/community/discussions/19069
   check_run:
-#    types:
-#      - requested_action
+    types:
+      - requested_action
 
   # To work around not getting the event, allow manual click.
   workflow_dispatch:
@@ -22,7 +22,9 @@ on:
 jobs:
   custom-check-run-action:
     name: Reaction to Check Run Action click
-#    if: github.event.requested_action.identifier == 'my-check-action'
+    if: |
+      github.event_name == 'workflow_dispatch'
+      || github.event_name == 'check_run' && github.event.requested_action.identifier == 'my-check-action'
     runs-on: ubuntu-latest
     steps:
       - name: "Update a check run"
