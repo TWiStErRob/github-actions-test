@@ -62,7 +62,9 @@ jobs:
               repo: context.repo.repo,
               check_run_id: check.id,
               conclusion: process.env.resolution === "approve" ? "success" : "failure",
-              output: {},
+              // REPORT otherwise it loses these sometimes.
+              output: check.output,
+              actions: check.actions,
             });
             // https://docs.github.com/en/rest/commits/statuses#create-a-commit-status
             await github.rest.repos.createCommitStatus({
