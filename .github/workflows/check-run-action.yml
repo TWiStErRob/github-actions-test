@@ -32,7 +32,8 @@ jobs:
         env:
           # Workaround for https://github:com/github-community/community/discussions/19069.
           ref: ${{ github.ref }}
-          resolution: ${{ inputs.tags }}
+          resolution: ${{ inputs.resolution }}
+          user: ${{ github.actor }}
         with:
           debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           # https://github.com/actions/starter-workflows/issues/292
@@ -68,7 +69,7 @@ jobs:
               repo: context.repo.repo,
               sha: context.sha,
               context: 'my-check-name-reference',
-              description: `${github.actor} Approved.`,
+              description: `${process.env.user} Approved.`,
               state: process.env.resolution === "approve" ? "success" : "failure",
               target_url: check.html_url,
             });
