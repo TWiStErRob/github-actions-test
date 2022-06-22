@@ -70,7 +70,9 @@ jobs:
               repo: context.repo.repo,
               sha: context.sha,
               context: 'my-check-name-reference',
-              description: `${process.env.user} Approved.`,
+              description: process.env.resolution === "approve"
+                ? `${process.env.user} approved.`
+                : `${process.env.user} rejected.`,
               state: process.env.resolution === "approve" ? "success" : "failure",
               target_url: check.html_url,
             });
