@@ -10,6 +10,15 @@ on:
 
   # To work around not getting the event, allow manual click.
   workflow_dispatch:
+    inputs:
+      resolution:
+        description: 'Are the changes ok?'
+        required: true
+        default: 'approve'
+        type: choice
+        options:
+          - approve
+          - reject
 jobs:
   custom-check-run-action:
     name: Reaction to Check Run Action click
@@ -20,7 +29,8 @@ jobs:
         uses: actions/github-script@v6
         env:
           # Workaround for https://github:com/github-community/community/discussions/19069.
-          ref: ${{github.ref}}
+          ref: ${{ github.ref }}
+          resolution: ${{ inputs.tags }}
         with:
           debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           # https://github.com/actions/starter-workflows/issues/292
@@ -43,9 +53,20 @@ jobs:
             //  core.setFailed(`Status was already resolved as ${check.conclusion}, can't proceed.`);
             //  return;
             //}
+            // https://docs.github.com/en/rest/checks/runs#update-a-check-run
             await github.rest.checks.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
               check_run_id: check.id,
-              conclusion: "success",
+              conclusion: process.env.resolution === "approve" ? "success" : "failure",
+            });
+            // https://docs.github.com/en/rest/commits/statuses#create-a-commit-status
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              context: 'my-check-name-reference',
+              description: `${github.actor} Approved.`,
+              state: process.env.resolution === "approve" ? "success" : "failure",
+              target_url: check.html_url,
             });
