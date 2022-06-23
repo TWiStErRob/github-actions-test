@@ -16,28 +16,43 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: "Generate content"
-        run: echo -e 'my\nstuff\nwith some `code`' > output.txt
+        run: echo -e 'my\nstuff\nwith some `code` markdown' > output.md
 
       - name: "Create a check run"
         uses: actions/github-script@v6
         env:
-          # Workaround for https://github:com/github-community/community/discussions/19069.
-          action_workflow_url: 'https://github.com/${{github.repository}}/actions/workflows/check-run.yml?query=branch%3A${{github.ref}}'
+          # Workaround for https://github.com/github-community/community/discussions/19069.
+          action_url: 'https://github.com/${{ github.repository }}/actions/workflows/check-run-action.yml?query=branch%3A${{ github.ref }}'
+          workflow_url: 'https://github.com/${{ github.repository }}/actions/workflows/check-run.yml'
+          workflow_url_action: 'https://github.com/${{ github.repository }}/actions/workflows/check-run-action.yml'
         with:
           debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           script: |
             const fs = require("fs");
-            const contents = fs.readFileSync("output.txt", { encoding: "utf8" });
-            await github.rest.checks.create({
+            const contents = fs.readFileSync("output.md", { encoding: "utf8" });
+            // https://docs.github.com/en/rest/checks/runs#create-a-check-run
+            const created = await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               head_sha: context.sha,
               name: "my-check-name",
               status: "completed",
-              conclusion: "success",
+              conclusion: "action_required",
               output: {
                 title: "my *check* title",
-                summary: `my *check* summary, [My Fake Action](${process.env.action_workflow_url})`,
+                summary: `
+                  my *check* summary
+                  
+                  This link is a [Fake Action](${process.env.action_url}) (clickable "button") \
+                  as workaround for \`checks.create.actions\` not triggering \`check_run.requested_action\` workflows.
+                  Semantically it's useful to get additional separate approvals/rejections for each commit. \
+                  e.g. review a dependency diff or warning list.
+                  
+                  This summary and check run was produced by [check-run.yml](${process.env.workflow_url}).
+                  
+                  It also creates a friend commit status as pending and a link to this summary. \
+                  [check-run-action.yml](${process.env.workflow_url_action}) will rewrite this commit status as success/failure.
+                `.replaceAll(/^[ \t]+/mg, ""),
                 text: contents,
               },
               actions: [
@@ -47,4 +62,14 @@ jobs:
                   identifier: "my-check-action",
                 },
               ],
+            });
+            // https://docs.github.com/en/rest/commits/statuses#create-a-commit-status
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              context: 'my-check-name-reference',
+              description: "Review check run!",
+              state: "pending",
+              target_url: created.data.html_url,
             });

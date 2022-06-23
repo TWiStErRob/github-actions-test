@@ -5,16 +5,81 @@ on:
   # This should trigger when tapping the Action in check-run.yml, search for "my-check-action".
   # But it doesn't, see https://github:com/github-community/community/discussions/19069
   check_run:
-#    types:
-#      - requested_action
+    types:
+      - requested_action
 
   # To work around not getting the event, allow manual click.
   workflow_dispatch:
+    inputs:
+      resolution:
+        description: 'Are the changes ok?'
+        required: true
+        default: 'approve'
+        type: choice
+        options:
+          - approve
+          - reject
 jobs:
   custom-check-run-action:
     name: Reaction to Check Run Action click
-    if: github.event.requested_action.identifier == 'my-check-action'
+    if: |
+      github.event_name == 'workflow_dispatch'
+      || github.event_name == 'check_run' && github.event.requested_action.identifier == 'my-check-action'
     runs-on: ubuntu-latest
     steps:
-      - name: Do the thing
-        run: echo "all good"
+      - name: "Update a check run"
+        uses: actions/github-script@v6
+        env:
+          # Workaround for https://github:com/github-community/community/discussions/19069.
+          ref: ${{ github.ref }}
+          resolution: ${{ inputs.resolution }}
+          user: ${{ github.actor }}
+        with:
+          debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
+          # https://github.com/actions/starter-workflows/issues/292
+          script: |
+            // https://github.com/actions/toolkit/blob/main/packages/core/README.md
+
+            // https://docs.github.com/en/rest/checks/runs#list-check-runs-for-a-git-reference
+            const checks = await github.rest.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: process.env.ref,
+              check_name: "my-check-name",
+            });
+            if (checks.data.total_count !== 1) {
+              console.log(checks);
+              core.setFailed(`There were ${checks.data.total_count} checks found, see logs.`);
+              return;
+            }
+            const check = checks.data.check_runs[0];
+            if (check.conclusion !== "action_required") {
+              console.log(checks);
+              core.warning(`Status was already resolved as ${check.conclusion}.`);
+            }
+            // https://docs.github.com/en/rest/checks/runs#update-a-check-run
+            await github.rest.checks.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              check_run_id: check.id,
+              conclusion: process.env.resolution === "approve"
+                ? "success"
+                : "failure",
+              // REPORT otherwise it loses these sometimes.
+              output: check.output,
+              actions: check.actions,
+            });
+            // https://docs.github.com/en/rest/commits/statuses#create-a-commit-status
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              context: 'my-check-name-reference',
+              description: process.env.resolution === "approve"
+                ? `${process.env.user} approved.`
+                : `${process.env.user} rejected.`,
+              state: process.env.resolution === "approve"
+                ? "success"
+                : "failure",
+              target_url: check.html_url,
+            });
