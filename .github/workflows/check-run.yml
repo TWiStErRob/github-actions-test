@@ -22,7 +22,9 @@ jobs:
         uses: actions/github-script@v6
         env:
           # Workaround for https://github:com/github-community/community/discussions/19069.
-          action_workflow_url: 'https://github.com/${{ github.repository }}/actions/workflows/check-run-action.yml?query=branch%3A${{ github.ref }}'
+          action_url: 'https://github.com/${{ github.repository }}/actions/workflows/check-run-action.yml?query=branch%3A${{ github.ref }}'
+          workflow_url: 'https://github.com/${{ github.repository }}/actions/workflows/check-run.yml'
+          workflow_url_action: 'https://github.com/${{ github.repository }}/actions/workflows/check-run-action.yml'
         with:
           debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           script: |
@@ -39,19 +41,17 @@ jobs:
               output: {
                 title: "my *check* title",
                 summary: `
-                my *check* summary
-                
-                This link is a [Fake Action](${process.env.action_workflow_url})
-                as workaround for ``checks.create.actions`` not triggering ``check_run.requested_action`` workflows.
-                Semantically it's useful to get additional separate approvals/rejections for each commit.
-                e.g. review a dependency diff or warning list.
-                
-                This summary and check run was produced by
-                [check-run.yml](https://github.com/${{ github.repository }}/actions/workflows/check-run.yml).
-                
-                It also creates a friend commit status as pending and a link to this summary.
-                [check-run-action.yml](https://github.com/${{ github.repository }}/actions/workflows/check-run-action.yml)
-                will rewrite this commit status as success/failure.
+                  my *check* summary
+                  
+                  This link is a [Fake Action](${process.env.action_url})
+                  as workaround for ``checks.create.actions`` not triggering ``check_run.requested_action`` workflows.
+                  Semantically it's useful to get additional separate approvals/rejections for each commit.
+                  e.g. review a dependency diff or warning list.
+                  
+                  This summary and check run was produced by [check-run.yml](${process.env.workflow_url}).
+                  
+                  It also creates a friend commit status as pending and a link to this summary.
+                  [check-run-action.yml](${process.env.workflow_url_action}) will rewrite this commit status as success/failure.
                 `.replaceAll(/^\s+/mg, ""),
                 text: contents,
               },

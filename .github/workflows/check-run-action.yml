@@ -38,6 +38,8 @@ jobs:
           debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           # https://github.com/actions/starter-workflows/issues/292
           script: |
+            // https://github.com/actions/toolkit/blob/main/packages/core/README.md
+
             // https://docs.github.com/en/rest/checks/runs#list-check-runs-for-a-git-reference
             const checks = await github.rest.checks.listForRef({
               owner: context.repo.owner,
