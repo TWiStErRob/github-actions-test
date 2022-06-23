@@ -43,7 +43,7 @@ jobs:
                 summary: `
                   my *check* summary
                   
-                  This link is a [Fake Action](${process.env.action_url}) \
+                  This link is a [Fake Action](${process.env.action_url}) (clickable "button") \
                   as workaround for \`checks.create.actions\` not triggering \`check_run.requested_action\` workflows.
                   Semantically it's useful to get additional separate approvals/rejections for each commit. \
                   e.g. review a dependency diff or warning list.
@@ -69,7 +69,7 @@ jobs:
               repo: context.repo.repo,
               sha: context.sha,
               context: 'my-check-name-reference',
-              description: "Link to check run.",
+              description: "Review check run!",
               state: "pending",
               target_url: created.data.html_url,
             });
