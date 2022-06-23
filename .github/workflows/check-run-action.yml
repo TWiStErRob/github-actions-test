@@ -30,10 +30,10 @@ jobs:
       - name: "Update a check run"
         uses: actions/github-script@v6
         env:
-          # Workaround for https://github:com/github-community/community/discussions/19069.
           ref: ${{ github.ref }}
-          resolution: ${{ inputs.resolution }}
           user: ${{ github.actor }}
+          # Workaround for https://github:com/github-community/community/discussions/19069.
+          resolution: ${{ inputs.resolution }}
         with:
           debug: ${{ secrets.ACTIONS_STEP_DEBUG || false }}
           # https://github.com/actions/starter-workflows/issues/292
