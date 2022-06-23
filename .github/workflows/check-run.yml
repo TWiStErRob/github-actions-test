@@ -31,21 +31,6 @@ jobs:
             const fs = require("fs");
             const contents = fs.readFileSync("output.md", { encoding: "utf8" });
             // https://docs.github.com/en/rest/checks/runs#create-a-check-run
-            const m = `
-                  my *check* summary
-                  
-                  This link is a [Fake Action](${process.env.action_url})
-                  as workaround for \`checks.create.actions\` not triggering \`check_run.requested_action\` workflows.
-                  Semantically it's useful to get additional separate approvals/rejections for each commit.
-                  e.g. review a dependency diff or warning list.
-                  
-                  This summary and check run was produced by [check-run.yml](${process.env.workflow_url}).
-                  
-                  It also creates a friend commit status as pending and a link to this summary.
-                  [check-run-action.yml](${process.env.workflow_url_action}) will rewrite this commit status as success/failure.
-            `;
-            console.log(m)
-            console.log(m.replaceAll(/^\s+/mg, ""))
             const created = await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -67,7 +52,7 @@ jobs:
                   
                   It also creates a friend commit status as pending and a link to this summary.
                   [check-run-action.yml](${process.env.workflow_url_action}) will rewrite this commit status as success/failure.
-                `.replaceAll(/^\s+/mg, ""),
+                `.replaceAll(/^[ \t]+/mg, ""),
                 text: contents,
               },
               actions: [
