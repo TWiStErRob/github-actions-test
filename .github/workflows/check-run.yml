@@ -44,7 +44,7 @@ jobs:
                   my *check* summary
                   
                   This link is a [Fake Action](${process.env.action_url})
-                  as workaround for ``checks.create.actions`` not triggering ``check_run.requested_action`` workflows.
+                  as workaround for \`checks.create.actions\` not triggering \`check_run.requested_action\` workflows.
                   Semantically it's useful to get additional separate approvals/rejections for each commit.
                   e.g. review a dependency diff or warning list.
                   
