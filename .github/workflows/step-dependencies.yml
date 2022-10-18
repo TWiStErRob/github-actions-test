@@ -16,14 +16,14 @@ jobs:
       - name: "Do something (success)"
         id: my-passed-step
         run: |
-          echo ::set-output name=result-success::true
-          echo ::set-output name=result-text::Some message
+          echo "result-success=true" >> $GITHUB_OUTPUT
+          echo "result-text=Some message" >> $GITHUB_OUTPUT
 
       - name: "Do something (failure)"
         id: my-failed-step
         run: |
-          echo ::set-output name=result-success::false
-          echo ::set-output name=result-text::Some message
+          echo "result-success=false" >> $GITHUB_OUTPUT
+          echo "result-text=Some message" >> $GITHUB_OUTPUT
       - name: "Print everything"
         run: |
           echo "steps.my-passed-step: raw=${{ steps.my-passed-step.outputs.result-success }}, toJSON=${{ toJSON(steps.my-passed-step.outputs.result-success) }} -> toJSON(fromJSON)=${{ toJSON(fromJSON(steps.my-passed-step.outputs.result-success)) }}"
