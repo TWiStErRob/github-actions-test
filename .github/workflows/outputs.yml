@@ -37,9 +37,10 @@ jobs:
       - name: "Read as json"
         # The template is not valid. .github/workflows/outputs.yml (Line: 38, Col: 14): Unexpected character encountered while parsing value: v. Path '', line 0, position 0.
         #echo 'out-value: >>${{ fromJSON(steps.step1.outputs.out-value) }}<<'
+        # The template is not valid. .github/workflows/outputs.yml (Line: 40, Col: 14): Error reading JToken from JsonReader. Path '', line 0, position 0.
+        #echo 'out-empty: >>${{ fromJSON(steps.step1.outputs.out-empty) }}<<'
         run: |
           echo 'out-value-string: >>${{ fromJSON(steps.step1.outputs.out-value-string) }}<<'
-          echo 'out-empty: >>${{ fromJSON(steps.step1.outputs.out-empty) }}<<'
           echo 'out-empty-string: >>${{ fromJSON(steps.step1.outputs.out-empty-string) }}<<'
           echo 'out-null: >>${{ fromJSON(steps.step1.outputs.out-null) }}<<'
           echo 'out-missing: >>${{ fromJSON(steps.step1.outputs.out-missing) }}<<'
