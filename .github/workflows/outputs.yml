@@ -12,12 +12,12 @@ jobs:
         id: step1
         run: |
           echo $GITHUB_OUTPUT
-          echo 'out-empty=' > $GITHUB_OUTPUT
-          echo 'out-empty-string=""' > $GITHUB_OUTPUT
-          echo 'out-null=null' > $GITHUB_OUTPUT
-          #echo 'out-missing=' > $GITHUB_OUTPUT
-          echo 'out-value=value' > $GITHUB_OUTPUT
-          echo 'out-value-string="value"' > $GITHUB_OUTPUT
+          echo 'out-value=value' >> $GITHUB_OUTPUT
+          echo 'out-value-string="value"' >> $GITHUB_OUTPUT
+          echo 'out-empty=' >> $GITHUB_OUTPUT
+          echo 'out-empty-string=""' >> $GITHUB_OUTPUT
+          echo 'out-null=null' >> $GITHUB_OUTPUT
+          #echo 'out-missing=' >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
 
       - name: "Outputs"
