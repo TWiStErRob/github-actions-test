@@ -18,20 +18,25 @@ jobs:
           echo 'out-value=value' > $GITHUB_OUTPUT
           echo 'out-value-string="value"' > $GITHUB_OUTPUT
 
+      - name: "Outputs"
+        env:
+          STEP1_OUTPUTS: ${{ toJSON(steps.step1.outputs) }}
+        run: echo $STEP1_OUTPUTS
+
       - name: "Read content"
         run: |
-          echo 'out-value=${{ step1.outputs.out-value }}'
-          echo 'out-value-string=${{ step1.outputs.out-value-string }}'
-          echo 'out-empty=${{ step1.outputs.out-empty }}'
-          echo 'out-empty-string=${{ step1.outputs.out-empty-string }}'
-          echo 'out-null=${{ step1.outputs.out-null }}'
-          echo 'out-missing=${{ step1.outputs.out-missing }}'
+          echo 'out-value=${{ steps.step1.outputs.out-value }}'
+          echo 'out-value-string=${{ steps.step1.outputs.out-value-string }}'
+          echo 'out-empty=${{ steps.step1.outputs.out-empty }}'
+          echo 'out-empty-string=${{ steps.step1.outputs.out-empty-string }}'
+          echo 'out-null=${{ steps.step1.outputs.out-null }}'
+          echo 'out-missing=${{ steps.step1.outputs.out-missing }}'
 
       - name: "Read as json"
         run: |
-          echo 'out-value: >>${{ fromJSON(step1.outputs.out-value) }}<<'
-          echo 'out-value-string: >>${{ fromJSON(step1.outputs.out-value-string) }}<<'
-          echo 'out-empty: >>${{ fromJSON(step1.outputs.out-empty) }}<<'
-          echo 'out-empty-string: >>${{ fromJSON(step1.outputs.out-empty-string) }}<<'
-          echo 'out-null: >>${{ fromJSON(step1.outputs.out-null) }}<<'
-          echo 'out-missing: >>${{ fromJSON(step1.outputs.out-missing) }}<<'
+          echo 'out-value: >>${{ fromJSON(steps.step1.outputs.out-value) }}<<'
+          echo 'out-value-string: >>${{ fromJSON(steps.step1.outputs.out-value-string) }}<<'
+          echo 'out-empty: >>${{ fromJSON(steps.step1.outputs.out-empty) }}<<'
+          echo 'out-empty-string: >>${{ fromJSON(steps.step1.outputs.out-empty-string) }}<<'
+          echo 'out-null: >>${{ fromJSON(steps.step1.outputs.out-null) }}<<'
+          echo 'out-missing: >>${{ fromJSON(steps.step1.outputs.out-missing) }}<<'
