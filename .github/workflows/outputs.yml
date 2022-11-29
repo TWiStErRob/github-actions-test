@@ -39,8 +39,13 @@ jobs:
         #echo 'out-value: >>${{ fromJSON(steps.step1.outputs.out-value) }}<<'
         # The template is not valid. .github/workflows/outputs.yml (Line: 40, Col: 14): Error reading JToken from JsonReader. Path '', line 0, position 0.
         #echo 'out-empty: >>${{ fromJSON(steps.step1.outputs.out-empty) }}<<'
+        # The template is not valid. .github/workflows/outputs.yml (Line: 42, Col: 14): Error reading JToken from JsonReader. Path '', line 0, position 0.
+        #echo 'out-missing: >>${{ fromJSON(steps.step1.outputs.out-missing) }}<<'
         run: |
-          echo 'out-value-string: >>${{ fromJSON(steps.step1.outputs.out-value-string) }}<<'
-          echo 'out-empty-string: >>${{ fromJSON(steps.step1.outputs.out-empty-string) }}<<'
-          echo 'out-null: >>${{ fromJSON(steps.step1.outputs.out-null) }}<<'
-          echo 'out-missing: >>${{ fromJSON(steps.step1.outputs.out-missing) }}<<'
+          echo 'fromJSON(out-value-string): >>${{ fromJSON(steps.step1.outputs.out-value-string) }}<<'
+          echo 'fromJSON(out-empty-string): >>${{ fromJSON(steps.step1.outputs.out-empty-string) }}<<'
+          echo 'fromJSON(out-null): >>${{ fromJSON(steps.step1.outputs.out-null) }}<<'
+          echo ''
+          echo 'toJSON(fromJSON(out-value-string)): >>${{ toJSON(fromJSON(steps.step1.outputs.out-value-string)) }}<<'
+          echo 'toJSON(fromJSON(out-empty-string)): >>${{ toJSON(fromJSON(steps.step1.outputs.out-empty-string)) }}<<'
+          echo 'toJSON(fromJSON(out-null)): >>${{ toJSON(fromJSON(steps.step1.outputs.out-null)) }}<<'
