@@ -1,0 +1,37 @@
+name: Outputs
+on:
+  workflow_dispatch:
+  #push:
+jobs:
+  outputs:
+    name: 🔨 Outputs
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: "Generate content"
+        id: step1
+        run: |
+          echo 'out-empty=' > $GITHUB_OUTPUT
+          echo 'out-empty-string=""' > $GITHUB_OUTPUT
+          echo 'out-null=null' > $GITHUB_OUTPUT
+          #echo 'out-missing=' > $GITHUB_OUTPUT
+          echo 'out-value=value' > $GITHUB_OUTPUT
+          echo 'out-value-string="value"' > $GITHUB_OUTPUT
+
+      - name: "Read content"
+        run: |
+          echo 'out-value=${{ step1.outputs.out-value }}'
+          echo 'out-value-string=${{ step1.outputs.out-value-string }}'
+          echo 'out-empty=${{ step1.outputs.out-empty }}'
+          echo 'out-empty-string=${{ step1.outputs.out-empty-string }}'
+          echo 'out-null=${{ step1.outputs.out-null }}'
+          echo 'out-missing=${{ step1.outputs.out-missing }}'
+
+      - name: "Read as json"
+        run: |
+          echo 'out-value: >>${{ fromJSON(step1.outputs.out-value) }}<<'
+          echo 'out-value-string: >>${{ fromJSON(step1.outputs.out-value-string) }}<<'
+          echo 'out-empty: >>${{ fromJSON(step1.outputs.out-empty) }}<<'
+          echo 'out-empty-string: >>${{ fromJSON(step1.outputs.out-empty-string) }}<<'
+          echo 'out-null: >>${{ fromJSON(step1.outputs.out-null) }}<<'
+          echo 'out-missing: >>${{ fromJSON(step1.outputs.out-missing) }}<<'
