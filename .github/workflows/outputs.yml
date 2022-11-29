@@ -35,6 +35,8 @@ jobs:
           echo 'out-missing=${{ steps.step1.outputs.out-missing }}'
 
       - name: "Read as json"
+        env:
+          ACTIONS_STEP_DEBUG: true
         run: |
           echo 'out-value: >>${{ fromJSON(steps.step1.outputs.out-value) }}<<'
           echo 'out-value-string: >>${{ fromJSON(steps.step1.outputs.out-value-string) }}<<'
