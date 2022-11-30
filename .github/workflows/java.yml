@@ -46,7 +46,8 @@ jobs:
           javac -version
 
       - name: Other Javas
-        run: set | find JAVA
+        run: |
+          dir env: | grep JAVA
 
   versions-2004:
     name: Java Versions on Ubuntu 20.04
