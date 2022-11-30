@@ -1,0 +1,64 @@
+name: Java
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  versions-2204:
+    name: Java Versions on Ubuntu 22.04
+    runs-on: ubuntu-22.04
+    timeout-minutes: 1
+    steps:
+      - name: Default Java
+        run: |
+          which java
+          java -version
+          which javac
+          javac -version
+
+      - name: Other Javas
+        run: env | grep JAVA
+
+  versions-mac:
+    name: Java Versions on MacOS
+    runs-on: macos-latest
+    timeout-minutes: 1
+    steps:
+      - name: Default Java
+        run: |
+          which java
+          java -version
+          which javac
+          javac -version
+
+      - name: Other Javas
+        run: env | grep JAVA
+
+  versions-win:
+    name: Java Versions on Windows
+    runs-on: windows-latest
+    timeout-minutes: 1
+    steps:
+      - name: Default Java
+        run: |
+          where java
+          java -version
+          where javac
+          javac -version
+
+      - name: Other Javas
+        run: set | find JAVA
+
+  versions-2004:
+    name: Java Versions on Ubuntu 20.04
+    runs-on: ubuntu-20.04
+    timeout-minutes: 1
+    steps:
+      - name: Default Java
+        run: |
+          which java
+          java -version
+          which javac
+          javac -version
+
+      - name: Other Javas
+        run: env | grep JAVA
