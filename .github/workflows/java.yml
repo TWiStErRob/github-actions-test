@@ -46,7 +46,7 @@ jobs:
 
       - name: Other Javas
         run: |
-          dir env: | grep JAVA
+          dir env: | Where-Object {$_.Name -like "JAVA*"}
 
   versions-2004:
     name: Java Versions on Ubuntu 20.04
