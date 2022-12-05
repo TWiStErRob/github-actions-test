@@ -1,7 +1,6 @@
 name: Outputs
 on:
   workflow_dispatch:
-  push:
 jobs:
   outputs:
     name: 🔨 Outputs
