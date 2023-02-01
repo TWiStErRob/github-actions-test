@@ -8,19 +8,61 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 1
     steps:
-      - name: "Do something 1"
-        run: sleep 10
-      - name: "Do something 2"
-        run: sleep 10
-      - name: "Do something 3"
-        run: sleep 10
-      - name: "Do something 4"
-        run: sleep 10
-      - name: "Do something 5"
-        run: sleep 10
-      - name: "Do something 6"
-        run: sleep 10
-      - name: "Do something 7 (should time out around here)"
-        run: sleep 10
-      - name: "Do something 8"
-        run: sleep 10
+      - name: "Wait a bit 1"
+        run: sleep 5
+      - name: "Print 1"
+        run: echo "Hello, world!"
+      - name: "Wait a bit 2"
+        run: sleep 5
+      - name: "Print 2"
+        run: echo "Goodbye world!"
+      - name: "Wait a bit 3"
+        run: sleep 5
+
+      - name: "How much?"
+        run: |
+          df -h
+          df --output=avail -h ~
+          df --output=avail --block-size=1 ~
+          df --output=avail --block-size=1 ~ | tail -1
+          expr $(df --output=avail --block-size=1 ~ | tail -1) - 1000000
+      - name: "Hog space (leave 1M left)"
+        run: fallocate --length $(expr $(df --output=avail --block-size=1 ~ | tail -1) - 1000000) space-1M.hog
+
+      - name: "How much left?"
+        run: |
+          df -h
+          df --output=avail -h ~
+          df --output=avail --block-size=1 ~
+          df --output=avail --block-size=1 ~ | tail -1
+          expr $(df --output=avail --block-size=1 ~ | tail -1) - 10000
+      - name: "Hog more (leave 10k left)"
+        run: fallocate --length $(expr $(df --output=avail --block-size=1 ~ | tail -1) - 10000) space-10k.hog
+
+      - name: "Wait a bit 4"
+        run: sleep 5
+
+      - name: "Print 3 - fill up the logs 1000 x 100 characters (100000 = 100k)"
+        run: |
+          for i in {1..1000};
+          do
+            dd if=/dev/urandom bs=74 count=1 2>/dev/null | base64;
+          done
+
+      - name: "Wait a bit 5"
+        run: sleep 5
+
+      - name: "Print 4"
+        run: echo "Am I dead yet?"
+      - name: "How much is still left?"
+        run: >
+          df -h
+          df --output=avail -h ~
+          df --output=avail --block-size=1 ~
+          df --output=avail --block-size=1 ~ | tail -1
+
+      - name: "Hog everything"
+        run: fallocate --length $(df --output=avail --block-size=1 ~ | tail -1) space-0.hog
+
+      - name: "Die already!"
+        run: echo "I'm dead." > no-space.txt
