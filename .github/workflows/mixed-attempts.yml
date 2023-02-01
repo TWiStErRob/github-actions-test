@@ -1,0 +1,30 @@
+name: Mixed attempts
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: "Do something 1"
+        run: sleep 5
+      - name: "Do something 2"
+        run: sleep 5
+      - name: "Do something 3"
+        run: sleep 5
+      - name: "Do something 4"
+        run: sleep 5
+      - name: "Do something 5"
+        run: sleep 5
+      - name: "Do something 6"
+        run: sleep 5
+      - name: "Do something 7"
+        run: sleep 5
+      - name: "Do something 8"
+        run: sleep 5
+      - name: "Do something 9"
+        run: sleep 5
+      - name: "Do something 10 (fail)"
+        run: exit 1
