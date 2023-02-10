@@ -1,6 +1,5 @@
 name: Java Versions
 on:
-  push:
   workflow_dispatch:
 jobs:
   v1:
