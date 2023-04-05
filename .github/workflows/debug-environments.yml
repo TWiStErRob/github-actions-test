@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    name: "🐛 Environment '${{ matrix.environment }}'"
+    name: "🐛 '${{ matrix.environment }}' environment"
     runs-on: ubuntu-latest
     timeout-minutes: 2
     environment: ${{ matrix.environment }}
