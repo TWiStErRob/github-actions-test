@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    name: "🔨 Build in environment '${{ matrix.environment }}'"
+    name: "🐛 Environment '${{ matrix.environment }}'"
     runs-on: ubuntu-latest
     timeout-minutes: 2
     environment: ${{ matrix.environment }}
@@ -21,7 +21,9 @@ jobs:
           - "Never Debugging with secrets"
           - "Never Debugging with vars"
     steps:
-      - name: "environment: {{ jobs.validate.environment }}"
+      - name: "environment: ${{ jobs.build.environment }}"
+        run: 'true'
+      - name: "environment: ${{ matrix.environment }}"
         run: 'true'
 
       - name: "Check what GitHub actions core sees."
