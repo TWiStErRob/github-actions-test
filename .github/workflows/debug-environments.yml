@@ -1,4 +1,4 @@
-name: Changing Environments
+name: Debugging Environments
 on:
   workflow_dispatch:
   push:
@@ -12,10 +12,14 @@ jobs:
     strategy:
       matrix:
         environment:
+          # "Default environment"
           - ""
-          - "Non-existent environment"
-          - "Never debugging environment"
-          - "Always debugging environment"
+          # Will be auto-created, so don't.
+          #- "Non-existent environment"
+          - "Always Debugging with secrets"
+          - "Always Debugging with vars"
+          - "Never Debugging with secrets"
+          - "Never Debugging with vars"
     steps:
       - name: "environment: {{ jobs.validate.environment }}"
         run: 'true'
@@ -28,7 +32,11 @@ jobs:
 
       - name: "Are we debugging?"
         run: |
-          echo "ACTIONS_STEP_DEBUG: ${{ secrets.ACTIONS_STEP_DEBUG }}"
-          echo "ACTIONS_RUNNER_DEBUG: ${{ secrets.ACTIONS_RUNNER_DEBUG }}"
+          echo "secrets.ACTIONS_STEP_DEBUG: ${{ secrets.ACTIONS_STEP_DEBUG }}"
+          echo "secrets.ACTIONS_RUNNER_DEBUG: ${{ secrets.ACTIONS_RUNNER_DEBUG }}"
+          echo "vars.ACTIONS_STEP_DEBUG: ${{ vars.ACTIONS_STEP_DEBUG }}"
+          echo "vars.ACTIONS_RUNNER_DEBUG: ${{ vars.ACTIONS_RUNNER_DEBUG }}"
+          echo "env.ACTIONS_STEP_DEBUG: ${{ env.ACTIONS_STEP_DEBUG }}"
+          echo "env.ACTIONS_RUNNER_DEBUG: ${{ env.ACTIONS_RUNNER_DEBUG }}"
           echo "runner.debug: ${{ runner.debug }}"
           echo "core.isDebug(): ${{ steps.script.outputs.result }}"
