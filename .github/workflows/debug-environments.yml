@@ -1,0 +1,48 @@
+name: Debugging Environments
+on:
+  workflow_dispatch:
+  #push:
+
+jobs:
+  build:
+    name: "🐛 '${{ matrix.environment }}' environment"
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    environment: ${{ matrix.environment }}
+    strategy:
+      matrix:
+        environment:
+          # "Default environment"
+          - ""
+          # Will be auto-created, so don't.
+          #- "Non-existent environment"
+          - "Always Debugging with secrets"
+          - "Never Debugging with secrets"
+          - "Only Debugging Runner with secrets"
+          - "Only Debugging Steps with secrets"
+          - "Always Debugging with vars"
+          - "Never Debugging with vars"
+          - "Only Debugging Runner with vars"
+          - "Only Debugging Steps with vars"
+    steps:
+      # Can't use jobs.build.environment for some reason.
+      #- name: "environment: ${{ jobs.build.environment }}"
+      - name: "environment: ${{ matrix.environment }}"
+        run: 'true'
+
+      - name: "Check what GitHub actions core sees."
+        id: script
+        uses: actions/github-script@v6
+        with:
+          script: return core.isDebug()
+
+      - name: "Are we debugging?"
+        run: |
+          echo "secrets.ACTIONS_STEP_DEBUG: ${{ secrets.ACTIONS_STEP_DEBUG }}"
+          echo "secrets.ACTIONS_RUNNER_DEBUG: ${{ secrets.ACTIONS_RUNNER_DEBUG }}"
+          echo "vars.ACTIONS_STEP_DEBUG: ${{ vars.ACTIONS_STEP_DEBUG }}"
+          echo "vars.ACTIONS_RUNNER_DEBUG: ${{ vars.ACTIONS_RUNNER_DEBUG }}"
+          echo "env.ACTIONS_STEP_DEBUG: ${{ env.ACTIONS_STEP_DEBUG }}"
+          echo "env.ACTIONS_RUNNER_DEBUG: ${{ env.ACTIONS_RUNNER_DEBUG }}"
+          echo "runner.debug: ${{ runner.debug }}"
+          echo "core.isDebug(): ${{ steps.script.outputs.result }}"
