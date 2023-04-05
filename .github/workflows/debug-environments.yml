@@ -17,9 +17,13 @@ jobs:
           # Will be auto-created, so don't.
           #- "Non-existent environment"
           - "Always Debugging with secrets"
-          - "Always Debugging with vars"
           - "Never Debugging with secrets"
+          - "Only Debugging Runner with secrets"
+          - "Only Debugging Steps with secrets"
+          - "Always Debugging with vars"
           - "Never Debugging with vars"
+          - "Only Debugging Runner with vars"
+          - "Only Debugging Steps with vars"
     steps:
       # Can't use jobs.build.environment for some reason.
       #- name: "environment: ${{ jobs.build.environment }}"
