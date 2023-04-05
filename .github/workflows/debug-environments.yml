@@ -9,7 +9,7 @@ jobs:
      runs-on: ubuntu-latest
      timeout-minutes: 2
      steps:
-       - name: "environment: ${{ jobs.validate.environment }}"
+       - name: "environment: {{ jobs.validate.environment }}"
          run: 'true'
 
   build:
@@ -23,7 +23,7 @@ jobs:
           - "Never debugging environment"
           - "Always debugging environment"
     steps:
-      - name: "environment: ${{ jobs.validate.environment }}"
+      - name: "environment: {{ jobs.validate.environment }}"
         run: 'true'
 
       - name: "Check what GitHub actions core sees."
