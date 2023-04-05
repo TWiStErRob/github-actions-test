@@ -1,1 +1,40 @@
+name: Changing Environments
+on:
+  workflow_dispatch:
+  push:
 
+jobs:
+  validate:
+     name: "🦺 Validation in default env."
+     runs-on: ubuntu-latest
+     timeout-minutes: 2
+     steps:
+       - name: "environment: ${{ jobs.validate.environment }}"
+         run: 'true'
+
+  build:
+    name: "🔨 Build in ${{ matrix.environment }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    environment: ${{ matrix.environment }}
+    strategy:
+      matrix:
+        environment:
+          - "Never debugging environment"
+          - "Always debugging environment"
+    steps:
+      - name: "environment: ${{ jobs.validate.environment }}"
+        run: 'true'
+
+      - name: "Check what GitHub actions core sees."
+        id: script
+        uses: actions/github-script@v6
+        with:
+          script: return core.isDebug()
+
+      - name: "Are we debugging?"
+        run: |
+          echo "ACTIONS_STEP_DEBUG: ${{ secrets.ACTIONS_STEP_DEBUG }}"
+          echo "ACTIONS_RUNNER_DEBUG: ${{ secrets.ACTIONS_RUNNER_DEBUG }}"
+          echo "runner.debug: ${{ runner.debug }}"
+          echo "core.isDebug(): ${{ steps.script.outputs.result }}"
