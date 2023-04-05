@@ -4,14 +4,6 @@ on:
   push:
 
 jobs:
-  validate:
-     name: "🦺 Validation in default env."
-     runs-on: ubuntu-latest
-     timeout-minutes: 2
-     steps:
-       - name: "environment: {{ jobs.validate.environment }}"
-         run: 'true'
-
   build:
     name: "🔨 Build in ${{ matrix.environment }}"
     runs-on: ubuntu-latest
@@ -20,6 +12,7 @@ jobs:
     strategy:
       matrix:
         environment:
+          - ""
           - "Never debugging environment"
           - "Always debugging environment"
     steps:
