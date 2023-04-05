@@ -21,8 +21,8 @@ jobs:
           - "Never Debugging with secrets"
           - "Never Debugging with vars"
     steps:
-      - name: "environment: ${{ jobs.build.environment }}"
-        run: 'true'
+      # Can't use jobs.build.environment for some reason.
+      #- name: "environment: ${{ jobs.build.environment }}"
       - name: "environment: ${{ matrix.environment }}"
         run: 'true'
 
