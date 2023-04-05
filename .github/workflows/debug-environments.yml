@@ -13,6 +13,7 @@ jobs:
       matrix:
         environment:
           - ""
+          - "Non-existent environment"
           - "Never debugging environment"
           - "Always debugging environment"
     steps:
