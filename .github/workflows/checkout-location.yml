@@ -1,0 +1,26 @@
+name: "Checkout Location"
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  checkout:
+    name: "⏬ Checkout"
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
+        uses: actions/checkout@v3
+      
+      - name: "List workspace"
+        working-directory: ${{ github.workspace }}
+        run: ls -la
+
+      - name: "Disk usage"
+        working-directory: ${{ github.workspace }}
+        run: du -h -d2
+
+      - name: "Full listing"
+        working-directory: ${{ github.workspace }}
+        run: find .
