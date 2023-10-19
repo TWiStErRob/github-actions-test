@@ -1,0 +1,118 @@
+name: "Android"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  versions-ubuntu:
+    name: "Android Versions on Ubuntu"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: "Set up JDK 17."
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: zulu
+
+      - name: "Default Android versions"
+        run: |
+          which sdkmanager || true
+          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --version
+          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --list 2>&1 | tee default.txt
+
+      - name: "Use setup-android Action"
+        uses: android-actions/setup-android@v3
+
+      - name: "setup-android Android versions"
+        run: |
+          which sdkmanager
+          sdkmanager --version
+          sdkmanager --list 2>&1 | tee setup-android.txt
+
+      - name: "Upload results as artifact."
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'results ${{ runner.os }}'
+          path: |
+            ${{ github.workspace }}/default.txt
+            ${{ github.workspace }}/setup-android.txt
+
+      - name: "Difference between default and setup-android Android versions"
+        run: diff default.txt setup-android.txt || true
+
+  versions-mac:
+    name: "Android Versions on MacOS"
+    runs-on: macos-latest
+    timeout-minutes: 5
+    steps:
+      - name: "Set up JDK 17."
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: zulu
+
+      - name: "Default Android versions"
+        run: |
+          which sdkmanager || true
+          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --version
+          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --list 2>&1 | tee default.txt
+
+      - name: "Use setup-android Action"
+        uses: android-actions/setup-android@v3
+
+      - name: "setup-android Android versions"
+        run: |
+          which sdkmanager
+          sdkmanager --version
+          sdkmanager --list 2>&1 | tee setup-android.txt
+
+      - name: "Upload results as artifact."
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'results ${{ runner.os }}'
+          path: |
+            ${{ github.workspace }}/default.txt
+            ${{ github.workspace }}/setup-android.txt
+
+      - name: "Difference between default and setup-android Android versions"
+        run: diff default.txt setup-android.txt || true
+
+  versions-win:
+    name: "Android Versions on Windows"
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - name: "Set up JDK 17."
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: zulu
+
+      - name: "Default Android versions"
+        shell: cmd
+        run: |
+          where sdkmanager
+          call %ANDROID_SDK_ROOT%\cmdline-tools\latest\bin\sdkmanager.bat --version
+          call %ANDROID_SDK_ROOT%\cmdline-tools\latest\bin\sdkmanager.bat --list 2>&1 > default.txt
+          type default.txt
+
+      - name: "Use setup-android Action"
+        uses: android-actions/setup-android@v3
+
+      - name: "setup-android Android versions"
+        run: |
+          where sdkmanager
+          sdkmanager --version
+          sdkmanager --list 2>&1 | tee setup-android.txt
+
+      - name: "Upload results as artifact."
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'results ${{ runner.os }}'
+          path: |
+            ${{ github.workspace }}/default.txt
+            ${{ github.workspace }}/setup-android.txt
+
+      - name: "Difference between default and setup-android Android versions"
+        run: diff (cat default.txt) (cat setup-android.txt)
