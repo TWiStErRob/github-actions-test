@@ -1,9 +1,10 @@
 name: "Android"
+
 on:
   workflow_dispatch:
-  push:
+
 jobs:
-  versions-2204:
+  versions-ubuntu:
     name: "Android Versions on Ubuntu"
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -114,6 +115,4 @@ jobs:
             ${{ github.workspace }}/setup-android.txt
 
       - name: "Difference between default and setup-android Android versions"
-        run: |
-          dir
-          diff (cat default.txt) (cat setup-android.txt)
+        run: diff (cat default.txt) (cat setup-android.txt)
