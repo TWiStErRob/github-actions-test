@@ -4,8 +4,8 @@ on:
   push:
 jobs:
   versions-2204:
-    name: "Android Versions on Ubuntu 22.04"
-    runs-on: ubuntu-22.04
+    name: "Android Versions on Ubuntu"
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: "Set up JDK 17."
@@ -32,7 +32,7 @@ jobs:
       - name: "Upload results as artifact."
         uses: actions/upload-artifact@v3
         with:
-          name: 'results ${{ runner.name }}'
+          name: 'results ${{ runner.os }}'
           path: |
             ${{ github.workspace }}/default.txt
             ${{ github.workspace }}/setup-android.txt
@@ -41,7 +41,7 @@ jobs:
         run: diff default.txt setup-android.txt || true
 
   versions-mac:
-    name: Android Versions on MacOS
+    name: "Android Versions on MacOS"
     runs-on: macos-latest
     timeout-minutes: 5
     steps:
@@ -69,7 +69,7 @@ jobs:
       - name: "Upload results as artifact."
         uses: actions/upload-artifact@v3
         with:
-          name: 'results ${{ runner.name }}'
+          name: 'results ${{ runner.os }}'
           path: |
             ${{ github.workspace }}/default.txt
             ${{ github.workspace }}/setup-android.txt
@@ -78,7 +78,7 @@ jobs:
         run: diff default.txt setup-android.txt || true
 
   versions-win:
-    name: Android Versions on Windows
+    name: "Android Versions on Windows"
     runs-on: windows-latest
     timeout-minutes: 5
     steps:
@@ -108,7 +108,7 @@ jobs:
       - name: "Upload results as artifact."
         uses: actions/upload-artifact@v3
         with:
-          name: 'results ${{ runner.name }}'
+          name: 'results ${{ runner.os }}'
           path: |
             ${{ github.workspace }}/default.txt
             ${{ github.workspace }}/setup-android.txt
@@ -117,40 +117,3 @@ jobs:
         run: |
           dir
           diff (cat default.txt) (cat setup-android.txt)
-
-  versions-2004:
-    name: Android Versions on Ubuntu 20.04
-    runs-on: ubuntu-20.04
-    timeout-minutes: 1
-    steps:
-      - name: "Set up JDK 17."
-        uses: actions/setup-java@v3
-        with:
-          java-version: 17
-          distribution: zulu
-
-      - name: "Default Android versions"
-        run: |
-          which sdkmanager || true
-          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --version
-          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --list 2>&1 | tee default.txt
-
-      - name: "Use setup-android Action"
-        uses: android-actions/setup-android@v3
-
-      - name: "setup-android Android versions"
-        run: |
-          which sdkmanager
-          sdkmanager --version
-          sdkmanager --list 2>&1 | tee setup-android.txt
-
-      - name: "Upload results as artifact."
-        uses: actions/upload-artifact@v3
-        with:
-          name: 'results ${{ runner.name }}'
-          path: |
-            ${{ github.workspace }}/default.txt
-            ${{ github.workspace }}/setup-android.txt
-
-      - name: "Difference between default and setup-android Android versions"
-        run: diff default.txt setup-android.txt || true
