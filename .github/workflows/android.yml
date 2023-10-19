@@ -75,8 +75,8 @@ jobs:
       - name: "Default Android versions"
         run: |
           where sdkmanager
-          $env:ANDROID_SDK_ROOT\cmdline-tools\latest\bin\sdkmanager.bat --version
-          $env:ANDROID_SDK_ROOT\cmdline-tools\latest\bin\sdkmanager.bat --list | tee default.txt
+          Start-Process -NoNewWindow ${env:ANDROID_HOME}\cmdline-tools\latest\bin\sdkmanager.bat --version
+          Start-Process -NoNewWindow ${env:ANDROID_HOME}\cmdline-tools\latest\bin\sdkmanager.bat --list | tee default.txt
 
       - name: "Use setup-android Action"
         uses: android-actions/setup-android@v3
