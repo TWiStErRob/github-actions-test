@@ -75,8 +75,8 @@ jobs:
       - name: "Default Android versions"
         run: |
           where sdkmanager
-          %ANDROID_SDK_ROOT%\cmdline-tools\latest\bin\sdkmanager.bat --version
-          %ANDROID_SDK_ROOT%\cmdline-tools\latest\bin\sdkmanager.bat --list
+          $env:ANDROID_SDK_ROOT\cmdline-tools\latest\bin\sdkmanager.bat --version
+          $env:ANDROID_SDK_ROOT\cmdline-tools\latest\bin\sdkmanager.bat --list | tee default.txt
 
       - name: "Use setup-android Action"
         uses: android-actions/setup-android@v3
@@ -85,14 +85,10 @@ jobs:
         run: |
           where sdkmanager
           sdkmanager --version
-          sdkmanager --list
+          sdkmanager --list | tee setup-android.txt
 
       - name: "Difference between default and setup-android Android versions"
-        run: |
-          echo 1 | tee default.txt
-          echo 2 | tee setup-android.txt
-      - name: "Difference between default and setup-android Android versions"
-        run: diff default.txt setup-android.txt || true
+        run: diff (cat default.txt) (cat setup-android.txt)
 
   versions-2004:
     name: Android Versions on Ubuntu 20.04
