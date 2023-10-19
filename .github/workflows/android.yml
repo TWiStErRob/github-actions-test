@@ -1,0 +1,83 @@
+name: "Android"
+on:
+  workflow_dispatch:
+jobs:
+  versions-2204:
+    name: "Android Versions on Ubuntu 22.04"
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - name: "Default Android versions"
+        run: |
+          which sdkmanager
+          sdkmanager --version
+          sdkmanager --list
+
+      - name: "Use setup-android Action"
+        uses: android-actions/setup-android@v3
+
+      - name: "setup-android Android versions"
+        run: |
+          which sdkmanager
+          sdkmanager --version
+          sdkmanager --list
+
+  versions-mac:
+    name: Android Versions on MacOS
+    runs-on: macos-latest
+    timeout-minutes: 5
+    steps:
+      - name: "Default Android versions"
+        run: |
+          which sdkmanager
+          sdkmanager --version
+          sdkmanager --list
+
+      - name: "Use setup-android Action"
+        uses: android-actions/setup-android@v3
+
+      - name: "setup-android Android versions"
+        run: |
+          which sdkmanager
+          sdkmanager --version
+          sdkmanager --list
+
+  versions-win:
+    name: Android Versions on Windows
+    runs-on: windows-latest
+    timeout-minutes: 1
+    steps:
+      - name: "Default Android versions"
+        run: |
+          where sdkmanager
+          sdkmanager --version
+          sdkmanager --list
+
+      - name: "Use setup-android Action"
+        uses: android-actions/setup-android@v3
+
+      - name: "setup-android Android versions"
+        run: |
+          where sdkmanager
+          sdkmanager --version
+          sdkmanager --list
+
+  versions-2004:
+    name: Android Versions on Ubuntu 20.04
+    runs-on: ubuntu-20.04
+    timeout-minutes: 1
+    steps:
+      - name: "Default Android versions"
+        run: |
+          which sdkmanager
+          sdkmanager --version
+          sdkmanager --list
+
+      - name: "Use setup-android Action"
+        uses: android-actions/setup-android@v3
+
+      - name: "setup-android Android versions"
+        run: |
+          which sdkmanager
+          sdkmanager --version
+          sdkmanager --list
