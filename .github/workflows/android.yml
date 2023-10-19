@@ -76,9 +76,9 @@ jobs:
         shell: cmd
         run: |
           where sdkmanager
-          %ANDROID_SDK_ROOT%\cmdline-tools\latest\bin\sdkmanager.bat --version
+          call %ANDROID_SDK_ROOT%\cmdline-tools\latest\bin\sdkmanager.bat --version
           dir
-          %ANDROID_SDK_ROOT%\cmdline-tools\latest\bin\sdkmanager.bat --list 2>&1 > default.txt
+          call %ANDROID_SDK_ROOT%\cmdline-tools\latest\bin\sdkmanager.bat --list 2>&1 > default.txt
           dir
           type default.txt
 
