@@ -1,6 +1,7 @@
 name: "Android"
 on:
   workflow_dispatch:
+  push:
 jobs:
   versions-2204:
     name: "Android Versions on Ubuntu 22.04"
