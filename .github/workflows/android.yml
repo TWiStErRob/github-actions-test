@@ -8,6 +8,12 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 5
     steps:
+      - name: "Set up JDK 17."
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: zulu
+
       - name: "Default Android versions"
         run: |
           which sdkmanager || true
@@ -28,6 +34,12 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 5
     steps:
+      - name: "Set up JDK 17."
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: zulu
+
       - name: "Default Android versions"
         run: |
           which sdkmanager || true
@@ -48,6 +60,12 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 1
     steps:
+      - name: "Set up JDK 17."
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: zulu
+
       - name: "Default Android versions"
         run: |
           where sdkmanager
@@ -68,6 +86,12 @@ jobs:
     runs-on: ubuntu-20.04
     timeout-minutes: 1
     steps:
+      - name: "Set up JDK 17."
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: zulu
+
       - name: "Default Android versions"
         run: |
           which sdkmanager
