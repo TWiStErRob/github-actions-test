@@ -77,9 +77,7 @@ jobs:
         run: |
           where sdkmanager
           call %ANDROID_SDK_ROOT%\cmdline-tools\latest\bin\sdkmanager.bat --version
-          dir
           call %ANDROID_SDK_ROOT%\cmdline-tools\latest\bin\sdkmanager.bat --list 2>&1 > default.txt
-          dir
           type default.txt
 
       - name: "Use setup-android Action"
@@ -92,7 +90,9 @@ jobs:
           sdkmanager --list 2>&1 | tee setup-android.txt
 
       - name: "Difference between default and setup-android Android versions"
-        run: diff (cat default.txt) (cat setup-android.txt)
+        run: |
+          dir
+          diff (cat default.txt) (cat setup-android.txt)
 
   versions-2004:
     name: Android Versions on Ubuntu 20.04
