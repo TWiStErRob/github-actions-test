@@ -17,6 +17,7 @@ jobs:
       - name: "Default Android versions"
         run: |
           which sdkmanager || true
+          ${ANDROID_SDK_ROOT}/platform-tools/sqlite3 --version
           ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --version
           ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --list | tee default.txt
 
@@ -26,6 +27,7 @@ jobs:
       - name: "setup-android Android versions"
         run: |
           which sdkmanager
+          sqlite3 --version
           sdkmanager --version
           sdkmanager --list | tee setup-android.txt
 
@@ -64,7 +66,7 @@ jobs:
   versions-win:
     name: Android Versions on Windows
     runs-on: windows-latest
-    timeout-minutes: 1
+    timeout-minutes: 5
     steps:
       - name: "Set up JDK 17."
         uses: actions/setup-java@v3
