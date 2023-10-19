@@ -73,10 +73,12 @@ jobs:
           distribution: zulu
 
       - name: "Default Android versions"
+        shell: cmd
         run: |
           where sdkmanager
-          Start-Process -NoNewWindow ${env:ANDROID_HOME}\cmdline-tools\latest\bin\sdkmanager.bat --version
-          Start-Process -NoNewWindow ${env:ANDROID_HOME}\cmdline-tools\latest\bin\sdkmanager.bat --list | tee default.txt
+          %ANDROID_SDK_ROOT%\cmdline-tools\latest\bin\sdkmanager.bat --version
+          %ANDROID_SDK_ROOT%\cmdline-tools\latest\bin\sdkmanager.bat --list > default.txt
+          cat default.txt
 
       - name: "Use setup-android Action"
         uses: android-actions/setup-android@v3
