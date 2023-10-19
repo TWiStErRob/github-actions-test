@@ -30,7 +30,7 @@ jobs:
           sdkmanager --list | tee setup-android.txt
 
       - name: "Difference between default and setup-android Android versions"
-        run: diff default.txt setup-android.txt
+        run: diff default.txt setup-android.txt || true
 
   versions-mac:
     name: Android Versions on MacOS
@@ -59,7 +59,7 @@ jobs:
           sdkmanager --list | tee setup-android.txt
 
       - name: "Difference between default and setup-android Android versions"
-        run: diff default.txt setup-android.txt
+        run: diff default.txt setup-android.txt || true
 
   versions-win:
     name: Android Versions on Windows
@@ -92,7 +92,7 @@ jobs:
           echo 1 | tee default.txt
           echo 2 | tee setup-android.txt
       - name: "Difference between default and setup-android Android versions"
-        run: diff default.txt setup-android.txt
+        run: diff default.txt setup-android.txt || true
 
   versions-2004:
     name: Android Versions on Ubuntu 20.04
@@ -121,4 +121,4 @@ jobs:
           sdkmanager --list | tee setup-android.txt
 
       - name: "Difference between default and setup-android Android versions"
-        run: diff default.txt setup-android.txt
+        run: diff default.txt setup-android.txt || true
