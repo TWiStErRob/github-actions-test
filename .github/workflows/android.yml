@@ -29,6 +29,14 @@ jobs:
           sdkmanager --version
           sdkmanager --list 2>&1 | tee setup-android.txt
 
+      - name: "Upload results as artifact."
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'results ${{ runner.name }}'
+          path: |
+            ${{ github.workspace }}/default.txt
+            ${{ github.workspace }}/setup-android.txt
+
       - name: "Difference between default and setup-android Android versions"
         run: diff default.txt setup-android.txt || true
 
@@ -57,6 +65,14 @@ jobs:
           which sdkmanager
           sdkmanager --version
           sdkmanager --list 2>&1 | tee setup-android.txt
+
+      - name: "Upload results as artifact."
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'results ${{ runner.name }}'
+          path: |
+            ${{ github.workspace }}/default.txt
+            ${{ github.workspace }}/setup-android.txt
 
       - name: "Difference between default and setup-android Android versions"
         run: diff default.txt setup-android.txt || true
@@ -89,6 +105,14 @@ jobs:
           sdkmanager --version
           sdkmanager --list 2>&1 | tee setup-android.txt
 
+      - name: "Upload results as artifact."
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'results ${{ runner.name }}'
+          path: |
+            ${{ github.workspace }}/default.txt
+            ${{ github.workspace }}/setup-android.txt
+
       - name: "Difference between default and setup-android Android versions"
         run: |
           dir
@@ -119,6 +143,14 @@ jobs:
           which sdkmanager
           sdkmanager --version
           sdkmanager --list 2>&1 | tee setup-android.txt
+
+      - name: "Upload results as artifact."
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'results ${{ runner.name }}'
+          path: |
+            ${{ github.workspace }}/default.txt
+            ${{ github.workspace }}/setup-android.txt
 
       - name: "Difference between default and setup-android Android versions"
         run: diff default.txt setup-android.txt || true
