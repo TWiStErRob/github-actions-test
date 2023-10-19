@@ -10,9 +10,9 @@ jobs:
     steps:
       - name: "Default Android versions"
         run: |
-          which sdkmanager
-          sdkmanager --version
-          sdkmanager --list
+          which sdkmanager || true
+          ${ANDROID_SDK_ROOT}/sdkmanager --version
+          ${ANDROID_SDK_ROOT}/sdkmanager --list
 
       - name: "Use setup-android Action"
         uses: android-actions/setup-android@v3
@@ -30,9 +30,9 @@ jobs:
     steps:
       - name: "Default Android versions"
         run: |
-          which sdkmanager
-          sdkmanager --version
-          sdkmanager --list
+          which sdkmanager || true
+          ${ANDROID_SDK_ROOT}/sdkmanager --version
+          ${ANDROID_SDK_ROOT}/sdkmanager --list
 
       - name: "Use setup-android Action"
         uses: android-actions/setup-android@v3
@@ -51,8 +51,8 @@ jobs:
       - name: "Default Android versions"
         run: |
           where sdkmanager
-          sdkmanager --version
-          sdkmanager --list
+          %ANDROID_SDK_ROOT%\sdkmanager.bat --version
+          %ANDROID_SDK_ROOT%\sdkmanager.bat --list
 
       - name: "Use setup-android Action"
         uses: android-actions/setup-android@v3
@@ -71,8 +71,8 @@ jobs:
       - name: "Default Android versions"
         run: |
           which sdkmanager
-          sdkmanager --version
-          sdkmanager --list
+          ${ANDROID_SDK_ROOT}/sdkmanager --version
+          ${ANDROID_SDK_ROOT}/sdkmanager --list
 
       - name: "Use setup-android Action"
         uses: android-actions/setup-android@v3
