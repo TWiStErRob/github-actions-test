@@ -18,7 +18,7 @@ jobs:
         run: |
           which sdkmanager || true
           ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --version
-          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --list
+          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --list | tee default.txt
 
       - name: "Use setup-android Action"
         uses: android-actions/setup-android@v3
@@ -27,7 +27,10 @@ jobs:
         run: |
           which sdkmanager
           sdkmanager --version
-          sdkmanager --list
+          sdkmanager --list | tee setup-android.txt
+
+      - name: "Difference between default and setup-android Android versions"
+        run: diff default.txt setup-android.txt
 
   versions-mac:
     name: Android Versions on MacOS
@@ -44,7 +47,7 @@ jobs:
         run: |
           which sdkmanager || true
           ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --version
-          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --list
+          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --list | tee default.txt
 
       - name: "Use setup-android Action"
         uses: android-actions/setup-android@v3
@@ -53,7 +56,10 @@ jobs:
         run: |
           which sdkmanager
           sdkmanager --version
-          sdkmanager --list
+          sdkmanager --list | tee setup-android.txt
+
+      - name: "Difference between default and setup-android Android versions"
+        run: diff default.txt setup-android.txt
 
   versions-win:
     name: Android Versions on Windows
@@ -81,6 +87,13 @@ jobs:
           sdkmanager --version
           sdkmanager --list
 
+      - name: "Difference between default and setup-android Android versions"
+        run: |
+          echo 1 | tee default.txt
+          echo 2 | tee setup-android.txt
+      - name: "Difference between default and setup-android Android versions"
+        run: diff default.txt setup-android.txt
+
   versions-2004:
     name: Android Versions on Ubuntu 20.04
     runs-on: ubuntu-20.04
@@ -94,9 +107,9 @@ jobs:
 
       - name: "Default Android versions"
         run: |
-          which sdkmanager
+          which sdkmanager || true
           ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --version
-          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --list
+          ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager --list | tee default.txt
 
       - name: "Use setup-android Action"
         uses: android-actions/setup-android@v3
@@ -105,4 +118,7 @@ jobs:
         run: |
           which sdkmanager
           sdkmanager --version
-          sdkmanager --list
+          sdkmanager --list | tee setup-android.txt
+
+      - name: "Difference between default and setup-android Android versions"
+        run: diff default.txt setup-android.txt
