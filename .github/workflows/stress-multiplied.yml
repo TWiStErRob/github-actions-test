@@ -1,0 +1,25 @@
+name: "Stress Test: Multiplied Workflow"
+on:
+  workflow_call:
+  #push: ...
+  #pull_request: ...
+
+jobs:
+  simple:
+    runs-on: ubuntu-latest
+    steps:
+      - run: true
+
+  dependent:
+    runs-on: ubuntu-latest
+    needs: simple
+    steps:
+      - run: true
+
+  matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - run: true
+    strategy:
+      matrix:
+        counter: [1,2,3,4,5]
