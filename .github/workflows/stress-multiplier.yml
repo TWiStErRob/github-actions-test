@@ -1,7 +1,8 @@
 name: "Stress Test: Multiplier Workflow"
 
 on:
-  push:
+  workflow_dispatch:
+  #push:
 
 jobs:
   multiplier:
