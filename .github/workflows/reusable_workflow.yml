@@ -1,0 +1,20 @@
+name: "Reusable workflow in standard location"
+
+on:
+  workflow_call:
+    inputs:
+      something:
+        type: string
+        default: 'asdf'
+        required: false
+
+jobs:
+
+  job:
+    name: "A Job"
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "Print input"
+        run: |
+          echo "${{ inputs.something }}
