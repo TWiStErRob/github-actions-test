@@ -1,0 +1,17 @@
+on:
+  push:
+jobs:
+  outputs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: "Publish 'Integration Test Results' check run."
+        if: success() || failure()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          check_name: 'Integration Test Results'
+          comment_mode: off
+          report_individual_runs: true
+          action_fail_on_inconclusive: true
+          test_changes_limit: 0
+          junit_files: outputs/junit.xml
