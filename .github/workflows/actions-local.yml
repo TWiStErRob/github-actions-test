@@ -12,32 +12,32 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: ".github/actions/reusable-action-standard"
-        uses: ./.github/actions/reusable-action-standard@shared
+        uses: ./.github/actions/reusable-action-standard
 
       - name: ".github/actions/sub/reusable-action-substandard"
-        uses: ./.github/actions/sub/reusable-action-substandard@shared
+        uses: ./.github/actions/sub/reusable-action-substandard
 
       - name: ".github/reusable-action-github"
-        uses: ./.github/reusable-action-github@shared
+        uses: ./.github/reusable-action-github
 
       - name: ".github/shared/reusable-action-subgithub"
-        uses: ./.github/shared/reusable-action-subgithub@shared
+        uses: ./.github/shared/reusable-action-subgithub
 
       - name: ".github/workflows/reusable-action-workflow"
-        uses: ./.github/workflows/reusable-action-workflow@shared
+        uses: ./.github/workflows/reusable-action-workflow
 
       - name: ".github/workflows/shared/reusable-action-subworkflow"
-        uses: ./.github/workflows/shared/reusable-action-subworkflow@shared
+        uses: ./.github/workflows/shared/reusable-action-subworkflow
 
       - name: ".github/workflows/actions/reusable-action-looking"
-        uses: ./.github/workflows/actions/reusable-action-looking@shared
+        uses: ./.github/workflows/actions/reusable-action-looking
 
       - name: ".github/workflows/actions/sub/reusable-action-sublooking"
-        uses: ./.github/workflows/actions/sub/reusable-action-sublooking@shared
+        uses: ./.github/workflows/actions/sub/reusable-action-sublooking
 
       - name: "reusable-action-folder"
-        uses: ./reusable-action-folder@shared
+        uses: ./reusable-action-folder
 
       - name: "shared/reusable-action-subfolder"
-        uses: ./shared/reusable-action-subfolder@shared
+        uses: ./shared/reusable-action-subfolder
 
