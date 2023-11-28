@@ -17,4 +17,4 @@ jobs:
 
       - name: "Print input"
         run: |
-          echo "${{ inputs.something }}
+          echo "${{ inputs.something }}"
