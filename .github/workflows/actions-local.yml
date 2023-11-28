@@ -1,0 +1,41 @@
+name: "Reusable Action Tests"
+on:
+  push:
+
+jobs:
+  actions:
+    name: "Action tests"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+
+      - name: ".github/actions/reusable-action-standard"
+        uses: TWiStErRob/github-actions-test/.github/actions/reusable-action-standard@shared
+
+      - name: ".github/actions/sub/reusable-action-substandard"
+        uses: TWiStErRob/github-actions-test/.github/actions/sub/reusable-action-substandard@shared
+
+      - name: ".github/reusable-action-github"
+        uses: TWiStErRob/github-actions-test/.github/reusable-action-github@shared
+
+      - name: ".github/shared/reusable-action-subgithub"
+        uses: TWiStErRob/github-actions-test/.github/shared/reusable-action-subgithub@shared
+
+      - name: ".github/workflows/reusable-action-workflow"
+        uses: TWiStErRob/github-actions-test/.github/workflows/reusable-action-workflow@shared
+
+      - name: ".github/workflows/shared/reusable-action-subworkflow"
+        uses: TWiStErRob/github-actions-test/.github/workflows/shared/reusable-action-subworkflow@shared
+
+      - name: ".github/workflows/actions/reusable-action-looking"
+        uses: TWiStErRob/github-actions-test/.github/workflows/actions/reusable-action-looking@shared
+
+      - name: ".github/workflows/actions/sub/reusable-action-sublooking"
+        uses: TWiStErRob/github-actions-test/.github/workflows/actions/sub/reusable-action-sublooking@shared
+
+      - name: "reusable-action-folder"
+        uses: TWiStErRob/github-actions-test/reusable-action-folder@shared
+
+      - name: "shared/reusable-action-subfolder"
+        uses: TWiStErRob/github-actions-test/shared/reusable-action-subfolder@shared
+
