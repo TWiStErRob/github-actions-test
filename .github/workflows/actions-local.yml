@@ -41,3 +41,5 @@ jobs:
       - name: "shared/reusable-action-subfolder"
         uses: ./shared/reusable-action-subfolder
 
+      - name: "repository root"
+        uses: ./

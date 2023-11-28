@@ -49,3 +49,5 @@ jobs:
       - name: "shared/reusable-action-subfolder"
         uses: TWiStErRob/github-actions-test/shared/reusable-action-subfolder@reuse
 
+      - name: "repository root"
+        uses: TWiStErRob/github-actions-test@reuse
