@@ -20,12 +20,12 @@ jobs:
 #
 #      - name: ".github/shared/reusable-action-subgithub"
 #        uses: TWiStErRob/github-actions-test/.github/shared/reusable-action-subgithub@shared
-
-      - name: ".github/workflows/reusable-action-workflow"
-        uses: TWiStErRob/github-actions-test/.github/workflows/reusable-action-workflow@shared
 #
-#      - name: ".github/workflows/shared/reusable-action-subworkflow"
-#        uses: TWiStErRob/github-actions-test/.github/workflows/shared/reusable-action-subworkflow@shared
+#      - name: ".github/workflows/reusable-action-workflow"
+#        uses: TWiStErRob/github-actions-test/.github/workflows/reusable-action-workflow@shared
+
+      - name: ".github/workflows/shared/reusable-action-subworkflow"
+        uses: TWiStErRob/github-actions-test/.github/workflows/shared/reusable-action-subworkflow@shared
 #
 #      - name: ".github/workflows/actions/reusable-action-looking"
 #        uses: TWiStErRob/github-actions-test/.github/workflows/actions/reusable-action-looking@shared
