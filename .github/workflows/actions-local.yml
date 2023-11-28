@@ -9,6 +9,8 @@ jobs:
     timeout-minutes: 5
     steps:
 
+      - uses: actions/checkout@v4
+
       - name: ".github/actions/reusable-action-standard"
         uses: TWiStErRob/github-actions-test/.github/actions/reusable-action-standard@shared
 
