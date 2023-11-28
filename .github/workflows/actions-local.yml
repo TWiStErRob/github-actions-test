@@ -1,6 +1,7 @@
 name: "Reusable Action Tests - Local"
 on:
   push:
+  workflow_call:
 
 jobs:
   actions:

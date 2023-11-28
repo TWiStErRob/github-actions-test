@@ -1,0 +1,7 @@
+name: "Reusable Action Tests - Absolute - Call"
+on:
+  push:
+
+jobs:
+  call:
+    uses: ./.github/workflows/actions-absolute.yml
