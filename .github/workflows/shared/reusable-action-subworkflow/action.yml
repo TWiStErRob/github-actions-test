@@ -1,4 +1,4 @@
-name: "Reusable action in standard location"
+name: "Reusable action in folder of standard workflow location"
 description: 'mandatory description'
 
 runs:

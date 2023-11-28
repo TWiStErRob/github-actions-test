@@ -1,4 +1,4 @@
-name: "Reusable action in standard location"
+name: "Reusable action in repo folder"
 description: 'mandatory description'
 
 runs:
