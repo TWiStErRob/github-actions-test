@@ -9,33 +9,43 @@ jobs:
     timeout-minutes: 5
     steps:
 
+#      # Unable to resolve action `TWiStErRob/github-actions-test@shared`, unable to find version `shared`
 #      - name: ".github/actions/reusable-action-standard"
 #        uses: TWiStErRob/github-actions-test/.github/actions/reusable-action-standard@shared
 #
+#      # Unable to resolve action `TWiStErRob/github-actions-test@shared`, unable to find version `shared`
 #      - name: ".github/actions/sub/reusable-action-substandard"
 #        uses: TWiStErRob/github-actions-test/.github/actions/sub/reusable-action-substandard@shared
 #
+#      # Unable to resolve action `TWiStErRob/github-actions-test@shared`, unable to find version `shared`
 #      - name: ".github/reusable-action-github"
 #        uses: TWiStErRob/github-actions-test/.github/reusable-action-github@shared
 #
+#      # Unable to resolve action `TWiStErRob/github-actions-test@shared`, unable to find version `shared`
 #      - name: ".github/shared/reusable-action-subgithub"
 #        uses: TWiStErRob/github-actions-test/.github/shared/reusable-action-subgithub@shared
 #
+#      # Error: .github#L1 reusable workflows should be referenced at the top-level `jobs.*.uses' key, not within steps
 #      - name: ".github/workflows/reusable-action-workflow"
 #        uses: TWiStErRob/github-actions-test/.github/workflows/reusable-action-workflow@shared
 #
+#      # Error: .github#L1 reusable workflows should be referenced at the top-level `jobs.*.uses' key, not within steps
 #      - name: ".github/workflows/shared/reusable-action-subworkflow"
 #        uses: TWiStErRob/github-actions-test/.github/workflows/shared/reusable-action-subworkflow@shared
+
+      # ???
+      - name: ".github/workflows/actions/reusable-action-looking"
+        uses: TWiStErRob/github-actions-test/.github/workflows/actions/reusable-action-looking@shared
 #
-#      - name: ".github/workflows/actions/reusable-action-looking"
-#        uses: TWiStErRob/github-actions-test/.github/workflows/actions/reusable-action-looking@shared
-#
+#      # Error: .github#L1 reusable workflows should be referenced at the top-level `jobs.*.uses' key, not within steps
 #      - name: ".github/workflows/actions/sub/reusable-action-sublooking"
 #        uses: TWiStErRob/github-actions-test/.github/workflows/actions/sub/reusable-action-sublooking@shared
 #
+#      # Unable to resolve action `TWiStErRob/github-actions-test@shared`, unable to find version `shared`
 #      - name: "reusable-action-folder"
 #        uses: TWiStErRob/github-actions-test/reusable-action-folder@shared
-
-      - name: "shared/reusable-action-subfolder"
-        uses: TWiStErRob/github-actions-test/shared/reusable-action-subfolder@shared
+#
+#      # Unable to resolve action `TWiStErRob/github-actions-test@shared`, unable to find version `shared`
+#      - name: "shared/reusable-action-subfolder"
+#        uses: TWiStErRob/github-actions-test/shared/reusable-action-subfolder@shared
 #
