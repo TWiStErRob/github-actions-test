@@ -11,12 +11,12 @@ jobs:
 
 #      - name: ".github/actions/reusable-action-standard"
 #        uses: TWiStErRob/github-actions-test/.github/actions/reusable-action-standard@shared
-
-      - name: ".github/actions/sub/reusable-action-substandard"
-        uses: TWiStErRob/github-actions-test/.github/actions/sub/reusable-action-substandard@shared
 #
-#      - name: ".github/reusable-action-github"
-#        uses: TWiStErRob/github-actions-test/.github/reusable-action-github@shared
+#      - name: ".github/actions/sub/reusable-action-substandard"
+#        uses: TWiStErRob/github-actions-test/.github/actions/sub/reusable-action-substandard@shared
+
+      - name: ".github/reusable-action-github"
+        uses: TWiStErRob/github-actions-test/.github/reusable-action-github@shared
 #
 #      - name: ".github/shared/reusable-action-subgithub"
 #        uses: TWiStErRob/github-actions-test/.github/shared/reusable-action-subgithub@shared
