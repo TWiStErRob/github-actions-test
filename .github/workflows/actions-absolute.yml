@@ -32,10 +32,10 @@ jobs:
 #
 #      - name: ".github/workflows/actions/sub/reusable-action-sublooking"
 #        uses: TWiStErRob/github-actions-test/.github/workflows/actions/sub/reusable-action-sublooking@shared
-
-      - name: "reusable-action-folder"
-        uses: TWiStErRob/github-actions-test/reusable-action-folder@shared
 #
-#      - name: "shared/reusable-action-subfolder"
-#        uses: TWiStErRob/github-actions-test/shared/reusable-action-subfolder@shared
+#      - name: "reusable-action-folder"
+#        uses: TWiStErRob/github-actions-test/reusable-action-folder@shared
+
+      - name: "shared/reusable-action-subfolder"
+        uses: TWiStErRob/github-actions-test/shared/reusable-action-subfolder@shared
 #
