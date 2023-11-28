@@ -1,4 +1,4 @@
-name: "Reusable Action Tests"
+name: "Reusable Action Tests - Absolute"
 on:
   push:
 
@@ -10,32 +10,32 @@ jobs:
     steps:
 
       - name: ".github/actions/reusable-action-standard"
-        uses: ./.github/actions/reusable-action-standard@shared
+        uses: TWiStErRob/github-actions-test/.github/actions/reusable-action-standard@shared
 
       - name: ".github/actions/sub/reusable-action-substandard"
-        uses: ./.github/actions/sub/reusable-action-substandard@shared
+        uses: TWiStErRob/github-actions-test/.github/actions/sub/reusable-action-substandard@shared
 
       - name: ".github/reusable-action-github"
-        uses: ./.github/reusable-action-github@shared
+        uses: TWiStErRob/github-actions-test/.github/reusable-action-github@shared
 
       - name: ".github/shared/reusable-action-subgithub"
-        uses: ./.github/shared/reusable-action-subgithub@shared
+        uses: TWiStErRob/github-actions-test/.github/shared/reusable-action-subgithub@shared
 
       - name: ".github/workflows/reusable-action-workflow"
-        uses: ./.github/workflows/reusable-action-workflow@shared
+        uses: TWiStErRob/github-actions-test/.github/workflows/reusable-action-workflow@shared
 
       - name: ".github/workflows/shared/reusable-action-subworkflow"
-        uses: ./.github/workflows/shared/reusable-action-subworkflow@shared
+        uses: TWiStErRob/github-actions-test/.github/workflows/shared/reusable-action-subworkflow@shared
 
       - name: ".github/workflows/actions/reusable-action-looking"
-        uses: ./.github/workflows/actions/reusable-action-looking@shared
+        uses: TWiStErRob/github-actions-test/.github/workflows/actions/reusable-action-looking@shared
 
       - name: ".github/workflows/actions/sub/reusable-action-sublooking"
-        uses: ./.github/workflows/actions/sub/reusable-action-sublooking@shared
+        uses: TWiStErRob/github-actions-test/.github/workflows/actions/sub/reusable-action-sublooking@shared
 
       - name: "reusable-action-folder"
-        uses: ./reusable-action-folder@shared
+        uses: TWiStErRob/github-actions-test/reusable-action-folder@shared
 
       - name: "shared/reusable-action-subfolder"
-        uses: ./shared/reusable-action-subfolder@shared
+        uses: TWiStErRob/github-actions-test/shared/reusable-action-subfolder@shared
 
