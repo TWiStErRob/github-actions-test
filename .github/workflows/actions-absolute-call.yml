@@ -3,5 +3,8 @@ on:
   push:
 
 jobs:
-  call:
+  local-call:
     uses: ./.github/workflows/actions-absolute.yml
+
+  absolute-call:
+    uses: TWiStErRob/github-actions-test/.github/workflows/actions-absolute.yml@reuse
