@@ -1,0 +1,6 @@
+name: "Reusable action in standard location"
+description: 'mandatory description'
+
+runs:
+  using: node20
+  main: index.js
