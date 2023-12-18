@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: "Publish 'Integration Test Results' check run."
         if: success() || failure()
-        uses: EnricoMi/publish-unit-test-result-action@dd656270a0e3b61114602ace08af7959bcf9ed32
+        uses:  EnricoMi/publish-unit-test-result-action/composite@dd656270a0e3b61114602ace08af7959bcf9ed32
         with:
           check_name: 'Integration Test Results'
           comment_mode: off
