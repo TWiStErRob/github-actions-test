@@ -17,60 +17,65 @@ jobs:
         env:
           STEP1_OUTPUTS: ${{ toJSON(steps.step1.outputs) }}
         run: echo $STEP1_OUTPUTS
-      
-      - name: "Expecting execution"
-        if: ${{ steps.step1.outputs.out-value }} != ${{ steps.step1.outputs.out-value }} && ${{ steps.step1.outputs.out-value }} == "something-else"
-        run: echo Executed
-        
-      - name: "Expecting execution"
+
+      # YAML formatted GitHub expressions without ${{ }}
+
+      - name: "Expecting execution for simple `a == a` comparison."
         if: '''something'' == ''something'''
         run: echo Executed
 
-      - name: "Expecting skip"
+      - name: "Expecting skip for simple `a == b` comparison."
         if: '''something'' == ''something-else'''
         run: echo Executed
 
-      - name: "Expecting execution"
+      - name: "Expecting execution for simple `a == a` comparison."
         if: "'something' == 'something'"
         run: echo Executed
 
-      - name: "Expecting skip"
+      - name: "Expecting skip for simple `a == b` comparison."
         if: "'something' == 'something-else'"
         run: echo Executed
 
-      - name: "Expecting execution"
-        if: ${{ steps.step1.outputs.out-value }} == "something"
+      # YAML unformatted GitHub expression opting to not include ${{ }}
+
+      - name: "Expecting execution for variable-based `a == a` comparison."
+        if: steps.step1.outputs.out-value == 'something'
         run: echo Executed
 
-      - name: "Expecting execution (bug)"
-        # Equivalent to if: 'something == "something-else"'
-        if: ${{ steps.step1.outputs.out-value }} == "something-else"
-        run: echo Executed
-
-      - name: "Expecting execution"
-        if: ${{ steps.step1.outputs.out-value }} == 'something'
-        run: echo Executed
-
-      - name: "Expecting skip"
-        if: ${{ steps.step1.outputs.out-value }} == 'something-else'
-        run: echo Executed
-
-      - name: "Expecting skip"
-        if: ${{ steps.step1.outputs.out-value == 'something-else' }}
-        run: echo Executed
-
-      - name: "Expecting execution"
-        if: ${{ steps.step1.outputs.out-value == 'something' }}
-        run: echo Executed
-
-      #- name: "Expecting compile fail"
-      #  if: ${{ steps.step1.outputs.out-value == "something" }}
-      #  run: echo Executed
-
-      - name: "Expecting skip"
+      - name: "Expecting skip for variable-based `a == b` comparison."
         if: steps.step1.outputs.out-value == 'something-else'
         run: echo Executed
 
-      - name: "Expecting execution"
-        if: steps.step1.outputs.out-value == 'something'
+      # YAML unformatted GitHub expression opting to include ${{ }}
+
+      - name: "Expecting execution for variable-based `a == a` comparison."
+        if: ${{ steps.step1.outputs.out-value == 'something' }}
+        run: echo Executed
+
+      - name: "Expecting skip for variable-based `a == b` comparison."
+        if: ${{ steps.step1.outputs.out-value == 'something-else' }}
+        run: echo Executed
+
+      #- name: "Expecting compile fail, because only single quotes are allowed in GHA expressions."
+      #  if: ${{ steps.step1.outputs.out-value == "something" }}
+      #  run: echo Executed
+
+      # Buggy behavior if you expect what it reads!
+      # These are equivalent to if: "'something == \"something-else\"'"
+      # i.e. a `if` evaluates a string value as truthy, always! Run with debug to see it in action.
+
+      - name: "Expecting execution (false positive)."
+        if: ${{ steps.step1.outputs.out-value }} == "something"
+        run: echo Executed
+
+      - name: "Expecting skip, but executes."
+        if: ${{ steps.step1.outputs.out-value }} == "something-else"
+        run: echo Executed
+
+      - name: "Expecting execution (false positive)."
+        if: ${{ steps.step1.outputs.out-value }} == 'something'
+        run: echo Executed
+
+      - name: "Expecting skip, but executes."
+        if: ${{ steps.step1.outputs.out-value }} == 'something-else'
         run: echo Executed
