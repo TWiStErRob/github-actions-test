@@ -19,19 +19,19 @@ jobs:
         run: echo $STEP1_OUTPUTS
 
       - name: "Expecting execution"
-        if: '"something" == "something"'
+        if: '''something'' == ''something'''
         run: echo Executed
 
       - name: "Expecting skip"
-        if: '"something" == "something-else"'
+        if: '''something'' == ''something-else'''
         run: echo Executed
 
       - name: "Expecting execution"
-        if: "\"something\" == \"something\""
+        if: "'something' == 'something'"
         run: echo Executed
 
       - name: "Expecting skip"
-        if: "\"something\" == \"something-else\""
+        if: "'something' == 'something-else'"
         run: echo Executed
 
       - name: "Expecting execution"
