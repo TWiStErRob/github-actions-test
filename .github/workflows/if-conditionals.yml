@@ -1,0 +1,60 @@
+name: If Conditional Expressions
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  ifs:
+    name: Ifs
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: "Generate content"
+        id: step1
+        run: |
+          echo 'out-value=something' >> $GITHUB_OUTPUT
+
+      - name: "Outputs"
+        env:
+          STEP1_OUTPUTS: ${{ toJSON(steps.step1.outputs) }}
+        run: echo $STEP1_OUTPUTS
+
+      - name: "Read content"
+        run: |
+          echo 'out-value=${{ steps.step1.outputs.out-value }}'
+          echo 'out-value-string=${{ steps.step1.outputs.out-value-string }}'
+          echo 'out-empty=${{ steps.step1.outputs.out-empty }}'
+          echo 'out-empty-string=${{ steps.step1.outputs.out-empty-string }}'
+          echo 'out-null=${{ steps.step1.outputs.out-null }}'
+          echo 'out-missing=${{ steps.step1.outputs.out-missing }}'
+
+      - name: "Expecting execution"
+        if: ${{ steps.step1.outputs.out-value }} == "something"
+        run: echo Executed
+
+      - name: "Expecting execution"
+        if: ${{ steps.step1.outputs.out-value }} == 'something'
+        run: echo Executed
+
+      - name: "Expecting skip"
+        if: ${{ steps.step1.outputs.out-value }} == 'something-else'
+        run: echo Executed
+
+      - name: "Expecting skip"
+        if: ${{ steps.step1.outputs.out-value == 'something-else' }}
+        run: echo Executed
+
+      - name: "Expecting execution"
+        if: ${{ steps.step1.outputs.out-value == 'something' }}
+        run: echo Executed
+
+      - name: "Expecting comiple fail"
+        if: ${{ steps.step1.outputs.out-value == "something" }}
+        run: echo Executed
+
+      - name: "Expecting skip"
+        if: steps.step1.outputs.out-value == 'something-else'
+        run: echo Executed
+
+      - name: "Expecting execution"
+        if: steps.step1.outputs.out-value == 'something'
+        run: echo Executed
