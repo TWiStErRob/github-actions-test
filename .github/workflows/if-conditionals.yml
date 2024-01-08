@@ -1,13 +1,15 @@
 name: If Conditional Expressions
+
 on:
   workflow_dispatch:
-  push:
+
 jobs:
   ifs:
     name: Ifs
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
+
       - name: "Generate content"
         id: step1
         run: |
