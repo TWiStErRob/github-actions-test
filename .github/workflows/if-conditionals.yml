@@ -18,20 +18,28 @@ jobs:
           STEP1_OUTPUTS: ${{ toJSON(steps.step1.outputs) }}
         run: echo $STEP1_OUTPUTS
 
-      - name: "Read content"
-        run: |
-          echo 'out-value=${{ steps.step1.outputs.out-value }}'
-          echo 'out-value-string=${{ steps.step1.outputs.out-value-string }}'
-          echo 'out-empty=${{ steps.step1.outputs.out-empty }}'
-          echo 'out-empty-string=${{ steps.step1.outputs.out-empty-string }}'
-          echo 'out-null=${{ steps.step1.outputs.out-null }}'
-          echo 'out-missing=${{ steps.step1.outputs.out-missing }}'
+      - name: "Expecting execution"
+        if: '"something" == "something"'
+        run: echo Executed
+
+      - name: "Expecting skip"
+        if: '"something" == "something-else"'
+        run: echo Executed
+
+      - name: "Expecting execution"
+        if: "\"something\" == \"something\""
+        run: echo Executed
+
+      - name: "Expecting skip"
+        if: "\"something\" == \"something-else\""
+        run: echo Executed
 
       - name: "Expecting execution"
         if: ${{ steps.step1.outputs.out-value }} == "something"
         run: echo Executed
 
       - name: "Expecting execution (bug)"
+        # Equivalent to if: 'something == "something-else"'
         if: ${{ steps.step1.outputs.out-value }} == "something-else"
         run: echo Executed
 
