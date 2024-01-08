@@ -31,6 +31,10 @@ jobs:
         if: ${{ steps.step1.outputs.out-value }} == "something"
         run: echo Executed
 
+      - name: "Expecting execution (bug)"
+        if: ${{ steps.step1.outputs.out-value }} == "something-else"
+        run: echo Executed
+
       - name: "Expecting execution"
         if: ${{ steps.step1.outputs.out-value }} == 'something'
         run: echo Executed
@@ -47,9 +51,9 @@ jobs:
         if: ${{ steps.step1.outputs.out-value == 'something' }}
         run: echo Executed
 
-      - name: "Expecting comiple fail"
-        if: ${{ steps.step1.outputs.out-value == "something" }}
-        run: echo Executed
+      #- name: "Expecting compile fail"
+      #  if: ${{ steps.step1.outputs.out-value == "something" }}
+      #  run: echo Executed
 
       - name: "Expecting skip"
         if: steps.step1.outputs.out-value == 'something-else'
