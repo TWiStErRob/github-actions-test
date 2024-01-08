@@ -17,7 +17,11 @@ jobs:
         env:
           STEP1_OUTPUTS: ${{ toJSON(steps.step1.outputs) }}
         run: echo $STEP1_OUTPUTS
-
+      
+      - name: "Expecting execution"
+        if: ${{ steps.step1.outputs.out-value }} != ${{ steps.step1.outputs.out-value }} && ${{ steps.step1.outputs.out-value }} == "something-else"
+        run: echo Executed
+        
       - name: "Expecting execution"
         if: '''something'' == ''something'''
         run: echo Executed
