@@ -1,0 +1,14 @@
+name: 'Reusable workflow matrix'
+
+on:
+  push:
+
+jobs:
+
+  use:
+    strategy:
+      matrix:
+        workflow:
+          - variant1
+          - variant2
+    uses: ./.github/workflows/reusable-workflow-matrix-${{ matrix.workflow }}.yml
