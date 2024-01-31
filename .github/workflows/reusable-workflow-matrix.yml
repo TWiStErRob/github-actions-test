@@ -10,5 +10,4 @@ jobs:
       matrix:
         workflow:
           - variant1
-          - variant2
     uses: ./.github/workflows/reusable-workflow-matrix-${{ matrix.workflow }}.yml
