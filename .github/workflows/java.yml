@@ -7,7 +7,7 @@ jobs:
   versions-2204:
     name: Java Versions on Ubuntu 22.04
     runs-on: ubuntu-22.04
-    timeout-minutes: 1
+    timeout-minutes: 5
     steps:
       - name: Default Java
         run: |
@@ -30,7 +30,7 @@ jobs:
   versions-mac:
     name: Java Versions on MacOS
     runs-on: macos-latest
-    timeout-minutes: 1
+    timeout-minutes: 5
     steps:
       - name: Default Java
         run: |
@@ -53,7 +53,7 @@ jobs:
   versions-win:
     name: Java Versions on Windows
     runs-on: windows-latest
-    timeout-minutes: 1
+    timeout-minutes: 5
     steps:
       - name: Default Java
         run: |
@@ -77,7 +77,7 @@ jobs:
   versions-2004:
     name: Java Versions on Ubuntu 20.04
     runs-on: ubuntu-20.04
-    timeout-minutes: 1
+    timeout-minutes: 5
     steps:
       - name: Default Java
         run: |
