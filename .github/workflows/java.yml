@@ -20,7 +20,7 @@ jobs:
         run: env | grep JAVA
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-java@v3
+        uses: gradle/actions/setup-gradle@v3
 
       - name: Gradle Toolchains
         run: gradle javaToolchains
