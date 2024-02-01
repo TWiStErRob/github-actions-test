@@ -17,6 +17,12 @@ jobs:
       - name: Other Javas
         run: env | grep JAVA
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-java@v3
+
+      - name: Gradle Toolchains
+        run: gradle javaToolchains
+
   versions-mac:
     name: Java Versions on MacOS
     runs-on: macos-latest
