@@ -1,6 +1,8 @@
 name: Java
 on:
   workflow_dispatch:
+  push:
+
 jobs:
   versions-2204:
     name: Java Versions on Ubuntu 22.04
