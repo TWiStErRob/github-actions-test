@@ -1,11 +1,13 @@
 name: Java
+
 on:
   workflow_dispatch:
+
 jobs:
   versions-2204:
     name: Java Versions on Ubuntu 22.04
     runs-on: ubuntu-22.04
-    timeout-minutes: 1
+    timeout-minutes: 5
     steps:
       - name: Default Java
         run: |
@@ -16,11 +18,19 @@ jobs:
 
       - name: Other Javas
         run: env | grep JAVA
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Gradle Toolchains
+        run: |
+          touch settings.gradle
+          gradle javaToolchains
 
   versions-mac:
     name: Java Versions on MacOS
     runs-on: macos-latest
-    timeout-minutes: 1
+    timeout-minutes: 5
     steps:
       - name: Default Java
         run: |
@@ -32,10 +42,18 @@ jobs:
       - name: Other Javas
         run: env | grep JAVA
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Gradle Toolchains
+        run: |
+          touch settings.gradle
+          gradle javaToolchains
+
   versions-win:
     name: Java Versions on Windows
     runs-on: windows-latest
-    timeout-minutes: 1
+    timeout-minutes: 5
     steps:
       - name: Default Java
         run: |
@@ -48,10 +66,18 @@ jobs:
         run: |
           dir env: | Where-Object {$_.Name -like "JAVA*"}
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Gradle Toolchains
+        run: |
+          New-Item settings.gradle
+          gradle javaToolchains
+
   versions-2004:
     name: Java Versions on Ubuntu 20.04
     runs-on: ubuntu-20.04
-    timeout-minutes: 1
+    timeout-minutes: 5
     steps:
       - name: Default Java
         run: |
@@ -62,3 +88,11 @@ jobs:
 
       - name: Other Javas
         run: env | grep JAVA
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Gradle Toolchains
+        run: |
+          touch settings.gradle
+          gradle javaToolchains
