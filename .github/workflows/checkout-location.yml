@@ -2,7 +2,7 @@ name: "Checkout Location"
 
 on:
   workflow_dispatch:
-  #push:
+  push:
 
 jobs:
   checkout:
@@ -12,7 +12,9 @@ jobs:
     steps:
       - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
         uses: actions/checkout@v3
-      
+        with:
+          potatoes: 2
+
       - name: "List workspace"
         working-directory: ${{ github.workspace }}
         run: ls -la
