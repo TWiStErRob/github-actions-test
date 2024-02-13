@@ -1,0 +1,12 @@
+on: push
+jobs:
+  example:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Produce some output"
+        run: |
+          echo 'result=Warning: Quotation mark (") needs a pair.' >> "${GITHUB_OUTPUT}"
+      - name: "Consume some output"
+        env:
+          RESULT: ${{ steps.calculate.outputs.result }}
+        run: echo "${RESULT}"
