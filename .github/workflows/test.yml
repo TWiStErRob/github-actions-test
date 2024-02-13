@@ -4,9 +4,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Produce some output"
+        id: producer
         run: |
           echo 'result=Warning: Quotation mark (") needs a pair.' >> "${GITHUB_OUTPUT}"
-      - name: "Consume some output"
+      
+      - name: "Consume some output via env"
         env:
-          RESULT: ${{ steps.calculate.outputs.result }}
+          RESULT: ${{ steps.producer.outputs.result }}
         run: echo "${RESULT}"
+
+      - name: "Consume some output directly"
+        run: echo "${{ steps.producer.outputs.result }}"
