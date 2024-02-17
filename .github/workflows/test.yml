@@ -3,10 +3,9 @@ jobs:
   example:
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: read
-      contents: read
+
     steps:
       - uses: actions/checkout@v4
       - run: gh pr view
         env:
-          GH_TOKEN: ${'$'}{{ github.token }}
+          GH_TOKEN: ${{ github.token }}
