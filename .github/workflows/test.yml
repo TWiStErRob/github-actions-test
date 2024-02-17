@@ -4,7 +4,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: read
-      content: read
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - run: gh pr view
