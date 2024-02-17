@@ -2,6 +2,8 @@ on: push
 jobs:
   example:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
     steps:
       - uses: actions/checkout@v4
       - run: gh pr view
