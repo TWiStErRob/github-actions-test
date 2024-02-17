@@ -4,3 +4,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: gh pr view
+        env:
+          GH_TOKEN: ${'$'}{{ github.token }}
