@@ -1,6 +1,6 @@
-on: push
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "HEllo"
+name: "test"
+description: "Can there be an action here?"
+runs:
+  using: composite
+  steps:
+    - run: echo "HEllo"
