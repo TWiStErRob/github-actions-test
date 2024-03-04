@@ -3,13 +3,16 @@ description: "test"
 inputs:
   some:
     required: false
-    default: "Hello"
+    default: ""
     description: "Some"
 runs:
   using: composite
   steps:
     - name: "Debug"
       env:
+        INPUTS: ${{ toJSON(inputs) }}
         SOME: ${{ inputs.some }}
       shell: bash
-      run: echo "${SOME}"
+      run: |
+        echo "${INPUTS}"
+        echo "x${SOME}x"
