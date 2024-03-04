@@ -65,14 +65,22 @@ runs:
       if: ${{ fromJSON('[]') == fromJSON('{}') }}
       shell: bash
     - run: echo "JSON empty is empty"
-      if: ${{ fromJSON('{"a": ""}').a == '' }}
+      env:
+        JSON: '{"a": ""}'
+      if: ${{ fromJSON(env.JSON).a == '' }}
       shell: bash
     - run: echo "JSON empty is null"
-      if: ${{ fromJSON('{"a": ""}').a == null }}
+      env:
+        JSON: '{"a": ""}'
+      if: ${{ fromJSON(env.JSON).a == null }}
       shell: bash
     - run: echo "JSON null is empty"
-      if: ${{ fromJSON('{"a": null}').a == '' }}
+      env:
+        JSON: '{"a": null}'
+      if: ${{ fromJSON(env.JSON).a == '' }}
       shell: bash
     - run: echo "JSON null is null?"
-      if: ${{ fromJSON('{"a": null}').a == null }}
+      env:
+        JSON: '{"a": null}'
+      if: ${{ fromJSON(env.JSON).a == null }}
       shell: bash
