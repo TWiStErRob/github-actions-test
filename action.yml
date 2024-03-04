@@ -4,9 +4,10 @@ inputs:
   some:
     required: false
     description: "Some"
-using: composite
-steps:
-  - name: "Debug"
-    env:
-      SOME: ${{ inputs.some }}
-    run: echo "${SOME}"
+runs:
+  using: composite
+  steps:
+    - name: "Debug"
+      env:
+        SOME: ${{ inputs.some }}
+      run: echo "${SOME}"
