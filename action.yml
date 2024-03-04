@@ -54,3 +54,16 @@ runs:
     - run: echo "null is not empty"
       if: ${{ null != '' }}
       shell: bash
+
+    - run: echo "0 is empty string"
+      if: ${{ 0 == '' }}
+      shell: bash
+    - run: echo "0 is null"
+      if: ${{ 0 == null }}
+      shell: bash
+    - run: echo "array is object"
+      if: ${{ fromJSON('[]') == fromJSON('{}') }}
+      shell: bash
+    - run: echo "array is object"
+      if: ${{ fromJSON('[]') == fromJSON('{}') }}
+      shell: bash
