@@ -3,7 +3,7 @@ description: "test"
 inputs:
   some:
     required: false
-    default: ""
+    default: ''
     description: "Some"
 runs:
   using: composite
@@ -16,3 +16,12 @@ runs:
       run: |
         echo "${INPUTS}"
         echo "x${SOME}x"
+
+    - run: echo "empty"
+      if: ${{ inputs.some == '' }}
+    - run: echo "not empty"
+      if: ${{ inputs.some != '' }}
+    - run: echo "null"
+      if: ${{ inputs.some == null }}
+    - run: echo "not null"
+      if: ${{ inputs.some != null }}
