@@ -29,3 +29,28 @@ runs:
     - run: echo "not null"
       if: ${{ inputs.some != null }}
       shell: bash
+
+    - run: echo "null is null"
+      if: ${{ null == null }}
+      shell: bash
+    - run: echo "null is not null"
+      if: ${{ null != null }}
+      shell: bash
+    - run: echo "empty is not empty"
+      if: ${{ '' != '' }}
+      shell: bash
+    - run: echo "empty is empty"
+      if: ${{ '' == '' }}
+      shell: bash
+    - run: echo "empty is null"
+      if: ${{ '' == null }}
+      shell: bash
+    - run: echo "empty is not null"
+      if: ${{ '' != null }}
+      shell: bash
+    - run: echo "null is empty"
+      if: ${{ null == '' }}
+      shell: bash
+    - run: echo "null is not empty"
+      if: ${{ null != '' }}
+      shell: bash
