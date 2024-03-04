@@ -3,6 +3,7 @@ description: "test"
 inputs:
   some:
     required: false
+    default: "Hello"
     description: "Some"
 runs:
   using: composite
