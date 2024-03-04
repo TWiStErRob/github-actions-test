@@ -19,9 +19,13 @@ runs:
 
     - run: echo "empty"
       if: ${{ inputs.some == '' }}
+      shell: bash
     - run: echo "not empty"
       if: ${{ inputs.some != '' }}
+      shell: bash
     - run: echo "null"
       if: ${{ inputs.some == null }}
+      shell: bash
     - run: echo "not null"
       if: ${{ inputs.some != null }}
+      shell: bash
