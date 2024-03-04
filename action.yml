@@ -64,15 +64,15 @@ runs:
     - run: echo "array is object"
       if: ${{ fromJSON('[]') == fromJSON('{}') }}
       shell: bash
-    - run: echo "JSON null is null?"
-      if: ${{ fromJSON('{"a": null}').a == null }}
-      shell: bash
-    - run: echo "JSON null is empty"
-      if: ${{ fromJSON('{"a": null}').a == '' }}
-      shell: bash
     - run: echo "JSON empty is empty"
       if: ${{ fromJSON('{"a": ""}').a == '' }}
       shell: bash
     - run: echo "JSON empty is null"
       if: ${{ fromJSON('{"a": ""}').a == null }}
+      shell: bash
+    - run: echo "JSON null is empty"
+      if: ${{ fromJSON('{"a": null}').a == '' }}
+      shell: bash
+    - run: echo "JSON null is null?"
+      if: ${{ fromJSON('{"a": null}').a == null }}
       shell: bash
