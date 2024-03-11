@@ -8,7 +8,7 @@ inputs:
   token2:
     description: 'Number of Octocats'
     required: false
-    default: ${{ secrets.GITHUB_TOKEN }}
+    default: secrets.GITHUB_TOKEN
   token3:
     description: 'Number of Octocats'
     required: false
@@ -22,5 +22,5 @@ runs:
       shell: bash
     - run: echo "t1=${{inputs.token1}}, t2=${{inputs.token2}}, t3=${{inputs.token3}}"
       shell: bash
-    - run: echo "s ${{secrets.GITHUB_TOKEN}}"
+    - run: echo "s secrets.GITHUB_TOKEN"
       shell: bash
