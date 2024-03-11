@@ -1,11 +1,21 @@
 on: push
+env:
+  SECRET1: ${{ github.token }}
+  SECRET2: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   example:
     runs-on: ubuntu-latest
     permissions: {}
-
+    env:
+      SECRET3: ${{ github.token }}
+      SECRET4: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - run: gh pr view
         env:
           GH_TOKEN: ${{ github.token }}
+      - run: env
+        env:
+          SECRET5: ${{ github.token }}
+          SECRET6: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ./.github/workflows
