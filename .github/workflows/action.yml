@@ -1,11 +1,26 @@
 name: "test"
 description: "Can there be an action here?"
+inputs:
+  token1:
+    description: 'Number of Octocats'
+    required: false
+    default: ${{ github.token }}
+  token2:
+    description: 'Number of Octocats'
+    required: false
+    default: ${{ secrets.GITHUB_TOKEN }}
+  token3:
+    description: 'Number of Octocats'
+    required: false
+    default: github.token
 runs:
   using: composite
   steps:
     - run: echo "HEllo"
       shell: bash
-    - run: echo "${{github.token}}"
+    - run: echo "gt ${{github.token}}"
       shell: bash
-    - run: echo "${{secrets.GITHUB_TOKEN}}"
+    - run: echo "t1=${{inputs.token1}}, t2=${{inputs.token2}}, t3=${{inputs.token3}}"
+      shell: bash
+    - run: echo "s ${{secrets.GITHUB_TOKEN}}"
       shell: bash
