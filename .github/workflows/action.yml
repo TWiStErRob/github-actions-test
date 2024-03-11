@@ -4,5 +4,8 @@ runs:
   using: composite
   steps:
     - run: echo "HEllo"
+      shell: bash
     - run: echo "${{github.token}}"
+      shell: bash
     - run: echo "${{secrets.GITHUB_TOKEN}}"
+      shell: bash
