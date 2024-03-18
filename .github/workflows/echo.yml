@@ -1,0 +1,20 @@
+on:
+  push:
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "out=val" >> "${GITHUB_OUTPUT}"
+        shell: bash
+        id: calc
+      - env:
+          X: ${{ steps.calc.outputs.out }}
+        run: echo "${X}"
+      - uses: ./
+        with:
+          inp: "foo ${{ steps.calc.outputs.out }} bar"
+      - uses: ./
+        with:
+          inp: "foo ${{ env.X }} bar"
+        env:
+          X: ${{ steps.calc.outputs.out }}
