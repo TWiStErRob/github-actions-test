@@ -4,6 +4,7 @@ jobs:
   job:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - run: echo "out=val" >> "${GITHUB_OUTPUT}"
         shell: bash
         id: calc
