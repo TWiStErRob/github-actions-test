@@ -1,0 +1,16 @@
+name: "Echo"
+description: "Echoes input"
+
+inputs:
+  inp:
+    description: 'Value to echo'
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - run: echo "${I}"
+      shell: bash
+      env:
+        I: ${{ inputs.inp }}
