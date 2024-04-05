@@ -22,4 +22,5 @@ jobs:
         with:
           echo: "VAR_FOR_INPUT=${{ env.VAR_FOR_INPUT }}"
         env:
+          VAR_FOR_INPUT: value
           HIDDEN_ECHO: hidden-value
