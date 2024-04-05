@@ -16,3 +16,9 @@ runs:
       run: echo "${COMPOSITE_VAR}"
       env:
         COMPOSITE_VAR: ${{ inputs.echo }}
+
+    - name: "Composite step that outputs the hidden input."
+      shell: bash
+      run: echo "${COMPOSITE_VAR}"
+      env:
+        COMPOSITE_VAR: ${{ env.HIDDEN_ECHO }}
