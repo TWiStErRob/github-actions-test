@@ -1,0 +1,24 @@
+name: "Echo"
+description: "Echoes input"
+
+inputs:
+  echo:
+    description: 'Value to echo'
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+
+    - name: "Composite step that outputs the input."
+      shell: bash
+      run: echo "inputs.echo=${COMPOSITE_VAR}"
+      env:
+        COMPOSITE_VAR: ${{ inputs.echo }}
+
+    - name: "Composite step that outputs the hidden input."
+      shell: bash
+      run: echo "HIDDEN_ECHO=${COMPOSITE_VAR}"
+      env:
+        COMPOSITE_VAR: ${{ env.HIDDEN_ECHO }}

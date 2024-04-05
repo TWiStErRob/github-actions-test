@@ -1,0 +1,26 @@
+name: "Inputs"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
+        uses: actions/checkout@v4
+
+      - name: "Environment variable for shell usage."
+        shell: bash
+        run: echo "VAR_FOR_SHELL=${VAR_FOR_SHELL}"
+        env:
+          VAR_FOR_SHELL: value
+
+      - name: "Environment variable for input usage."
+        uses: ./actions/composite-echo
+        with:
+          echo: "VAR_FOR_INPUT=${{ env.VAR_FOR_INPUT }}"
+        env:
+          VAR_FOR_INPUT: value
+          HIDDEN_ECHO: hidden-value
