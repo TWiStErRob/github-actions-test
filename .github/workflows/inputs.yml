@@ -1,0 +1,21 @@
+name: "Inputs"
+
+on:
+  push:
+
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "Environment variable for shell usage."
+        env:
+          VAR_FOR_SHELL: value
+        run: echo "VAR_FOR_SHELL=${VAR_FOR_SHELL}"
+
+      - name: "Environment variable for input usage."
+        uses: ./
+        with:
+          inp: "VAR_FOR_INPUT=${{ env.VAR_FOR_INPUT }}"
+        env:
+          VAR_FOR_INPUT: value
