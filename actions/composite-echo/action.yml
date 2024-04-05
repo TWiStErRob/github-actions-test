@@ -2,7 +2,7 @@ name: "Echo"
 description: "Echoes input"
 
 inputs:
-  inp:
+  echo:
     description: 'Value to echo'
     required: false
     default: ''
@@ -10,7 +10,9 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: echo "${I}"
+
+    - name: "Composite step that outputs the input."
       shell: bash
+      run: echo "${COMPOSITE_VAR}"
       env:
-        I: ${{ inputs.inp }}
+        COMPOSITE_VAR: ${{ inputs.echo }}
