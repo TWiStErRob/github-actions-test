@@ -13,12 +13,12 @@ runs:
 
     - name: "Composite step that outputs the input."
       shell: bash
-      run: echo "${COMPOSITE_VAR}"
+      run: echo "inputs.echo=${COMPOSITE_VAR}"
       env:
         COMPOSITE_VAR: ${{ inputs.echo }}
 
     - name: "Composite step that outputs the hidden input."
       shell: bash
-      run: echo "${COMPOSITE_VAR}"
+      run: echo "HIDDEN_ECHO=${COMPOSITE_VAR}"
       env:
         COMPOSITE_VAR: ${{ env.HIDDEN_ECHO }}
