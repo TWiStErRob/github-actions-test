@@ -14,7 +14,7 @@ jobs:
         run: echo "VAR_FOR_SHELL=${VAR_FOR_SHELL}"
 
       - name: "Environment variable for input usage."
-        uses: ./
+        uses: ./actions/composite-echo
         with:
           inp: "VAR_FOR_INPUT=${{ env.VAR_FOR_INPUT }}"
         env:
