@@ -9,7 +9,7 @@ jobs:
       - run: 'false'
 
   job2:
-    if: always()
+    if: success()
     needs:
       - job1
     runs-on: ubuntu-latest
