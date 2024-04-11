@@ -1,0 +1,20 @@
+on:
+  push:
+
+jobs:
+  job1:
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'false'
+
+  job2:
+    if: always()
+    needs:
+      - job1
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          echo "${NEEDS}"
