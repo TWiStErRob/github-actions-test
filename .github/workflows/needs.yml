@@ -9,7 +9,7 @@ jobs:
       - run: 'false'
 
   job2:
-    if: failure()
+    if: cancelled()
     needs:
       - job1
     runs-on: ubuntu-latest
