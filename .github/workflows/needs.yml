@@ -1,0 +1,53 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  skipped-job:
+    if: ${{ false }} # skip this job
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'false'
+
+  if-cancelled:
+    if: ${{ cancelled() }}
+    needs:
+      - skipped-job
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          echo "${NEEDS}"
+
+  if-success:
+    if: ${{ success() }}
+    needs:
+      - skipped-job
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          echo "${NEEDS}"
+
+  if-failure:
+    if: ${{ failure() }}
+    needs:
+      - skipped-job
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          echo "${NEEDS}"
+
+  if-always:
+    if: ${{ always() }}
+    needs:
+      - skipped-job
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          echo "${NEEDS}"
