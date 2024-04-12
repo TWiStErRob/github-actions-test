@@ -9,7 +9,6 @@ jobs:
       - run: 'false'
 
   if-cancelled:
-    name: "If cancelled()"
     if: ${{ cancelled() }}
     needs:
       - skipped-job
@@ -21,7 +20,6 @@ jobs:
           echo "${NEEDS}"
 
   if-success:
-    name: "If success()"
     if: ${{ success() }}
     needs:
       - skipped-job
@@ -33,7 +31,6 @@ jobs:
           echo "${NEEDS}"
 
   if-failure:
-    name: "If failure()"
     if: ${{ failure() }}
     needs:
       - skipped-job
@@ -45,7 +42,6 @@ jobs:
           echo "${NEEDS}"
 
   if-always:
-    name: "If always()"
     if: ${{ always() }}
     needs:
       - skipped-job
