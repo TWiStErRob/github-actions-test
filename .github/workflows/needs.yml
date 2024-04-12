@@ -2,16 +2,53 @@ on:
   push:
 
 jobs:
-  job1:
-    if: false
+  skipped-job:
+    if: ${{ false }} # skip this job
     runs-on: ubuntu-latest
     steps:
       - run: 'false'
 
-  job2:
-    if: cancelled()
+  if-cancelled:
+    name: "If cancelled()"
+    if: ${{ cancelled() }}
     needs:
-      - job1
+      - skipped-job
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          echo "${NEEDS}"
+
+  if-success:
+    name: "If success()"
+    if: ${{ success() }}
+    needs:
+      - skipped-job
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          echo "${NEEDS}"
+
+  if-failure:
+    name: "If failure()"
+    if: ${{ failure() }}
+    needs:
+      - skipped-job
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          echo "${NEEDS}"
+
+  if-always:
+    name: "If always()"
+    if: ${{ always() }}
+    needs:
+      - skipped-job
     runs-on: ubuntu-latest
     steps:
       - env:
