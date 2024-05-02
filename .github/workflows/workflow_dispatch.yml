@@ -1,0 +1,6 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  call:
+    uses: ./.github/workflows/workflow_dispatch_call.yml

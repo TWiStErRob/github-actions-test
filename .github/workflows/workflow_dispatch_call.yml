@@ -1,0 +1,11 @@
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${GITHUB}"
+        env:
+          GITHUB: ${{ toJSON(github) }}
