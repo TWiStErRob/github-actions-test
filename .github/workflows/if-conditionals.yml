@@ -169,6 +169,34 @@ jobs:
           }}
         run: echo Executed
 
+      - name: "Expecting execution (false positive)."
+        if: ${{
+              steps.step1.outputs.out-value == 'something'
+            }}
+        run: echo Executed
+
+      - name: "Expecting skip, but executes."
+        if: ${{
+              steps.step1.outputs.out-value == 'something-else'
+            }}
+        run: echo Executed
+
+      - name: "Expecting execution (false positive)."
+        if: ${{
+              steps.step1.outputs.out-value
+              ==
+              'something'
+            }}
+        run: echo Executed
+
+      - name: "Expecting skip, but executes."
+        if: ${{
+              steps.step1.outputs.out-value
+              ==
+              'something-else'
+            }}
+        run: echo Executed
+
       - name: "YAML block scalars (working cases)"
         # The only difference is the minus sign, that removes the new line(s) and evaluates the boolean correctly.
         run: 'true'
