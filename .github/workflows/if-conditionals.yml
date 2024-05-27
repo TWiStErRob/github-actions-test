@@ -87,6 +87,27 @@ jobs:
         if: ${{ steps.step1.outputs.out-value }} == 'something-else'
         run: echo Executed
 
+      - name: "Leading and trailing spaces"
+        # These are equivalent to if: "'something == \"something-else\"'"
+        # i.e. a `if` evaluates a string value as truthy, always! Run with debug to see it in action.
+        run: 'true'
+
+      - name: "Expecting execution, no curly, leading and trailing spaces"
+        if:   steps.step1.outputs.out-value == 'something'   
+        run: echo Executed
+
+      - name: "Expecting execution, curly, leading and trailing spaces"
+        if:   ${{ steps.step1.outputs.out-value == 'something' }}   
+        run: echo Executed
+
+      - name: "Expecting skip, no curly, leading and trailing spaces"
+        if:   steps.step1.outputs.out-value == 'something-else'   
+        run: echo Executed
+
+      - name: "Expecting skip, curly, leading and trailing spaces"
+        if:    ${{ steps.step1.outputs.out-value == 'something-else' }}   
+        run: echo Executed
+
       - name: "YAML block scalars: buggy behavior if you expect what it reads!"
         # These are equivalent to if: "true\n" or if: "false\n"
         # i.e. a `if` evaluates a string value as truthy, always! Run with debug to see it in action.
