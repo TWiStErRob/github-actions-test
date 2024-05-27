@@ -214,48 +214,48 @@ jobs:
         # i.e. a `if` evaluates a string value as truthy, always! Run with debug to see it in action.
         run: 'true'
 
-      - name: "Expecting execution (false positive)."
+      - name: "Expecting execution, because it's true."
         if: >
           steps.step1.outputs.out-value == 'something'
         run: echo Executed
 
-      - name: "Expecting skip, but executes."
+      - name: "Expecting skip, because it's false."
         if: >
           steps.step1.outputs.out-value == 'something-else'
         run: echo Executed
 
-      - name: "Expecting execution (false positive)."
+      - name: "Expecting execution, because it's true."
         if: >
           steps.step1.outputs.out-value
           ==
           'something'
         run: echo Executed
 
-      - name: "Expecting skip, but executes."
+      - name: "Expecting skip, because it's false."
         if: >
           steps.step1.outputs.out-value
           ==
           'something-else'
         run: echo Executed
 
-      - name: "Expecting execution (false positive)."
+      - name: "Expecting execution, because it's true."
         if: |
           steps.step1.outputs.out-value == 'something'
         run: echo Executed
 
-      - name: "Expecting skip, but executes."
+      - name: "Expecting skip, because it's false."
         if: |
           steps.step1.outputs.out-value == 'something-else'
         run: echo Executed
 
-      - name: "Expecting execution (false positive)."
+      - name: "Expecting execution, because it's true."
         if: |
           steps.step1.outputs.out-value
           ==
           'something'
         run: echo Executed
 
-      - name: "Expecting skip, but executes."
+      - name: "Expecting skip, because it's false."
         if: |
           steps.step1.outputs.out-value
           ==
