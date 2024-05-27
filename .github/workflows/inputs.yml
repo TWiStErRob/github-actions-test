@@ -28,11 +28,11 @@ jobs:
 
       - name: "Input for environment variables."
         env:
-          EXTERNAL_ENV: value
+          GHA_TEST_EXTERNAL_ENV: value
         uses: ./actions/input-as-env
         with:
           envs: |
             {
-              "SPECIAL_ENV": "special",
-              "OTHER_SPECIAL": "other"
+              "GHA_TEST_SPECIAL_ENV": "special",
+              "GHA_TEST_OTHER_SPECIAL": "other"
             }
