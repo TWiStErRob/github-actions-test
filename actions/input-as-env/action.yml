@@ -1,0 +1,29 @@
+name: "Input as env"
+description: "Uses input JSON as environment for execution."
+
+inputs:
+  envs:
+    description: 'JSON-encoded object which contains environment variables.'
+    required: true
+
+runs:
+  using: composite
+  steps:
+
+    - name: "Output env"
+      shell: bash
+      run: env | grep GHA_TEST_ | sort
+
+    - name: "Output env"
+      env:
+        GHA_TEST_INTERNAL_STR: 'value'
+        GHA_TEST_INTERNAL_BOOL: false
+        GHA_TEST_INTERNAL_NUM: 3.1415
+        GHA_TEST_INTERNAL_EXPR: ${{ format('foo {0} bar', github.sha) }}
+      shell: bash
+      run: env | grep GHA_TEST_ | sort
+
+    - name: "Output env with inputs"
+      env: ${{ fromJSON(inputs.envs) }}
+      shell: bash
+      run: env | grep GHA_TEST_ | sort
