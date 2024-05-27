@@ -12,14 +12,14 @@ runs:
 
     - name: "Output env"
       shell: bash
-      run: env
+      run: env | grep GHA_TEST_
 
     - name: "Output env with inputs"
       shell: bash
-      run: env
+      run: env | grep GHA_TEST_
       env: ${{ fromJSON(inputs.envs) }}
 
     - name: "Output env with inputs (badly?)"
       shell: bash
-      run: env
+      run: env | grep GHA_TEST_
       env: ${{ inputs.envs }}
