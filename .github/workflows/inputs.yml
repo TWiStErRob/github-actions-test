@@ -2,6 +2,7 @@ name: "Inputs"
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   job:
@@ -24,3 +25,14 @@ jobs:
         env:
           VAR_FOR_INPUT: value
           HIDDEN_ECHO: hidden-value
+
+      - name: "Input for environment variables."
+        env:
+          EXTERNAL_ENV: value
+        uses: ./actions/input-as-env
+        with:
+          envs: |
+            {
+              "SPECIAL_ENV": "special",
+              "OTHER_SPECIAL": "other"
+            }
