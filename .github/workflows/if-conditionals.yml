@@ -24,45 +24,45 @@ jobs:
       - name: "YAML formatted GitHub expressions without ${{ '${{ }}' }}"
         run: 'true'
 
-      - name: "Expecting execution for simple `a == a` comparison."
+      - name: ": ' Expecting execution for simple `a == a` comparison."
         if: '''something'' == ''something'''
         run: echo Executed
 
-      - name: "Expecting skip for simple `a == b` comparison."
+      - name: ": ' Expecting skip for simple `a == b` comparison."
         if: '''something'' == ''something-else'''
         run: echo Executed
 
-      - name: "Expecting execution for simple `a == a` comparison."
+      - name: ": \" Expecting execution for simple `a == a` comparison."
         if: "'something' == 'something'"
         run: echo Executed
 
-      - name: "Expecting skip for simple `a == b` comparison."
+      - name: ": \" Expecting skip for simple `a == b` comparison."
         if: "'something' == 'something-else'"
         run: echo Executed
 
       - name: "YAML unformatted GitHub expression opting to not include ${{ '${{ }}' }}"
         run: 'true'
 
-      - name: "Expecting execution for variable-based `a == a` comparison."
+      - name: ": Expecting execution for variable-based `a == a` comparison."
         if: steps.step1.outputs.out-value == 'something'
         run: echo Executed
 
-      - name: "Expecting skip for variable-based `a == b` comparison."
+      - name: ": Expecting skip for variable-based `a == b` comparison."
         if: steps.step1.outputs.out-value == 'something-else'
         run: echo Executed
 
       - name: "YAML unformatted GitHub expression opting to include ${{ '${{ }}' }}"
         run: 'true'
 
-      - name: "Expecting execution for variable-based `a == a` comparison."
+      - name: ": ${ Expecting execution for variable-based `a == a` comparison."
         if: ${{ steps.step1.outputs.out-value == 'something' }}
         run: echo Executed
 
-      - name: "Expecting skip for variable-based `a == b` comparison."
+      - name: ": ${ Expecting skip for variable-based `a == b` comparison."
         if: ${{ steps.step1.outputs.out-value == 'something-else' }}
         run: echo Executed
 
-      #- name: "Expecting compile fail, because only single quotes are allowed in GHA expressions."
+      #- name: ": ${ Expecting compile fail, because only single quotes are allowed in GHA expressions."
       #  if: ${{ steps.step1.outputs.out-value == "something" }}
       #  run: echo Executed
 
@@ -71,19 +71,19 @@ jobs:
         # i.e. a `if` evaluates a string value as truthy, always! Run with debug to see it in action.
         run: 'true'
 
-      - name: "Expecting execution (false positive)."
+      - name: ": ${ Expecting execution (false positive)."
         if: ${{ steps.step1.outputs.out-value }} == "something"
         run: echo Executed
 
-      - name: "Expecting skip, but executes."
+      - name: ": ${ Expecting skip, but executes."
         if: ${{ steps.step1.outputs.out-value }} == "something-else"
         run: echo Executed
 
-      - name: "Expecting execution (false positive)."
+      - name: ": ${ Expecting execution (false positive)."
         if: ${{ steps.step1.outputs.out-value }} == 'something'
         run: echo Executed
 
-      - name: "Expecting skip, but executes."
+      - name: ": ${ Expecting skip, but executes."
         if: ${{ steps.step1.outputs.out-value }} == 'something-else'
         run: echo Executed
 
@@ -92,19 +92,19 @@ jobs:
         # i.e. a `if` evaluates a string value as truthy, always! Run with debug to see it in action.
         run: 'true'
 
-      - name: "Expecting execution, no curly, leading and trailing spaces"
+      - name: ":     Expecting execution, no curly, leading and trailing spaces"
         if:   steps.step1.outputs.out-value == 'something'   
         run: echo Executed
 
-      - name: "Expecting execution, curly, leading and trailing spaces"
+      - name: ":    ${ Expecting execution, curly, leading and trailing spaces"
         if:   ${{ steps.step1.outputs.out-value == 'something' }}   
         run: echo Executed
 
-      - name: "Expecting skip, no curly, leading and trailing spaces"
+      - name: ":     Expecting skip, no curly, leading and trailing spaces"
         if:   steps.step1.outputs.out-value == 'something-else'   
         run: echo Executed
 
-      - name: "Expecting skip, curly, leading and trailing spaces"
+      - name: ":    ${ Expecting skip, curly, leading and trailing spaces"
         if:    ${{ steps.step1.outputs.out-value == 'something-else' }}   
         run: echo Executed
 
@@ -113,17 +113,17 @@ jobs:
         # i.e. a `if` evaluates a string value as truthy, always! Run with debug to see it in action.
         run: 'true'
 
-      - name: "Expecting execution (false positive)."
+      - name: ": > ${ Expecting execution (false positive)."
         if: >
           ${{ steps.step1.outputs.out-value == 'something' }}
         run: echo Executed
 
-      - name: "Expecting skip, but executes."
+      - name: ": > ${ Expecting skip, but executes."
         if: >
           ${{ steps.step1.outputs.out-value == 'something-else' }}
         run: echo Executed
 
-      - name: "Expecting execution (false positive)."
+      - name: ": > ${ Expecting execution (false positive)."
         if: >
           ${{
             steps.step1.outputs.out-value
@@ -132,7 +132,7 @@ jobs:
           }}
         run: echo Executed
 
-      - name: "Expecting skip, but executes."
+      - name: ": > ${ Expecting skip, but executes."
         if: >
           ${{
             steps.step1.outputs.out-value
@@ -141,17 +141,17 @@ jobs:
           }}
         run: echo Executed
 
-      - name: "Expecting execution (false positive)."
+      - name: ": | ${ Expecting execution (false positive)."
         if: |
           ${{ steps.step1.outputs.out-value == 'something' }}
         run: echo Executed
 
-      - name: "Expecting skip, but executes."
+      - name: ": | ${ Expecting skip, but executes."
         if: |
           ${{ steps.step1.outputs.out-value == 'something-else' }}
         run: echo Executed
 
-      - name: "Expecting execution (false positive)."
+      - name: ": | ${ Expecting execution (false positive)."
         if: |
           ${{
             steps.step1.outputs.out-value
@@ -160,7 +160,7 @@ jobs:
           }}
         run: echo Executed
 
-      - name: "Expecting skip, but executes."
+      - name: ": | ${ Expecting skip, but executes."
         if: |
           ${{
             steps.step1.outputs.out-value
@@ -169,19 +169,23 @@ jobs:
           }}
         run: echo Executed
 
-      - name: "Expecting execution (false positive)."
+      - name: "YAML block scalars (working cases)"
+        # The only difference is the minus sign, that removes the new line(s) and evaluates the boolean correctly.
+        run: 'true'
+
+      - name: ": ${ Expecting execution, because it's true."
         if: ${{
               steps.step1.outputs.out-value == 'something'
             }}
         run: echo Executed
 
-      - name: "Expecting skip, but executes."
+      - name: ": ${ Expecting skip, because it's false."
         if: ${{
               steps.step1.outputs.out-value == 'something-else'
             }}
         run: echo Executed
 
-      - name: "Expecting execution (false positive)."
+      - name: ": ${ Expecting execution, because it's true."
         if: ${{
               steps.step1.outputs.out-value
               ==
@@ -189,7 +193,7 @@ jobs:
             }}
         run: echo Executed
 
-      - name: "Expecting skip, but executes."
+      - name: ": ${ Expecting skip, because it's false."
         if: ${{
               steps.step1.outputs.out-value
               ==
@@ -197,21 +201,17 @@ jobs:
             }}
         run: echo Executed
 
-      - name: "YAML block scalars (working cases)"
-        # The only difference is the minus sign, that removes the new line(s) and evaluates the boolean correctly.
-        run: 'true'
-
-      - name: "Expecting execution, because it's true."
+      - name: ": >- ${ Expecting execution, because it's true."
         if: >-
           ${{ steps.step1.outputs.out-value == 'something' }}
         run: echo Executed
 
-      - name: "Expecting skip, because it's false."
+      - name: ": >- ${ Expecting skip, because it's false."
         if: >-
           ${{ steps.step1.outputs.out-value == 'something-else' }}
         run: echo Executed
 
-      - name: "Expecting execution, because it's true."
+      - name: ": >- ${ Expecting execution, because it's true."
         if: >-
           ${{
             steps.step1.outputs.out-value
@@ -220,7 +220,7 @@ jobs:
           }}
         run: echo Executed
 
-      - name: "Expecting skip, because it's false."
+      - name: ": >- ${ Expecting skip, because it's false."
         if: >-
           ${{
             steps.step1.outputs.out-value
@@ -229,17 +229,17 @@ jobs:
           }}
         run: echo Executed
 
-      - name: "Expecting execution, because it's true."
+      - name: ": |- ${ Expecting execution, because it's true."
         if: |-
           ${{ steps.step1.outputs.out-value == 'something' }}
         run: echo Executed
 
-      - name: "Expecting skip, because it's false."
+      - name: ": |- ${ Expecting skip, because it's false."
         if: |-
           ${{ steps.step1.outputs.out-value == 'something-else' }}
         run: echo Executed
 
-      - name: "Expecting execution, because it's true."
+      - name: ": |- ${ Expecting execution, because it's true."
         if: |-
           ${{
             steps.step1.outputs.out-value
@@ -248,7 +248,7 @@ jobs:
           }}
         run: echo Executed
 
-      - name: "Expecting skip, because it's false."
+      - name: "|- ${ Expecting skip, because it's false."
         if: |-
           ${{
             steps.step1.outputs.out-value
@@ -263,48 +263,48 @@ jobs:
         # i.e. a `if` evaluates a string value as truthy, always! Run with debug to see it in action.
         run: 'true'
 
-      - name: "Expecting execution, because it's true."
+      - name: ": > Expecting execution, because it's true."
         if: >
           steps.step1.outputs.out-value == 'something'
         run: echo Executed
 
-      - name: "Expecting skip, because it's false."
+      - name: ": > Expecting skip, because it's false."
         if: >
           steps.step1.outputs.out-value == 'something-else'
         run: echo Executed
 
-      - name: "Expecting execution, because it's true."
+      - name: ": > Expecting execution, because it's true."
         if: >
           steps.step1.outputs.out-value
           ==
           'something'
         run: echo Executed
 
-      - name: "Expecting skip, because it's false."
+      - name: ": > Expecting skip, because it's false."
         if: >
           steps.step1.outputs.out-value
           ==
           'something-else'
         run: echo Executed
 
-      - name: "Expecting execution, because it's true."
+      - name: ": | Expecting execution, because it's true."
         if: |
           steps.step1.outputs.out-value == 'something'
         run: echo Executed
 
-      - name: "Expecting skip, because it's false."
+      - name: ": | Expecting skip, because it's false."
         if: |
           steps.step1.outputs.out-value == 'something-else'
         run: echo Executed
 
-      - name: "Expecting execution, because it's true."
+      - name: ": | Expecting execution, because it's true."
         if: |
           steps.step1.outputs.out-value
           ==
           'something'
         run: echo Executed
 
-      - name: "Expecting skip, because it's false."
+      - name: ": | Expecting skip, because it's false."
         if: |
           steps.step1.outputs.out-value
           ==
@@ -315,48 +315,48 @@ jobs:
         # The only difference is the minus sign, that removes the new line(s) and evaluates the boolean correctly.
         run: 'true'
 
-      - name: "Expecting execution, because it's true."
+      - name: ": >- Expecting execution, because it's true."
         if: >-
           steps.step1.outputs.out-value == 'something'
         run: echo Executed
 
-      - name: "Expecting skip, because it's false."
+      - name: ": >- Expecting skip, because it's false."
         if: >-
           steps.step1.outputs.out-value == 'something-else'
         run: echo Executed
 
-      - name: "Expecting execution, because it's true."
+      - name: ": >- Expecting execution, because it's true."
         if: >-
           steps.step1.outputs.out-value
           ==
           'something'
         run: echo Executed
 
-      - name: "Expecting skip, because it's false."
+      - name: ": >- Expecting skip, because it's false."
         if: >-
           steps.step1.outputs.out-value
           ==
           'something-else'
         run: echo Executed
 
-      - name: "Expecting execution, because it's true."
+      - name: ": |- Expecting execution, because it's true."
         if: |-
           steps.step1.outputs.out-value == 'something'
         run: echo Executed
 
-      - name: "Expecting skip, because it's false."
+      - name: ": |- Expecting skip, because it's false."
         if: |-
           steps.step1.outputs.out-value == 'something-else'
         run: echo Executed
 
-      - name: "Expecting execution, because it's true."
+      - name: ": |- Expecting execution, because it's true."
         if: |-
           steps.step1.outputs.out-value
           ==
           'something'
         run: echo Executed
 
-      - name: "Expecting skip, because it's false."
+      - name: ": |- Expecting skip, because it's false."
         if: |-
           steps.step1.outputs.out-value
           ==
