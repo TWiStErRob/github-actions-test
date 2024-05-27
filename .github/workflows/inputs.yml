@@ -2,7 +2,6 @@ name: "Inputs"
 
 on:
   workflow_dispatch:
-  push:
 
 jobs:
   job:
