@@ -34,5 +34,6 @@ jobs:
           envs: |
             {
               "GHA_TEST_SPECIAL_ENV": "special",
-              "GHA_TEST_OTHER_SPECIAL": "other"
+              "GHA_TEST_SPECIAL_BOOL": false,
+              "GHA_TEST_SPECIAL_NUM": 3.1415,
             }
