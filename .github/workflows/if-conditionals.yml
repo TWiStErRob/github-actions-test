@@ -262,7 +262,7 @@ jobs:
           'something-else'
         run: echo Executed
 
-      - name: "YAML block scalars (working cases)"
+      - name: "YAML block scalars (working cases) without curlies"
         # The only difference is the minus sign, that removes the new line(s) and evaluates the boolean correctly.
         run: 'true'
 
