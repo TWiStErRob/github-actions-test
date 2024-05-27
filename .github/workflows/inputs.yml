@@ -31,7 +31,7 @@ jobs:
           GHA_TEST_EXTERNAL_ENV: value
           GHA_TEST_EXTERNAL_BOOL: false
           GHA_TEST_EXTERNAL_NUM: 3.1415
-          GHA_TEST_EXTERNAL_EXPR: ${{ format('foo {} bar', github.sha) }}
+          GHA_TEST_EXTERNAL_EXPR: ${{ format('foo {0} bar', github.sha) }}
         uses: ./actions/input-as-env
         with:
           envs: |
@@ -39,5 +39,5 @@ jobs:
               "GHA_TEST_SPECIAL_ENV": "special",
               "GHA_TEST_SPECIAL_BOOL": false,
               "GHA_TEST_SPECIAL_NUM": 3.1415,
-              "GHA_TEST_SPECIAL_EXPR": ${{ toJSON(format('foo {} bar', github.sha)) }}
+              "GHA_TEST_SPECIAL_EXPR": ${{ toJSON(format('foo {0} bar', github.sha)) }}
             }
