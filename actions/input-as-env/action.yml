@@ -14,7 +14,16 @@ runs:
       shell: bash
       run: env | grep GHA_TEST_
 
-    - name: "Output env with inputs"
+    - name: "Output env"
+      env:
+        GHA_TEST_INTERNAL_STR: 'value'
+        GHA_TEST_INTERNAL_BOOL: false
+        GHA_TEST_INTERNAL_NUM: 3.1415
+        GHA_TEST_INTERNAL_EXPR: ${{ 1 + 2 }}
       shell: bash
       run: env | grep GHA_TEST_
+
+    - name: "Output env with inputs"
       env: ${{ fromJSON(inputs.envs) }}
+      shell: bash
+      run: env | grep GHA_TEST_
