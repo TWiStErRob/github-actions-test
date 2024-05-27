@@ -2,6 +2,7 @@ name: If Conditional Expressions
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   ifs:
@@ -80,4 +81,123 @@ jobs:
 
       - name: "Expecting skip, but executes."
         if: ${{ steps.step1.outputs.out-value }} == 'something-else'
+        run: echo Executed
+
+      # YAML block scalars: buggy behavior if you expect what it reads!
+      # These are equivalent to if: "true\n" or if: "false\n"
+      # i.e. a `if` evaluates a string value as truthy, always! Run with debug to see it in action.
+
+      - name: "Expecting execution (false positive)."
+        if: >
+          ${{ steps.step1.outputs.out-value == 'something' }}
+        run: echo Executed
+
+      - name: "Expecting skip, but executes."
+        if: >
+          ${{ steps.step1.outputs.out-value == 'something-else' }}
+        run: echo Executed
+
+      - name: "Expecting execution (false positive)."
+        if: >
+          ${{
+            steps.step1.outputs.out-value
+            ==
+            'something'
+          }}
+        run: echo Executed
+
+      - name: "Expecting skip, but executes."
+        if: >
+          ${{
+            steps.step1.outputs.out-value
+            ==
+            'something-else'
+          }}
+        run: echo Executed
+
+      - name: "Expecting execution (false positive)."
+        if: |
+          ${{ steps.step1.outputs.out-value == 'something' }}
+        run: echo Executed
+
+      - name: "Expecting skip, but executes."
+        if: |
+          ${{ steps.step1.outputs.out-value == 'something-else' }}
+        run: echo Executed
+
+      - name: "Expecting execution (false positive)."
+        if: |
+          ${{
+            steps.step1.outputs.out-value
+            ==
+            'something'
+          }}
+        run: echo Executed
+
+      - name: "Expecting skip, but executes."
+        if: |
+          ${{
+            steps.step1.outputs.out-value
+            ==
+            'something-else'
+          }}
+        run: echo Executed
+
+      # YAML block scalars (working cases): only difference is the minus sign,
+      # that removes the new line(s) and evaluates the boolean correctly.
+
+      - name: "Expecting execution, because it's true."
+        if: >-
+          ${{ steps.step1.outputs.out-value == 'something' }}
+        run: echo Executed
+
+      - name: "Expecting skip, because it's false."
+        if: >-
+          ${{ steps.step1.outputs.out-value == 'something-else' }}
+        run: echo Executed
+
+      - name: "Expecting execution, because it's true."
+        if: >-
+          ${{
+            steps.step1.outputs.out-value
+            ==
+            'something'
+          }}
+        run: echo Executed
+
+      - name: "Expecting skip, because it's false."
+        if: >-
+          ${{
+            steps.step1.outputs.out-value
+            ==
+            'something-else'
+          }}
+        run: echo Executed
+
+      - name: "Expecting execution, because it's true."
+        if: |-
+          ${{ steps.step1.outputs.out-value == 'something' }}
+        run: echo Executed
+
+      - name: "Expecting skip, because it's false."
+        if: |-
+          ${{ steps.step1.outputs.out-value == 'something-else' }}
+        run: echo Executed
+
+      - name: "Expecting execution, because it's true."
+        if: |-
+          ${{
+            steps.step1.outputs.out-value
+            ==
+            'something'
+          }}
+        run: echo Executed
+
+      - name: "Expecting skip, because it's false."
+        if: |-
+          ${{
+            steps.step1.outputs.out-value
+            ==
+            'something-else'
+          }}
         run: echo Executed
