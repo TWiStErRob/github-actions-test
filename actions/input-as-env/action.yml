@@ -18,8 +18,3 @@ runs:
       shell: bash
       run: env | grep GHA_TEST_
       env: ${{ fromJSON(inputs.envs) }}
-
-    - name: "Output env with inputs (badly?)"
-      shell: bash
-      run: env | grep GHA_TEST_
-      env: ${{ inputs.envs }}
