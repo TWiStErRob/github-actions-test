@@ -1,0 +1,25 @@
+name: "Input as env"
+description: "Uses input JSON as environment for execution."
+
+inputs:
+  envs:
+    description: 'JSON-encoded object which contains environment variables.'
+    required: true
+
+runs:
+  using: composite
+  steps:
+
+    - name: "Output env"
+      shell: bash
+      run: env
+
+    - name: "Output env with inputs"
+      shell: bash
+      run: env
+      env: ${{ fromJSON(inputs.envs) }}
+
+    - name: "Output env with inputs (badly?)"
+      shell: bash
+      run: env
+      env: ${{ inputs.envs }}
