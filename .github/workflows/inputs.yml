@@ -29,6 +29,8 @@ jobs:
       - name: "Input for environment variables."
         env:
           GHA_TEST_EXTERNAL_ENV: value
+          GHA_TEST_EXTERNAL_BOOL: false,
+          GHA_TEST_EXTERNAL_NUM: 3.1415,
         uses: ./actions/input-as-env
         with:
           envs: |
