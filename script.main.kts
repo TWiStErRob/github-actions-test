@@ -12,5 +12,5 @@ data class Response(
 	)
 }
 
-val reponse: Response = jacksonObjectMapper().readValue("""{ "list": [] }""")
+val response: Response = jacksonObjectMapper().readValue("""{ "list": [] }""")
 println(response.list.size)
