@@ -4,6 +4,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 17
       - run: java -version
       - run: kotlin -version
       - run: kotlin script.main.kts
