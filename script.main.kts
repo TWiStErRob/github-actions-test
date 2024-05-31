@@ -4,23 +4,13 @@
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 
-data class CinemasResponse(
-	val body: CinemasBody,
+data class Response(
+	val list: List<Data>,
 ) {
-
-	data class CinemasBody(
-		val cinemas: List<Cinema>,
-	) {
-
-		data class Cinema(
-			val id: String,
-			val groupId: String,
-			val displayName: String,
-			val address: String,
-			val latitude: Double,
-			val longitude: Double,
-		)
-	}
+	data class Data(
+		val id: String,
+	)
 }
 
-val cinemas = jacksonObjectMapper().readValue<CinemasResponse>("[]")
+val reponse: Response = jacksonObjectMapper().readValue("""{ "list": [] }""")
+println(response.list.size)
