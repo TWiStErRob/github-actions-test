@@ -1,23 +1,8 @@
-@file:Repository("https://repo1.maven.org/maven2/")
-@file:DependsOn("io.ktor:ktor-client-java-jvm:2.3.11")
-@file:DependsOn("io.ktor:ktor-client-content-negotiation-jvm:2.3.11")
-@file:DependsOn("io.ktor:ktor-serialization-jackson-jvm:2.3.11")
+@file:DependsOn("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.1")
+@file:DependsOn("com.fasterxml.jackson.core:jackson-databind:2.17.1")
 
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.request.get
-import io.ktor.http.URLBuilder
-import io.ktor.serialization.jackson.jackson
-import kotlinx.coroutines.runBlocking
-import java.io.File
-import java.net.URI
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
+import com.fasterxml.jackson.module.kotlin.readValue
 
 data class CinemasResponse(
 	val body: CinemasBody,
@@ -31,7 +16,6 @@ data class CinemasResponse(
 			val id: String,
 			val groupId: String,
 			val displayName: String,
-			val link: URI,
 			val address: String,
 			val latitude: Double,
 			val longitude: Double,
@@ -39,13 +23,4 @@ data class CinemasResponse(
 	}
 }
 
-fun ObjectMapper.cineworldConfig() {
-	configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-}
-
-fun loadFile(): List<CinemasResponse.CinemasBody.Cinema> {
-	val client = jacksonObjectMapper().apply { cineworldConfig() }.reader()
-	return client.readValue(File("cinemas.json"), CinemasResponse::class.java).body.cinemas
-}
-
-val cinemas = loadFile()
+val cinemas = jacksonObjectMapper().readValue<CinemasResponse>("[]")
