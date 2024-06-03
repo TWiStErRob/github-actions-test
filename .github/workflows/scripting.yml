@@ -30,6 +30,31 @@ jobs:
         run: |
           println("Hello")
 
+
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "contents"
+        if: always()
+        shell: cat {0}
+        run: .
+      - name: "apos"
+        if: always()
+        shell: echo '{0}'
+        run: .
+      - name: "quotes"
+        if: always()
+        shell: echo "{0}"
+        run: .
+      - name: "multiple apos"
+        if: always()
+        shell: echo '{0} {0} {0}'
+        run: .
+      - name: "multiple quotes"
+        if: always()
+        shell: echo "{0} {0} {0}"
+        run: .
+
   shebang:
     runs-on: ubuntu-latest
     steps:
@@ -38,18 +63,18 @@ jobs:
         shell: '{0}'
         run: |
           #!/usr/bin/swift
-          println("Hello")
+          print("Hello")
 
       - name: "chmod"
         if: always()
         shell: chmod +x {0} && {0}
         run: |
           #!/usr/bin/swift
-          println("Hello")
+          print("Hello")
 
       - name: "bash"
         if: always()
         shell: bash -c 'chmod +x {0} && {0}'
         run: |
           #!/usr/bin/swift
-          println("Hello")
+          print("Hello")
