@@ -28,7 +28,7 @@ jobs:
       - name: "Swift"
         shell: swift {0}
         run: |
-          println("Hello")
+          print("Hello")
 
 
   debug:
