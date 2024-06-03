@@ -65,6 +65,13 @@ jobs:
           #!/usr/bin/swift
           print("Hello")
 
+      - name: "chmod debug"
+        if: always()
+        shell: echo chmod +x {0} && {0}
+        run: |
+          #!/usr/bin/swift
+          print("Hello")
+
       - name: "chmod"
         if: always()
         shell: chmod +x {0} && {0}
@@ -74,7 +81,7 @@ jobs:
 
       - name: "bash"
         if: always()
-        shell: bash -c 'chmod +x {0} && {0}'
+        shell: bash -c "chmod +x {0} && {0}"
         run: |
           #!/usr/bin/swift
           print("Hello")
