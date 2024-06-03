@@ -33,8 +33,23 @@ jobs:
   shebang:
     runs-on: ubuntu-latest
     steps:
-      - name: "Swift"
+      - name: "just"
+        if: always()
+        shell: '{0}'
+        run: |
+          #!/usr/bin/swift
+          println("Hello")
+
+      - name: "chmod"
+        if: always()
         shell: chmod +x {0} && {0}
+        run: |
+          #!/usr/bin/swift
+          println("Hello")
+
+      - name: "bash"
+        if: always()
+        shell: bash -c 'chmod +x {0} && {0}'
         run: |
           #!/usr/bin/swift
           println("Hello")
