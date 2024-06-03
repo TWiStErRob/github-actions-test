@@ -1,0 +1,40 @@
+name: "Scripting"
+
+on:
+  push:
+
+jobs:
+
+  kotlin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Kotlin"
+        shell: kotlin -howtorun .main.kts {0}
+        run: |
+          @file:DependsOn("com.google.code.gson:gson:2.11.0")
+          import com.google.gson.Gson
+          import java.io.File
+
+          class Event(
+            val ref: String,
+          )
+
+          val event = Gson().fromJson(File(System.getenv("GITHUB_EVENT_PATH")).readText(), Event::class.java)
+          println(event.ref)
+
+  swift:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Swift"
+        shell: swift {0}
+        run: |
+          println("Hello")
+
+  shebang:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Swift"
+        shell: chmod +x {0} && {0}
+        run: |
+          #!/usr/bin/swift
+          println("Hello")
