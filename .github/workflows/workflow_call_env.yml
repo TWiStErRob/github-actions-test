@@ -7,6 +7,6 @@ env:
 
 jobs:
   job:
-    uses: ./github/workflows/workflow_call_env_called.yml
+    uses: ./.github/workflows/workflow_call_env_called.yml
     env:
       CALLER_JOB: caller
