@@ -1,0 +1,16 @@
+on:
+  workflow_call:
+
+env:
+  CALLED_WORKFLOW: ${{ github.workflow }}
+
+jobs:
+  job:
+    env:
+      CALLED_JOB: called
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Output environment variables"
+        env:
+          CALLED_STEP: step
+        run: env | sort
