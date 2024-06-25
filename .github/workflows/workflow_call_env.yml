@@ -1,0 +1,15 @@
+on:
+  workflow_dispatch:
+  push:
+
+env:
+  CALLER_WORKFLOW: ${{ github.workflow }}
+
+jobs:
+  job:
+    env:
+      CALLER_JOB: caller
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Output environment variables"
+        run: env | sort
