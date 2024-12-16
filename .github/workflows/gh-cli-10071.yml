@@ -1,0 +1,18 @@
+# https://github.com/cli/cli/issues/10071
+
+on:
+  pull_request:
+    types:
+      - edited
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - run: gh pr edit "${PR_NUMBER}" --add-reviewer "${REVIEWER_TEAM}"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          REVIEWER_TEAM: my-org/my-team
+          PR_NUMBER: ${{ github.event.pull_request.number }}
