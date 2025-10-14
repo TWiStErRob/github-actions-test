@@ -1,0 +1,44 @@
+name: "Local actions"
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  local:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
+        uses: actions/checkout@v4
+
+      - name: "Local action from repo root."
+        uses: ./actions/composite-echo
+
+  subfolder:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
+        uses: actions/checkout@v4
+        with:
+          path: subfolder
+          sparse-checkout: |
+            actions/composite-echo
+
+      - name: "Local action from repo root."
+        uses: ./subfolder/actions/composite-echo
+
+  sibling:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
+        uses: actions/checkout@v4
+        with:
+          path: ../sibling
+          sparse-checkout: |
+            actions/composite-echo
+
+      - name: "Local action from repo root."
+        uses: ./../sibling/actions/composite-echo
