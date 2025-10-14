@@ -26,7 +26,7 @@ jobs:
           sparse-checkout: |
             actions/composite-echo
 
-      - name: "Local action from repo root."
+      - name: "Local action in subfolder."
         uses: ./subfolder/actions/composite-echo
 
   sibling:
@@ -36,9 +36,18 @@ jobs:
       - name: "Checkout ${{ github.ref }} branch in ${{ github.repository }} repository."
         uses: actions/checkout@v4
         with:
-          path: ../sibling
+          path: sibling
           sparse-checkout: |
             actions/composite-echo
 
-      - name: "Local action from repo root."
+      - name: "Before"
+        run: find ..
+
+      - name: "Move clone outside working dir"
+        run: mv sibling ..
+
+      - name: "After"
+        run: find ..
+
+      - name: "Local action outside repo root."
         uses: ./../sibling/actions/composite-echo
