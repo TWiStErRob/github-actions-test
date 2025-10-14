@@ -2,7 +2,6 @@ name: "Local actions"
 
 on:
   workflow_dispatch:
-  push:
 
 jobs:
   local:
@@ -40,14 +39,8 @@ jobs:
           sparse-checkout: |
             actions/composite-echo
 
-      - name: "Before"
-        run: find ..
-
       - name: "Move clone outside working dir"
         run: mv sibling ..
-
-      - name: "After"
-        run: find ..
 
       - name: "Local action outside repo root."
         uses: ./../sibling/actions/composite-echo
