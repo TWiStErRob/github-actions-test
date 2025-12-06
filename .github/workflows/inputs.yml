@@ -24,3 +24,19 @@ jobs:
         env:
           VAR_FOR_INPUT: value
           HIDDEN_ECHO: hidden-value
+
+      - name: "Input for environment variables."
+        env:
+          GHA_TEST_EXTERNAL_STR: value
+          GHA_TEST_EXTERNAL_BOOL: false
+          GHA_TEST_EXTERNAL_NUM: 3.1415
+          GHA_TEST_EXTERNAL_EXPR: ${{ format('foo {0} bar', github.sha) }}
+        uses: ./actions/input-as-env
+        with:
+          envs: |
+            {
+              "GHA_TEST_SPECIAL_STR": "special",
+              "GHA_TEST_SPECIAL_BOOL": false,
+              "GHA_TEST_SPECIAL_NUM": 3.1415,
+              "GHA_TEST_SPECIAL_EXPR": ${{ toJSON(format('foo {0} bar', github.sha)) }}
+            }
