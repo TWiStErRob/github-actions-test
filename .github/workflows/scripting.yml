@@ -33,6 +33,12 @@ jobs:
   perligata:
     runs-on: ubuntu-latest
     steps:
+      - env:
+          x: "perl -0777 -e'$m=Lingua::Romana::Perligata;CPAN::Shell->notest install=>$m;eval\"require $m\";$m->import;eval<>' -- {0}"
+          y: perl -0777 -e'$m=Lingua::Romana::Perligata;CPAN::Shell->notest install=>$m;eval"require $m";$m->import;eval<>' -- {0}
+        run: |
+          echo "$x"
+          echo "$y"
       - name: "Perligata"
         shell: "perl -0777 -e'$m=Lingua::Romana::Perligata;CPAN::Shell->notest install=>$m;eval\"require $m\";$m->import;eval<>' -- {0}"
         run: |
