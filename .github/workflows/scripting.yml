@@ -1,7 +1,7 @@
 name: "Scripting"
 
 on:
-  workflow_dispatch:
+  push:
 
 jobs:
 
@@ -29,3 +29,32 @@ jobs:
         shell: swift {0}
         run: |
           print("Hello")
+
+  perligata:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Install Lingua::Romana::Perligata"
+        run: cpanm --notest Lingua::Romana::Perligata
+
+      - name: "Perligata"
+        shell: perl -MLingua::Romana::Perligata -e "{0}"
+        run: |
+          maximum tum C.
+          dixit tum "Primi usque ad C:\n".
+
+          numerus tum II.
+          dum numerus minor maximum fac sic
+            primus tum I.
+            divisor tum II.
+            dum divisor minor numerus fac sic
+              si numerus modulus divisor aequalis nihil fac sic
+                primus tum nihil.
+                divisor tum numerus.
+              cis
+              divisor tum divisor plus I.
+            cis
+            si primus fac sic
+              dixit tum numerus. dixit tum "\n".
+            cis
+            numerus tum numerus plus I.
+          cis
