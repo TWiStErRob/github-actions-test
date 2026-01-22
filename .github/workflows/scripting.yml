@@ -36,22 +36,12 @@ jobs:
       - name: "Perligata"
         shell: perl -0777 -MCPAN -e'$m=Lingua::Romana::Perligata;CPAN::Shell->notest(install=>$m);eval"require $m";$m->import;eval<>' -- {0}
         run: |
-          maximum tum C.
-          dixit tum "Primi usque ad C:\n".
+          adnota Illud Cribrum Eratosthenis
 
-          numerus tum II.
-          dum numerus minor maximum fac sic
-            primus tum I.
-            divisor tum II.
-            dum divisor minor numerus fac sic
-              si numerus modulus divisor aequalis nihil fac sic
-                primus tum nihil.
-                divisor tum numerus.
+          da meo maximo C.
+          meis listis conscribementa II tum maximum da.
+          dum damentum nexto listis decapitamentum fac
+              sic
+                  lista sic hoc tum nextum recidementum cis vannementa listis da.
+                  dictum tum cum nextum comementum tum novumversum scribe egresso.
               cis
-              divisor tum divisor plus I.
-            cis
-            si primus fac sic
-              dixit tum numerus. dixit tum "\n".
-            cis
-            numerus tum numerus plus I.
-          cis
