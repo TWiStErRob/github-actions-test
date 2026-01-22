@@ -29,3 +29,20 @@ jobs:
         shell: swift {0}
         run: |
           print("Hello")
+
+  perligata:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Perligata"
+        # Note: the -I"$HOME/perl5/lib/perl5" part shouldn't be necessary, but it seems cpan is not configured correctly.
+        shell: sh -c "cpan -Ti Lingua::Romana::Perligata >/dev/null 2>&1; perl -I"$HOME/perl5/lib/perl5" -MLingua::Romana::Perligata {0}"
+        run: |
+          adnota Illud Cribrum Eratosthenis
+
+          da meo maximo C.
+          meis listis conscribementa II tum maximum da.
+          dum damentum nexto listis decapitamentum fac
+              sic
+                  lista sic hoc tum nextum recidementum cis vannementa listis da.
+                  dictum tum cum nextum comementum tum novumversum scribe egresso.
+              cis
