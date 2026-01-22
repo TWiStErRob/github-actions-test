@@ -33,11 +33,8 @@ jobs:
   perligata:
     runs-on: ubuntu-latest
     steps:
-      - name: "Install Lingua::Romana::Perligata"
-        run: cpanm --notest Lingua::Romana::Perligata
-
       - name: "Perligata"
-        shell: perl -MLingua::Romana::Perligata -e "{0}"
+        shell: perl -0777 -le "CPAN::Shell->notest install=>P;P->import;eval<>" -MLingua::Romana::Perligata=P -- {0}
         run: |
           maximum tum C.
           dixit tum "Primi usque ad C:\n".
