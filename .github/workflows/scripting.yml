@@ -34,7 +34,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Perligata"
-        shell: sh -c "cpan -Ti Lingua::Romana::Perligata; perl -MLingua::Romana::Perligata {0}"
+        # Note: the -I"$HOME/perl5/lib/perl5" part shouldn't be necessary, but it seems cpan is not configured correctly.
+        shell: sh -c "cpan -Ti Lingua::Romana::Perligata; perl -I"$HOME/perl5/lib/perl5" -MLingua::Romana::Perligata {0}"
         run: |
           adnota Illud Cribrum Eratosthenis
 
