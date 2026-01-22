@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Perligata"
-        shell: perl -e'$m=Lingua::Romana::Perligata;CPAN::Shell->notest install=>$m;eval"require $m";$m->import;local$/;eval<>' -- {0}
+        shell: "perl -0777 -e'$m=Lingua::Romana::Perligata;CPAN::Shell->notest install=>$m;eval\"require $m\";$m->import;eval<>' -- {0}"
         run: |
           maximum tum C.
           dixit tum "Primi usque ad C:\n".
