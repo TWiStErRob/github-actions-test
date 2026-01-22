@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Perligata"
-        shell: cpan -Ti Lingua::Romana::Perligata; perl -0777 -MLingua::Romana::Perligata=P {0}
+        shell: sh -c 'cpan -TiLingua::Romana::Perligata; perl -MLingua::Romana::Perligata=P {0}'
         run: |
           adnota Illud Cribrum Eratosthenis
 
