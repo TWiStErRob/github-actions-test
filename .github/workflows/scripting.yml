@@ -35,7 +35,7 @@ jobs:
     steps:
       - name: "Perligata"
         # Note: the -I"$HOME/perl5/lib/perl5" part shouldn't be necessary, but it seems cpan is not configured correctly.
-        shell: sh -c "cpan -Ti Lingua::Romana::Perligata; perl -I"$HOME/perl5/lib/perl5" -MLingua::Romana::Perligata {0}"
+        shell: sh -c "cpan -Ti Lingua::Romana::Perligata >/dev/null; perl -I"$HOME/perl5/lib/perl5" -MLingua::Romana::Perligata {0}"
         run: |
           adnota Illud Cribrum Eratosthenis
 
