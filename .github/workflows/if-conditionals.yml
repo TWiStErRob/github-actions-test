@@ -2,7 +2,6 @@ name: If Conditional Expressions
 
 on:
   workflow_dispatch:
-  push:
 
 jobs:
   ifs:
