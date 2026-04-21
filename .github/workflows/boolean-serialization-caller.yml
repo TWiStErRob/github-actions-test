@@ -1,0 +1,22 @@
+name: "Boolean Serialization (caller)"
+
+on:
+  push:
+    branches: [tw/test-boolean-serialization]
+
+jobs:
+  call-with-default:
+    name: "Call with default (false)"
+    uses: ./.github/workflows/boolean-serialization.yml
+
+  call-with-false:
+    name: "Call with explicit false"
+    uses: ./.github/workflows/boolean-serialization.yml
+    with:
+      dry-run: false
+
+  call-with-true:
+    name: "Call with explicit true"
+    uses: ./.github/workflows/boolean-serialization.yml
+    with:
+      dry-run: true
