@@ -51,6 +51,13 @@ jobs:
           echo "::notice::toJSON: '$VALUE'"
           echo "::notice::toJSON length: ${#VALUE}"
 
+      - name: "Short-circuit &&"
+        env:
+          VALUE: ${{ false && 'text' }}
+        run: |
+          echo "::notice::false-and-text: '$VALUE'"
+          echo "::notice::false-and-text length: ${#VALUE}"
+
       - name: "Type checks"
         env:
           IS_NULL: ${{ inputs.dry-run == null }}
