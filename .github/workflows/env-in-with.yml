@@ -1,0 +1,19 @@
+name: "Env in with:"
+
+on:
+  push:
+    branches: [tw/test-env-in-with]
+
+env:
+  RESOLVED: ${{ inputs.dry-run || false }}
+
+jobs:
+  test:
+    name: "Test env in with:"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Use env in with:"
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.notice(`env.RESOLVED: '${process.env.RESOLVED}'`);
