@@ -1,0 +1,64 @@
+name: "Boolean Serialization"
+
+on:
+  push:
+    branches: [tw/test-boolean-serialization]
+  workflow_call:
+    inputs:
+      dry-run:
+        description: "A boolean input"
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  test:
+    name: "Test boolean serialization"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Direct interpolation"
+        env:
+          VALUE: ${{ inputs.dry-run }}
+        run: |
+          echo "::notice::direct: '$VALUE'"
+          echo "::notice::direct length: ${#VALUE}"
+
+      - name: "With || 'false'"
+        env:
+          VALUE: ${{ inputs.dry-run || 'false' }}
+        run: |
+          echo "::notice::or-false: '$VALUE'"
+          echo "::notice::or-false length: ${#VALUE}"
+
+      - name: "With ternary"
+        env:
+          VALUE: ${{ inputs.dry-run && 'true' || 'false' }}
+        run: |
+          echo "::notice::ternary: '$VALUE'"
+          echo "::notice::ternary length: ${#VALUE}"
+
+      - name: "format() function"
+        env:
+          VALUE: ${{ format('{0}', inputs.dry-run) }}
+        run: |
+          echo "::notice::format: '$VALUE'"
+          echo "::notice::format length: ${#VALUE}"
+
+      - name: "toJSON()"
+        env:
+          VALUE: ${{ toJSON(inputs.dry-run) }}
+        run: |
+          echo "::notice::toJSON: '$VALUE'"
+          echo "::notice::toJSON length: ${#VALUE}"
+
+      - name: "Type checks"
+        env:
+          IS_NULL: ${{ inputs.dry-run == null }}
+          IS_FALSE: ${{ inputs.dry-run == false }}
+          IS_EMPTY: ${{ inputs.dry-run == '' }}
+          TYPE_OF: ${{ toJSON(inputs.dry-run) }}
+        run: |
+          echo "::notice::== null: '$IS_NULL'"
+          echo "::notice::== false: '$IS_FALSE'"
+          echo "::notice::== '': '$IS_EMPTY'"
+          echo "::notice::toJSON: '$TYPE_OF'"
