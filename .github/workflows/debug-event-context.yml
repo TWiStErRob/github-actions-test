@@ -1,0 +1,46 @@
+name: "Debug Event Context"
+
+on:
+  workflow_call:
+    inputs:
+      event-name:
+        description: "The github.event_name from the caller workflow."
+        type: string
+        required: true
+      event-json:
+        description: "The full github.event payload as JSON from the caller workflow (toJSON(github.event))."
+        type: string
+        required: true
+
+jobs:
+
+  dump:
+    name: "Dump Event Context"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    permissions:
+      contents: read
+    timeout-minutes: 5
+    steps:
+
+      - name: "Dump event payloads"
+        env:
+          CALLER_EVENT_NAME: ${{ inputs.event-name }}
+          CALLER_EVENT_JSON: ${{ inputs.event-json }}
+        # language=bash
+        run: |
+          mkdir -p debug-events
+          echo "GITHUB_EVENT_NAME=${GITHUB_EVENT_NAME}"
+          echo "CALLER_EVENT_NAME=${CALLER_EVENT_NAME}"
+          echo "GITHUB_EVENT_PATH=${GITHUB_EVENT_PATH}"
+          cp "${GITHUB_EVENT_PATH}" debug-events/github-event-path.json
+          printf '%s' "${CALLER_EVENT_JSON}" > debug-events/caller-event-json.json
+          printf '%s\n%s\n' "native: ${GITHUB_EVENT_NAME}" "caller: ${CALLER_EVENT_NAME}" > debug-events/event-names.txt
+
+      - name: "Upload artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: event-context-debug
+          path: debug-events/

@@ -1,0 +1,18 @@
+name: "Debug Event Context Caller"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  debug-event-context:
+    name: "Debug Event Context"
+    uses: ./.github/workflows/debug-event-context.yml
+    with:
+      event-name: ${{ github.event_name }}
+      event-json: ${{ toJSON(github.event) }}
+    permissions:
+      contents: read
