@@ -4,3 +4,18 @@ on:
 jobs:
   call:
     uses: ./.github/workflows/workflow_dispatch_call.yml
+
+  omitted-secret:
+    name: "Omitted Secret"
+    uses: ./.github/workflows/secret-passing-inner.yml
+
+  explicit-secret:
+    name: "Explicit Secret"
+    uses: ./.github/workflows/secret-passing-inner.yml
+    secrets:
+      TEST_SECRET: ${{ secrets.TEST_SECRET }}
+
+  inherited-secret:
+    name: "Inherited Secret"
+    uses: ./.github/workflows/secret-passing-inner.yml
+    secrets: inherit
